@@ -29,13 +29,24 @@
       </thead>
       <tbody>
         <tr v-for="(i, idx) in state.items" :key="idx">
+          <!--
           <td><a @click="info(i.employee.empid)"> {{i.employee.empname}} </a> </td>
           <td>{{i.employee.empdept}}</td>
           <td>{{i.employee.emprule}}</td>
           <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
           <td>{{i.leaveManagement.lmtotal}}</td>
-          <td>{{i.leaveManagement.lmtotal-i.leaveManagement.lmremain}}</td>
-          <td>{{i.leaveManagement.lmremain}}</td>
+          <td>{{i.leaveManagement.lmuse}}</td>
+          <td>{{i.leaveManagement.lmtotal-i.leaveManagement.lmuse}}</td>
+          -->
+
+          <td><a @click="info(i[0])"> {{i[1]}} </a> </td>
+          <td>{{i[4]}}</td>
+          <td>{{i[5]}}</td>
+          <td>{{lib.formattedTime(i[6])}}</td>
+          <td>{{i[7]}}</td>
+          <td>{{i[8]}}</td>
+          <td>{{i[7]-i[8]}}</td>
+
         </tr>
       </tbody>
     </table>
@@ -46,7 +57,37 @@
   </div>
 </div>
 </template>
-<script>
+
+<script setup>
+import {reactive} from "vue";
+import axios from "axios";
+import lib from "../script/lib";
+import router from "@/script/router";
+
+const state = reactive({
+  items: []
+});
+
+const load = () => {
+  axios.get("/api/employee").then(({data}) => {
+    state.items = data;
+  });
+};
+
+const info = (empid) => {
+  router.push({ path: `/employeeInfo/${empid}`, params: { id: empid } });
+};
+
+const addEmployee = () => {
+  router.push({ path: '/employee/add' });
+};
+
+load();
+
+</script>
+
+
+<!--<script>
 import {reactive} from "vue";
 import axios from "axios";
 import lib from "../script/lib";
@@ -83,7 +124,7 @@ export default {
   }
 }
 
-</script>
+</script>-->
 
 <style scoped>
 #search-container{

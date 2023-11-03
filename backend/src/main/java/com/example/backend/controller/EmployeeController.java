@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class EmployeeController {
@@ -28,6 +26,7 @@ public class EmployeeController {
     @Autowired
     AttendanceRepository attendanceRepository;
 
+    /*
     @GetMapping("/api/employee")
     public List<CombineData> getList(){
         List<Employee> Employeelist = employeeRepository.findAll();
@@ -44,11 +43,19 @@ public class EmployeeController {
         }
         return list;
     }
+    */
+
+    @GetMapping("/api/employee")
+    public List getList(){
+        List list = employeeRepository.getList();
+        return list;
+    }
 
     @GetMapping("/api/employeeInfo/{empid}")
     public CombineData getView(@PathVariable("empid") String empId){
         Employee employee = employeeRepository.findByEmpid(empId);
         LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(empId);
+        // 맵 대신의 기능을 함 (맵 사용법에 대한 연구가 더 필요함)
         CombineData combineData = new CombineData(employee, leaveManagement);
 
         return combineData;
@@ -63,6 +70,7 @@ public class EmployeeController {
             try{
                 Employee newEmployee = new Employee();
                 newEmployee.setEmpid(dto.getId());
+                newEmployee.setPassword(dto.getPassword());
                 newEmployee.setEmpname(dto.getName());
                 newEmployee.setEmpbirth(dto.getBirth());
                 newEmployee.setEmpphone(dto.getPhone());
@@ -71,11 +79,11 @@ public class EmployeeController {
                 newEmployee.setEmpdetail(dto.getDetail());
                 newEmployee.setEmpdept(dto.getDept());
                 newEmployee.setEmprule(dto.getRule());
-                newEmployee.setPassword(dto.getPassword());
                 employeeRepository.saveAndFlush(newEmployee);
 
                 LeaveManagement newLV = new LeaveManagement();
                 newLV.setEmpid(dto.getId());
+                newLV.setLmtotal(15);
                 leaveManagementRepository.saveAndFlush(newLV);
 
                 return new ResponseEntity<>(HttpStatus.OK);

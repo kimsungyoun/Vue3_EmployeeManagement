@@ -5,7 +5,6 @@
       <a href="http://www.bnosoft.co.kr/">
         <img src="@/assets/bno.png" alt="bno soft home page"/>
       </a>
-      <p v-if="!store.state.account.id">어서오세요. {{store}}</p>
 
     </div>
   </div>

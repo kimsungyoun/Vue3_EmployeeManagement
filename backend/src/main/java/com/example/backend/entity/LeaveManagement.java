@@ -20,10 +20,11 @@ public class LeaveManagement {
     private String empid;
 
     @Column(name = "lmtotal")
+    @Builder.Default
     private int lmtotal;
 
-    @Column(name = "lmremain")
-    private int lmremain;
+    @Column(name = "lmuse")
+    private int lmuse;
 
 
 }
