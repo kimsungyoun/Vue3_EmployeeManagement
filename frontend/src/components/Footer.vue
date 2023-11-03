@@ -1,10 +1,12 @@
 <template>
   <footer>
       <div>
-        <a href="/">회사소개</a>&nbsp;
-        <a href="/">가이드</a>&nbsp;
-        <a href="/">개인정보보호정책</a>&nbsp;
-        <a href="/">이용약관</a>&nbsp;
+        <ul>
+          <li><a href="/">회사소개</a></li>
+          <li><a href="/">가이드</a></li>
+          <li><a href="/">개인정보 보호정책</a></li>
+          <li><a href="/">이용약관</a></li>
+        </ul>
       </div>
   </footer>
 </template>
@@ -21,4 +23,5 @@ footer{
   padding: 15px;
   color: #FFFFFF;
 }
+
 </style>

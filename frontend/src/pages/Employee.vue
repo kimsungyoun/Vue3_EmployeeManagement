@@ -78,7 +78,7 @@ export default {
     const addEmployee=()=>{
       router.push({path:'/employee/add'});
     }
-    
+
     return {state, info, addEmployee};
   }
 }
