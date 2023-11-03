@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class EmployeeController {
@@ -70,6 +71,7 @@ public class EmployeeController {
                 newEmployee.setEmpdetail(dto.getDetail());
                 newEmployee.setEmpdept(dto.getDept());
                 newEmployee.setEmprule(dto.getRule());
+                newEmployee.setPassword(dto.getPassword());
                 employeeRepository.saveAndFlush(newEmployee);
 
                 LeaveManagement newLV = new LeaveManagement();

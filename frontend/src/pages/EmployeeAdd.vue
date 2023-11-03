@@ -6,6 +6,9 @@
       <label>아이디</label>
       <input type="text" v-model="state.forms.id"/>
 
+      <label>비밀번호</label>
+      <input type="password" v-model="state.forms.password"/>
+
       <label>이름</label>
       <input type="text" v-model="state.forms.name"/>
 
@@ -71,7 +74,8 @@ export default {
         detail:"",
         phone:"",
         dept:"",
-        rule:""
+        rule:"",
+        password:""
       }
     })
 

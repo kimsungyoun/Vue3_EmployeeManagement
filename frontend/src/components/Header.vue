@@ -3,23 +3,18 @@
   <div id="menu">
     <ul>
       <li><router-link to="/">메인</router-link></li>
-      <li><router-link to="/employee">직원</router-link></li>
-      <li><router-link to="/work">근무</router-link></li>
+      <li v-if="$store.state.account.id">|</li>
+      <li><router-link to="/employee" v-if="$store.state.account.id">직원</router-link></li>
+      <li v-if="$store.state.account.id">|</li>
+      <li><router-link to="/work" v-if="$store.state.account.id">근무</router-link></li>
       <!--
-      <li><router-link to="/">근무</router-link></li>
       <li><router-link to="/">요청</router-link></li>
       -->
     </ul>
     <ul>
       <li>
-        <!--
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-        -->
-        <router-link to="/login">로그인</router-link>
-        <!--
         <a to="/" @click="logout()" v-else>로그아웃</a>
-        -->
-        <router-link to="/">로그아웃</router-link>
       </li>
       <li>
 

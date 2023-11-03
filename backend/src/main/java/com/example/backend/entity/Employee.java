@@ -46,7 +46,10 @@ public class Employee {
     @Column(name = "emprule")
     private String emprule;
 
-    @CreationTimestamp
     @Column(name = "emphiredate")
+    @CreationTimestamp
     private Date emphiredate;
+
+    @Column(name = "password")
+    private String password;
 }
