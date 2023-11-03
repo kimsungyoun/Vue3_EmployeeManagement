@@ -78,8 +78,6 @@ public class EmployeeController {
                 newLV.setEmpid(dto.getId());
                 leaveManagementRepository.saveAndFlush(newLV);
 
-                System.out.println("등록 성공");
-
                 return new ResponseEntity<>(HttpStatus.OK);
             }catch (Exception e){
                 System.out.println("Error Content >> "+e);
@@ -94,7 +92,6 @@ public class EmployeeController {
     @PostMapping("/api/employeeUpdate")
     public void updateEmployee(@RequestBody EmployeeDTO dto){
         Employee employee = employeeRepository.findByEmpid(dto.getId());
-        System.out.println("변경 전 >> "+employee);
 
         employee.setEmpname(dto.getName());
         employee.setEmpdept(dto.getDept());
@@ -103,9 +100,6 @@ public class EmployeeController {
         employee.setEmppostal(dto.getPostal());
         employee.setEmpaddr(dto.getAddress());
         employee.setEmpdetail(dto.getDetail());
-
-        System.out.println("변경 내용 >> "+dto);
-        System.out.println("변경 후 >> "+employee);
 
         employeeRepository.save(employee);
     }
@@ -116,7 +110,6 @@ public class EmployeeController {
 
         if(employee != null){
             employeeRepository.delete(employee);
-            System.out.println("삭제 완료");
         }
     }
 }
