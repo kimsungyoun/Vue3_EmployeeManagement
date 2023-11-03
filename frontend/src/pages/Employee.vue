@@ -1,0 +1,123 @@
+<template>
+<div id="container">
+  <h2>직원 관리 페이지</h2>
+  <div id="search-container">
+    <select id="keyword">
+      <option value="emp_name">직원명</option>
+      <option value="emp_dept">부서</option>
+      <option value="emp_rule">직위</option>
+    </select>
+
+    <input type="text" id="searchKey"/>
+
+    <input type="button" id="searchBtn" @click="search()" value="검색"/>
+  </div>
+
+
+  <div id="list-container">
+    <table>
+      <thead>
+        <tr>
+          <td>직원명</td>
+          <td>부서</td>
+          <td>부서</td>
+          <td>입사일</td>
+          <td>연차 총일수</td>
+          <td>사용 일수</td>
+          <td>남은 일수</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(i, idx) in state.items" :key="idx">
+          <td><a @click="info(i.employee.empid)"> {{i.employee.empname}} </a> </td>
+          <td>{{i.employee.empdept}}</td>
+          <td>{{i.employee.emprule}}</td>
+          <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
+          <td>{{i.leaveManagement.lmtotal}}</td>
+          <td>{{i.leaveManagement.lmtotal-i.leaveManagement.lmremain}}</td>
+          <td>{{i.leaveManagement.lmremain}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="addBtn">
+    <input type="button" @click="addEmployee()" value="직원 등록"/>
+  </div>
+</div>
+</template>
+<script>
+import {reactive} from "vue";
+import axios from "axios";
+import lib from "../script/lib";
+import router from "@/script/router";
+
+export default {
+  computed: {
+    lib() {
+      return lib
+    }
+  },
+  setup(){
+    const state = reactive({
+      items: []
+    })
+
+    const load = ()=>{
+      axios.get("/api/employee").then(({data})=>{
+        state.items = data;
+      });
+    }
+
+    const info = (empid)=>{
+      router.push({path:`/employeeInfo/${empid}`, params:{id : empid}});
+    }
+
+    load();
+
+    const addEmployee=()=>{
+      router.push({path:'/employee/add'});
+    }
+
+
+    return {state, info, addEmployee};
+  }
+}
+
+</script>
+
+<style scoped>
+#search-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+#list-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+table{
+  border-spacing: 0;
+}
+
+td{
+  border: 1px solid #98abdf;
+}
+
+.addBtn{
+  margin: 10px;
+  text-align: right;
+}
+
+#keyword{
+  margin-right: 10px;
+}
+#searchKey{
+  margin-right: 10px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+</style>

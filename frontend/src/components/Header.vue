@@ -1,0 +1,81 @@
+<template>
+<header>
+  <div id="menu">
+    <ul>
+      <li><router-link to="/">메인</router-link></li>
+      <li><router-link to="/employee">직원</router-link></li>
+      <li><router-link to="/work">근무</router-link></li>
+      <!--
+      <li><router-link to="/">근무</router-link></li>
+      <li><router-link to="/">요청</router-link></li>
+      -->
+    </ul>
+    <ul>
+      <li>
+        <!--
+        <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
+        -->
+        <router-link to="/login">로그인</router-link>
+        <!--
+        <a to="/" @click="logout()" v-else>로그아웃</a>
+        -->
+        <router-link to="/">로그아웃</router-link>
+      </li>
+      <li>
+
+      </li>
+    </ul>
+  </div>
+</header>
+</template>
+
+<script>
+import axios from "axios";
+import store from "@/script/store";
+import router from "@/script/router";
+
+export default {
+  name: 'Header',
+  setup(){
+    const logout = () => {
+      axios.post("/api/account/logout").then(()=>{
+        store.commit('setAccount', 0);
+        router.push({path: "/"});
+        window.alert("로그아웃 되었습니다.")
+      });
+    }
+
+    return {logout};
+
+  }
+}
+</script>
+
+<style scoped>
+header{
+  background-color: #98abdf;
+  padding: 15px;
+}
+
+#menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+header ul li a {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+}
+
+ul , li{
+  display: flex;
+  direction: ltr;
+  padding : 0;
+  color: #FFF;
+  margin-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+</style>
