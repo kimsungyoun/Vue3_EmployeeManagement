@@ -17,6 +17,7 @@
 
       <label>부서</label>
       <select v-model="state.forms.dept">
+        <!-- 부서 관련 테이블에서 리스트가 출력 되도록 하기 -->
         <option value="개발팀">개발팀</option>
         <option value="인사팀">인사팀</option>
         <option value="경영팀">경영팀</option>
@@ -26,6 +27,7 @@
 
       <label>직위</label>
       <select v-model="state.forms.rule">
+        <!-- 직위 관련 테이블에서 리스트가 출력 되도록 하기 -->
         <option value="인턴">인턴</option>
         <option value="사원">사원</option>
         <option value="대리">대리</option>

@@ -20,7 +20,7 @@
         <tr>
           <td>직원명</td>
           <td>부서</td>
-          <td>부서</td>
+          <td>직위</td>
           <td>입사일</td>
           <td>연차 총일수</td>
           <td>사용 일수</td>
@@ -78,8 +78,7 @@ export default {
     const addEmployee=()=>{
       router.push({path:'/employee/add'});
     }
-
-
+    
     return {state, info, addEmployee};
   }
 }
