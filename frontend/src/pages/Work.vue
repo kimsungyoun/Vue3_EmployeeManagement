@@ -3,7 +3,8 @@
   <h1>2023년 10월 24일</h1>
 
   <div class="select-month">
-    <input type="button" value="조회"/>
+    <input type="text" id="datepicker">
+    <input type="button" id="datepicker" @click="datepicker" value="조회"/>
   </div>
 
   <div id="manage_container">
@@ -29,6 +30,10 @@ const load = ()=>{
 
 load();
 
+const datepicker=()=>{
+  document.getElementsByClassName("datepicker")
+  alert("달력아 나와라!")
+}
 </script>
 
 <style scoped>
