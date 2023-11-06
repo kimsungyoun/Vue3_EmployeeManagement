@@ -14,8 +14,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Employee findByEmpidAndPassword(String empid,String password);
 
-    @Query("select e.empid, e.empname, e.empbirth,e.empphone, e.empdept, e.emprule,e.emphiredate, l.lmtotal, l.lmuse " +
-            "from Employee e, LeaveManagement l " +
-            "where e.empid = l.empid")
+    @Query("select * from Employee e inner join LeaveManagement lm WHERE e.empid = lm.empid")
     List getList();
 }
