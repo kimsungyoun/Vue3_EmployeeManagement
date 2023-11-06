@@ -110,7 +110,7 @@ export default {
     employeeInfo(empid) {
       axios.get(`/api/employeeInfo/${empid}`).then(({ data }) => {
         this.state.items = data;
-        console.log(this.state.items);
+        
         const employee = this.state.items.employee;
         this.state.form.id = employee.empid;
         this.state.form.name = employee.empname;
@@ -136,7 +136,6 @@ export default {
     },
     removeEmp(empid) {
       const result = window.confirm("정말 삭제하시겠습니까?");
-
       if (result) {
         axios.delete(`/api/employee/delete/${empid}`).then(() => {
           this.$router.push({ path: "/employee" });
@@ -155,7 +154,6 @@ export default {
 </script>
 
 <style scoped>
-
 .employee-info{
   display: flex;
   flex-direction: row;

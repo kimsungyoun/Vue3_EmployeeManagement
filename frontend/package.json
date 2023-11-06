@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "local": "nuxt dev --dotenv .env.local --port=3000",
     "serve": "vue-cli-service serve --port 3000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -10,6 +11,7 @@
   "dependencies": {
     "axios": "^1.5.1",
     "core-js": "^3.8.3",
+    "dotenv": "^16.3.1",
     "vue": "^3.2.13",
     "vue-router": "^4.2.5",
     "vuex": "^4.1.0"

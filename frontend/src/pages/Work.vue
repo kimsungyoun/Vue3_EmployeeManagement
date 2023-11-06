@@ -1,55 +1,55 @@
 <template>
 <div id="container">
-  <h2>근무 관리 페이지</h2>
+  <h1>2023년 10월 24일</h1>
+
   <div class="select-month">
-    <select>
-      <option>1월</option>
-      <option>2월</option>
-      <option>3월</option>
-      <option>4월</option>
-      <option>5월</option>
-    </select>
     <input type="button" value="조회"/>
   </div>
+
   <div id="manage_container">
     <table>
       <tr>
         <td>직원명</td>
-        <td>10/01</td>
-        <td>10/01</td>
-        <td>10/01</td>
-        <td>10/01</td>
-        <td>10/01</td>
+        <td>상태</td>
+        <td>출근시간</td>
+        <td>퇴근시간</td>
       </tr>
       <tr>
-        <td>김성윤</td>
+        <td>김과장</td>
         <td>출근</td>
-        <td>휴일</td>
-        <td>연차</td>
-        <td>외근</td>
-        <td>출근</td>
+        <td>08:34</td>
+        <td>18:05</td>
       </tr>
       <tr>
-        <td>김성윤</td>
-        <td>출근</td>
-        <td>휴일</td>
-        <td>연차</td>
+        <td>김부장</td>
         <td>외근</td>
-        <td>출근</td>
+        <td>-</td>
+        <td>-</td>
       </tr>
       <tr>
-        <td>김성윤</td>
+        <td>김대리</td>
+        <td>반차</td>
+        <td>09:05</td>
+        <td>13:10</td>
+      </tr>
+      <tr>
+        <td>김사원</td>
+        <td>지각</td>
+        <td>09:05</td>
+        <td>18:20</td>
+      </tr>
+      <tr>
+        <td>김인턴</td>
         <td>출근</td>
-        <td>휴일</td>
-        <td>연차</td>
-        <td>외근</td>
-        <td>출근</td>
+        <td>08:35</td>
+        <td>18:20</td>
       </tr>
 
     </table>
   </div>
 </div>
 </template>
+
 <script>
 import {reactive} from "vue";
 import axios from "axios";
@@ -72,7 +72,6 @@ export default {
     return {state,lib};
   },
 }
-
 </script>
 
 <style scoped>
@@ -91,10 +90,10 @@ export default {
 }
 table{
   border-spacing: 0;
+  width :100%;
 }
 tr td{
   text-align: center;
-  border: 1px solid #000000;
+  border: 1px solid #98abdf;
 }
-
 </style>

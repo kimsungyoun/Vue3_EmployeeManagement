@@ -51,15 +51,30 @@ public class EmployeeController {
         return list;
     }
 
+    @GetMapping("/api/employeeSearch/{keyword}/{searchKey}")
+    public List SearchList(@PathVariable("keyword")String keyword, @PathVariable("searchKey")String searchKey){
+        List list = employeeRepository.searchList(keyword, searchKey);
+
+        return list;
+    }
+
     @GetMapping("/api/employeeInfo/{empid}")
     public CombineData getView(@PathVariable("empid") String empId){
         Employee employee = employeeRepository.findByEmpid(empId);
         LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(empId);
-        // 맵 대신의 기능을 함 (맵 사용법에 대한 연구가 더 필요함)
         CombineData combineData = new CombineData(employee, leaveManagement);
 
         return combineData;
     }
+
+    /*
+    @GetMapping("/api/employeeInfo2/{empid}")
+    public List getView2(@PathVariable("empid") String empId){
+        List list = employeeRepository.getView(empId);
+
+        return list;
+    }
+    */
 
     @PostMapping("/api/employee/add")
     public ResponseEntity AddEmployee(@RequestBody EmployeeDTO dto){

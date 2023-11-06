@@ -3,13 +3,11 @@
   <h2>직원 관리 페이지</h2>
   <div id="search-container">
     <select id="keyword">
-      <option value="emp_name">직원명</option>
-      <option value="emp_dept">부서</option>
-      <option value="emp_rule">직위</option>
+      <option value="empname">직원명</option>
+      <option value="empdept">부서</option>
+      <option value="emprule">직위</option>
     </select>
-
     <input type="text" id="searchKey"/>
-
     <input type="button" id="searchBtn" @click="search()" value="검색"/>
   </div>
 
@@ -39,13 +37,13 @@
           <td>{{i.leaveManagement.lmtotal-i.leaveManagement.lmuse}}</td>
           -->
 
-          <td><a @click="info(i[0])"> {{i[1]}} </a> </td>
-          <td>{{i[4]}}</td>
-          <td>{{i[5]}}</td>
-          <td>{{lib.formattedTime(i[6])}}</td>
-          <td>{{i[7]}}</td>
-          <td>{{i[8]}}</td>
-          <td>{{i[7]-i[8]}}</td>
+          <td><a @click="info(i[0].empid)"> {{i[0].empname}} </a> </td>
+          <td>{{i[0].empdept}}</td>
+          <td>{{i[0].emprule}}</td>
+          <td>{{lib.formattedTime(i[0].emphiredate)}}</td>
+          <td>{{i[1].lmtotal}}</td>
+          <td>{{i[1].lmuse}}</td>
+          <td>{{i[1].lmtotal-i[1].lmuse}}</td>
 
         </tr>
       </tbody>
@@ -81,6 +79,23 @@ const info = (empid) => {
 const addEmployee = () => {
   router.push({ path: '/employee/add' });
 };
+
+const search=() => {
+  let keyword = document.getElementById("keyword").value;
+  let searchKey= document.getElementById("searchKey").value;
+  console.log("keyword >> " + keyword);
+  console.log("searchKey >> " + searchKey);
+    
+  if(searchKey){
+    axios.get('/api/employeeSearch/'+keyword+'/'+searchKey).then(({data})=>{
+      state.items = data;
+    })
+  }else{
+    axios.get("/api/employee").then(({data}) => {
+      state.items = data;
+    });
+  } 
+}
 
 load();
 
