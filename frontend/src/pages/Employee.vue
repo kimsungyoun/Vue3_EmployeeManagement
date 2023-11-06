@@ -83,8 +83,7 @@ const addEmployee = () => {
 const search=() => {
   let keyword = document.getElementById("keyword").value;
   let searchKey= document.getElementById("searchKey").value;
-  console.log("keyword >> " + keyword);
-  console.log("searchKey >> " + searchKey);
+  console.log("keyword >> " + keyword+"searchKey >> " + searchKey);
     
   if(searchKey){
     axios.get('/api/employeeSearch/'+keyword+'/'+searchKey).then(({data})=>{
