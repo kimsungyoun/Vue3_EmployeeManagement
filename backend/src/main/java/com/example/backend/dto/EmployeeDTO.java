@@ -18,6 +18,7 @@ public class EmployeeDTO {
     private String postal;
     private String address;
     private String detail;
+    private String extra;
     private String dept;
     private String rule;
     private Date hiredate;

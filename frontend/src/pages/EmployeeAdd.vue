@@ -4,7 +4,11 @@
 
     <div class="EmployeeAddContainer">
       <label>아이디</label>
-      <input id="row" type="text" v-model="state.forms.id"/>
+      <div id="idbox">
+        <input id="row" type="text" v-model="state.forms.id"/>
+        <input id="checkBtn" type="button" @click="checkIdDuplication()" value="아이디 중복 체크"/>
+      </div>
+      
 
       <label>비밀번호</label>
       <input id="row" type="password" v-model="state.forms.password"/>
@@ -27,7 +31,7 @@
       <label>우편 주소</label> 
       <div id="postal">
         <input type="text" v-model="state.forms.postal" id="sample6_postcode" placeholder="우편번호">
-        <input type="button" value="우편번호 찾기">
+        <input type="button" @click="showApi()" value="우편번호 찾기">
       </div>
 
       <label>주소</label>
@@ -35,30 +39,20 @@
 
       <label>상세 주소</label>
       <input type="text" v-model="state.forms.detail" id="sample6_detailAddress" placeholder="상세주소">
-      <!-- <input type="text" id="sample6_extraAddress" placeholder="참고항목"> -->
 
-      <!-- 
-      <label>우편 주소</label>
-      <input type="text" v-model="state.forms.postal"/>
-
-      <label>주소</label>
-      <input type="text" v-model="state.forms.address"/>
-
-      <label>상세 주소</label>
-      <input type="text" v-model="state.forms.detail"/> 
-      -->
-
+      <label>참고 항목</label>
+      <input type="text" v-model="state.forms.extra" id="sample6_extraAddress" placeholder="참고항목">
     </div>
     <div id="btn-container">
-      <input type="button" @click="submit()" value="등록"/>
-      <input type="button" @click="cancel()" value="취소"/>
+      <input id="submitBtn" type="button" @click="submit()" value="등록"/>
+      <input id="cancelBtn" type="button" @click="cancel()" value="취소"/>
     </div>
   </div>
 </template>
 
 
 <script setup>
-import {reactive} from "vue";
+import {reactive, onMounted} from "vue";
 import router from "@/script/router";
 import axios from "axios";
 import deptSelect from "@/components/deptSelect.vue";
@@ -67,18 +61,20 @@ import ruleSelect from "@/components/ruleSelect.vue";
 const state = reactive({
   forms: {
     id: "",
+    password: "",
     name: "",
     birth: "",
-    postal: "",
-    address: "",
-    detail: "",
     phone: "",
     dept: "",
     rule: "",
-    password: "",
+    postal: "",
+    address: "",
+    detail: "",
+    extra:"",
   },
 });
 
+// 직원 등록
 const submit = () => {
   const args = JSON.parse(JSON.stringify(state.forms));
   axios
@@ -93,97 +89,95 @@ const submit = () => {
     });
 };
 
+// 직원 등록 취소
 const cancel = () => {
   router.push({ path: "/employee" });
 };
 
+// 아이디 중복 체크
+const checkIdDuplication =()=>{
+  axios.get("/api/checkIdDuplication/" + state.forms.id).then((response) => {
+      if (response.data.isDuplicate) {
+        alert("아이디 중복입니다.");
+      } else {
+        alert("아이디 사용 가능합니다.");
+      }
+    })
+    .catch(() => {
+      alert("아이디 중복 체크 실패");
+    });
+}
+
+// 검색 API
+const loadDaumPostcodeScript = () => {
+    const script = document.createElement('script');
+    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+// 우편주소 창 띄우기
+const showApi = () => {
+  new window.daum.Postcode({
+    oncomplete: function(data) {
+      state.forms.postal = data.zonecode;
+      state.forms.address = data.roadAddress || data.jibunAddress;
+      state.forms.detail = '';
+      state.forms.extra = '';
+
+      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+      // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+      var addr = ''; // 주소 변수
+      var extraAddr = ''; // 참고항목 변수
+
+      //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+      if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+        addr = data.roadAddress;
+      } else { // 사용자가 지번 주소를 선택했을 경우(J)
+        addr = data.jibunAddress;
+      }
+
+      // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+      if(data.userSelectedType === 'R'){
+        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+          extraAddr += data.bname;
+        }
+        // 건물명이 있고, 공동주택일 경우 추가한다.
+        if(data.buildingName !== '' && data.apartment === 'Y'){
+          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+        }
+        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+        if(extraAddr !== ''){
+          extraAddr = ' (' + extraAddr + ')';
+        }
+        // 조합된 참고항목을 해당 필드에 넣는다.
+        document.getElementById("sample6_extraAddress").value = extraAddr;
+        } else { 
+          document.getElementById("sample6_extraAddress").value = '';
+        }
+
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById('sample6_postcode').value = data.zonecode;
+        document.getElementById("sample6_address").value = addr;
+        document.getElementById("sample6_extraAddress").value = extraAddr;        
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById("sample6_detailAddress").focus();
+      } 
+    }).open();
+};
+
+onMounted(() => {
+    // 컴포넌트가 마운트되면 스크립트를 로드
+    loadDaumPostcodeScript();
+  });
+
 </script> 
 
-
-<!-- <script>
-import {reactive} from "vue";
-import axios from "axios";
-import lib from "@/script/lib";
-import DeptSelect from "@/components/deptSelect.vue";
-import RuleSelect from "@/components/ruleSelect.vue";
-
-export default {
-  components: {RuleSelect, DeptSelect},
-  computed: {
-    lib() {
-      return lib
-    }
-  },data() {
-    return {
-      empid: null,
-      state: reactive({
-        items: [],
-        form: {
-          id: "",
-          name: "",
-          phone: "",
-          postal: "",
-          address: "",
-          detail: "",
-          dept: "",
-          rule: "",
-        }
-      }),
-    };
-  },
-  mounted() {
-    this.empid = this.$route.params.empid;
-    this.employeeInfo(this.empid);
-  },
-  methods: {
-    employeeInfo(empid) {
-      axios.get(`/api/employeeInfo/${empid}`).then(({ data }) => {
-        this.state.items = data;
-        console.log(this.state.items);
-        const employee = this.state.items.employee;
-        this.state.form.id = employee.empid;
-        this.state.form.name = employee.empname;
-        this.state.form.phone = employee.empphone;
-        this.state.form.postal = employee.emppostal;
-        this.state.form.address = employee.empaddr;
-        this.state.form.detail = employee.empdetail;
-        this.state.form.dept = employee.empdept;
-        this.state.form.rule = employee.emprule;
-      });
-    },
-    update() {
-      const args = JSON.parse(JSON.stringify(this.state.form));
-      console.log(args);
-      args.items = JSON.stringify(this.state.form);
-
-      axios.post(`/api/employeeUpdate`, args).then(() => {
-        this.$router.push({ path: `/employee` });
-        alert("회원정보 수정 완료");
-      }).catch(error => {
-        alert("회원정보 수정 실패 >> " + error);
-      });
-    },
-    removeEmp(empid) {
-      const result = window.confirm("정말 삭제하시겠습니까?");
-
-      if (result) {
-        axios.delete(`/api/employee/delete/${empid}`).then(() => {
-          this.$router.push({ path: "/employee" });
-          alert("삭제 완료");
-        }).catch(() => {
-          alert("삭제 실패");
-        });
-      } else {
-        alert("삭제 취소");
-        this.$router.push({ path: `/employeeInfo/${empid}` });
-      }
-    },
-  }
-}
-</script> -->
-
-
 <style scoped>
+/* 공통 */
 .container{
   display: flex;
   flex-direction: column ;
@@ -191,48 +185,55 @@ export default {
   align-items: center;
   margin-bottom: 30px;
 }
-
 .EmployeeAddContainer{
   display: flex;
   flex-direction: column;
   width: 400px;
   justify-content: center;
 }
-
 label{
   margin-top:5px;
   margin-bottom: 5px;
 }
-
-#btn-container{
-  margin-top:10px
-}
-
 input[type=button]{
-  margin-right: 10px;
   padding: 5px 10px;
 }
+/* 크기 고정 */
+select:nth-child(12), select:nth-child(14), #row, #sample6_address, #sample6_detailAddress, #sample6_extraAddress{
+  height: 25px;
+}
 
+/* 아이디 입력 칸 */
+#idbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#idbox > #row{
+  width: 100%;
+}
+#checkBtn{
+  margin-left: 10px;
+}
+
+/* 우편주소 */
 #postal{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+#postal > #sample6_postcode{
   width: 100%;
 }
-
 #sample6_postcode{
   margin-right:10px;
 }
 
-select:nth-child(12), select:nth-child(14){
-  height: 25px;
+/* 하단 버튼 */
+#btn-container{
+  margin-top:10px
 }
-#row{
-  height: 25px;
-}
-#sample6_address{
-  height: 25px;
-}
-#sample6_detailAddress{
-  height: 25px;
+#submitBtn{
+  margin-right: 10px;
 }
 </style>

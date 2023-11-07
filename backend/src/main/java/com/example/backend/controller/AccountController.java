@@ -65,4 +65,14 @@ public class AccountController {
 
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+    @GetMapping("/api/checkIdDuplication/{id}")
+    public ResponseEntity checkId(@PathVariable("id")String empid){
+        Employee employee = employeeRepository.findByEmpid(empid);
+        if(employee != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }

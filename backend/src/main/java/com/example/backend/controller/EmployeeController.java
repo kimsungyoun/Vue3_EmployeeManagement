@@ -98,7 +98,8 @@ public class EmployeeController {
                 newEmployee.setEmpphone(dto.getPhone());
                 newEmployee.setEmppostal(dto.getPostal());
                 newEmployee.setEmpaddr(dto.getAddress());
-                newEmployee.setEmpdetail(dto.getDetail());
+
+                newEmployee.setEmpdetail(dto.getDetail()+dto.getExtra());
                 newEmployee.setEmpdept(dto.getDept());
                 newEmployee.setEmprule(dto.getRule());
                 employeeRepository.saveAndFlush(newEmployee);
