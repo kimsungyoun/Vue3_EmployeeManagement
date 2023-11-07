@@ -26,55 +26,62 @@ public class EmployeeController {
     @Autowired
     AttendanceRepository attendanceRepository;
 
-    /*
     @GetMapping("/api/employee")
-    public List<CombineData> getList(){
-        List<Employee> Employeelist = employeeRepository.findAll();
-        List<LeaveManagement> leaveManagementsList = leaveManagementRepository.findAll();
-        List<CombineData> list = new ArrayList<>();
+    public List getList(){
+        List result = new ArrayList<>();
 
-        for (Employee value : Employeelist) {
-            for (LeaveManagement management : leaveManagementsList) {
-                if (value.getEmpid().equals(management.getEmpid())) {
-                    CombineData combineData = new CombineData(value, management);
-                    list.add(combineData);
+        List<Employee> employees = employeeRepository.findAll();
+        List<LeaveManagement> leaveManagements = leaveManagementRepository.findAll();
+
+        for(Employee e : employees){
+            for(LeaveManagement l : leaveManagements){
+                if(e.getEmpid().equals(l.getEmpid())){
+                    List newList = new ArrayList();
+                    newList.add(e);
+                    newList.add(l);
+                    result.add(newList);
                 }
             }
         }
-        return list;
-    }
-    */
 
-    @GetMapping("/api/employee")
-    public List getList(){
-        List list = employeeRepository.getList();
-        return list;
+        return result;
     }
 
     @GetMapping("/api/employeeSearch/{keyword}/{searchKey}")
-    public List SearchList(@PathVariable("keyword")String keyword, @PathVariable("searchKey")String searchKey){
-        List list = employeeRepository.searchList(keyword, searchKey);
+    public ResponseEntity SearchList(@PathVariable("keyword")String keyword, @PathVariable("searchKey")String searchKey){
+        List result = new ArrayList();
 
-        return list;
+        List<Employee> emp = null;
+
+        if(keyword.equals("empname")){
+            emp = employeeRepository.findByEmpnameLike("%"+searchKey+"%");
+        }else if(keyword.equals("empdept")){
+            emp = employeeRepository.findByEmpdeptLike("%"+searchKey+"%");
+        }else if(keyword.equals("emprule")) {
+            emp = employeeRepository.findByEmpruleLike("%" + searchKey + "%");
+        }
+        for(Employee e : emp){
+            List <LeaveManagement> lm = leaveManagementRepository.findByEmpidLike("%"+e.getEmpid()+"%");
+            for(LeaveManagement l : lm){
+                if(e.getEmpid().equals(l.getEmpid())){
+                    List list1 = new ArrayList();
+                    list1.add(e);
+                    list1.add(l);
+                    result.add(list1);
+                }
+            }
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
     public CombineData getView(@PathVariable("empid") String empId){
         Employee employee = employeeRepository.findByEmpid(empId);
         LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(empId);
-        CombineData combineData = new CombineData(employee, leaveManagement);
 
-        return combineData;
+        return new CombineData(employee, leaveManagement);
     }
-
-    /*
-    @GetMapping("/api/employeeInfo2/{empid}")
-    public List getView2(@PathVariable("empid") String empId){
-        List list = employeeRepository.getView(empId);
-
-        return list;
-    }
-    */
 
     @PostMapping("/api/employee/add")
     public ResponseEntity AddEmployee(@RequestBody EmployeeDTO dto){

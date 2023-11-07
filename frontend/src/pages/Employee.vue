@@ -8,7 +8,7 @@
       <option value="emprule">직위</option>
     </select>
     <input type="text" id="searchKey"/>
-    <input type="button" id="searchBtn" @click="search()" value="검색"/>
+    <input type="button" id="searchBtn" @click="search()" @keyup="search()" value="검색"/>
   </div>
 
 
@@ -27,29 +27,18 @@
       </thead>
       <tbody>
         <tr v-for="(i, idx) in state.items" :key="idx">
-          <!--
-          <td><a @click="info(i.employee.empid)"> {{i.employee.empname}} </a> </td>
-          <td>{{i.employee.empdept}}</td>
-          <td>{{i.employee.emprule}}</td>
-          <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
-          <td>{{i.leaveManagement.lmtotal}}</td>
-          <td>{{i.leaveManagement.lmuse}}</td>
-          <td>{{i.leaveManagement.lmtotal-i.leaveManagement.lmuse}}</td>
-          -->
-
           <td><a @click="info(i[0].empid)"> {{i[0].empname}} </a> </td>
           <td>{{i[0].empdept}}</td>
           <td>{{i[0].emprule}}</td>
           <td>{{lib.formattedTime(i[0].emphiredate)}}</td>
           <td>{{i[1].lmtotal}}</td>
           <td>{{i[1].lmuse}}</td>
-          <td>{{i[1].lmtotal-i[1].lmuse}}</td>
+          <td>{{i[1].lmtotal - i[1].lmuse}}</td>
 
         </tr>
       </tbody>
     </table>
   </div>
-
   <div class="addBtn">
     <input type="button" @click="addEmployee()" value="직원 등록"/>
   </div>
@@ -80,21 +69,25 @@ const addEmployee = () => {
   router.push({ path: '/employee/add' });
 };
 
+let keyword = document.getElementById("keyword");
+let searchKey= document.getElementById("searchKey");
+
 const search=() => {
-  let keyword = document.getElementById("keyword").value;
-  let searchKey= document.getElementById("searchKey").value;
-  console.log("keyword >> " + keyword+"searchKey >> " + searchKey);
-    
-  if(searchKey){
-    axios.get('/api/employeeSearch/'+keyword+'/'+searchKey).then(({data})=>{
+  keyword = document.getElementById("keyword");
+  searchKey= document.getElementById("searchKey");
+  if(searchKey.value != ""){
+    axios.get('/api/employeeSearch/'+keyword.value+'/'+searchKey.value).then(({data})=>{
       state.items = data;
+    }).catch((error)=>{
+      console.log(error);
     })
   }else{
     axios.get("/api/employee").then(({data}) => {
       state.items = data;
     });
-  } 
-}
+  }
+  
+};
 
 load();
 

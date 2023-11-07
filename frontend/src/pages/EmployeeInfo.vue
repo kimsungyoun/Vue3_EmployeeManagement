@@ -124,7 +124,6 @@ export default {
     },
     update() {
       const args = JSON.parse(JSON.stringify(this.state.form));
-      console.log(args);
       args.items = JSON.stringify(this.state.form);
 
       axios.post(`/api/employeeUpdate`, args).then(() => {

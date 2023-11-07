@@ -4,7 +4,7 @@
 
   <div class="select-month">
     <input type="text" id="datepicker">
-    <input type="button" id="datepicker" @click="datepicker" value="조회"/>
+    <input type="button" @click="datepicker" value="조회"/>
   </div>
 
   <div id="manage_container">

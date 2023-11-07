@@ -29,7 +29,7 @@ export default {
     }
   }
 }
-</script>
+</script> 
 
 <script setup>
 

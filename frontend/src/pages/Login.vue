@@ -2,23 +2,25 @@
   <main>
       <div id="login-container">
         <h2>Please sign in</h2>
-        <ul>
-          <li>
-            <label for="floatingInput">E-mail</label>
-          </li>
-          <li>
-            <input type="email" id="floatingInput" placeholder="name@example.com" @keyup.enter="submit()" v-model="state.form.email">
-          </li>
-          <li>
-            <label for="floatingPassword">Password</label>
-          </li>
-          <li>
-            <input type="password" id="floatingPassword" placeholder="Password" v-model="state.form.password">
-          </li>
-          <li>
-            <button @click="submit()">Sign in</button>
-          </li>
-        </ul>
+        <div class="loginForm">
+          <ul>
+            <li>
+              <label for="floatingInput">아이디</label>
+            </li>
+            <li>
+              <input type="text" id="floatingInput" placeholder="EmpId" @keyup.enter="submit()" v-model="state.form.email">
+            </li>
+            <li>
+              <label for="floatingPassword">패스워드</label>
+            </li>
+            <li>
+              <input type="password" id="floatingPassword" placeholder="Password" v-model="state.form.password">
+            </li>
+            <li>
+              <button @click="submit()" @keyup="submit()">로그인</button>
+            </li>
+          </ul>
+        </div>
       </div>
   </main>
 
@@ -40,11 +42,14 @@ export default {
     });
 
     const submit = () => {
-      axios.post("/api/account/login", state.form).then((res)=>{
+      axios.post("/api/account/login", state.form).then((res)=>{  
+        let empid = state.form.email;
+        sessionStorage.setItem("empid", empid);
+        
         store.commit('setAccount', res.data);
         sessionStorage.setItem("id", res.data);
-        console.log(res.data);
-        router.push({path:'/'});
+        router.push({path: '/'});
+
         window.alert("로그인 성공!");
       }).catch( () => {
         window.alert("로그인 실패!")
@@ -57,12 +62,18 @@ export default {
 </script>
 
 <style scoped>
-#login-container > h2{
+#login-container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
 ul{
   padding:0;
+}
+li{
+  margin-bottom: 10px;
 }
 
 </style>

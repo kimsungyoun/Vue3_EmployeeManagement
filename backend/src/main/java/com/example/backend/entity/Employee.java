@@ -12,6 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name="employee")
 public class Employee {
     @Id

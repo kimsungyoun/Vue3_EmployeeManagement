@@ -10,6 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name="leavemanagement")
 public class LeaveManagement {
     @Id

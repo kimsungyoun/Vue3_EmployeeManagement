@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <table>
             <tr>
                 <td>직원명</td>
@@ -8,12 +7,17 @@
                 <td>출근시간</td>
                 <td>퇴근시간</td>
             </tr>
+            <tr v-for="(i, idx) in data" :key="idx">
+                <td>empname</td>
+                <td>attstatus</td>
+                <td>atton</td>
+                <td>attoff</td>
+            </tr>
             <tr>
                 <td>김과장</td>
                 <td>출근</td>
                 <td>08:34</td>
                 <td>18:05</td>
-                
             </tr>
             <tr>
                 <td>김부장</td>
