@@ -55,20 +55,24 @@ const state = reactive({
   items: []
 });
 
+// 데이터 로드
 const load = () => {
   axios.get("/api/employee").then(({data}) => {
     state.items = data;
   });
 };
 
+// 상세보기
 const info = (empid) => {
   router.push({ path: `/employeeInfo/${empid}`, params: { id: empid } });
 };
 
+// 직원등록 화면으로 이동
 const addEmployee = () => {
   router.push({ path: '/employee/add' });
 };
 
+// 검색 기능
 let keyword = document.getElementById("keyword");
 let searchKey= document.getElementById("searchKey");
 
@@ -90,48 +94,8 @@ const search=() => {
 };
 
 load();
-
 </script>
 
-
-<!--<script>
-import {reactive} from "vue";
-import axios from "axios";
-import lib from "../script/lib";
-import router from "@/script/router";
-
-export default {
-  computed: {
-    lib() {
-      return lib
-    }
-  },
-  setup(){
-    const state = reactive({
-      items: []
-    })
-
-    const load = ()=>{
-      axios.get("/api/employee").then(({data})=>{
-        state.items = data;
-      });
-    }
-
-    const info = (empid)=>{
-      router.push({path:`/employeeInfo/${empid}`, params:{id : empid}});
-    }
-
-    load();
-
-    const addEmployee=()=>{
-      router.push({path:'/employee/add'});
-    }
-
-    return {state, info, addEmployee};
-  }
-}
-
-</script>-->
 
 <style scoped>
 #search-container{

@@ -97,9 +97,9 @@ const cancel = () => {
 // 아이디 중복 체크
 const checkIdDuplication =()=>{
   axios.get("/api/checkIdDuplication/" + state.forms.id).then((response) => {
-      if (response.data.isDuplicate) {
+      if (response.data==1) {
         alert("아이디 중복입니다.");
-      } else {
+      } else if (response.data == 0){
         alert("아이디 사용 가능합니다.");
       }
     })

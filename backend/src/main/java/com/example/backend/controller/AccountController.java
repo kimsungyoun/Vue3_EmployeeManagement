@@ -67,12 +67,12 @@ public class AccountController {
     }
 
     @GetMapping("/api/checkIdDuplication/{id}")
-    public ResponseEntity checkId(@PathVariable("id")String empid){
+    public int checkId(@PathVariable("id")String empid){
         Employee employee = employeeRepository.findByEmpid(empid);
         if(employee != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return 1;
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return 0;
     }
 
 }
