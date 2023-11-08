@@ -25,7 +25,7 @@
       <label>부서</label>
       <deptSelect v-model="state.forms.dept"/>
 
-      <label>직위</label>
+      <label>직책</label>
       <ruleSelect v-model="state.forms.rule"/>
 
       <label>우편 주소</label> 

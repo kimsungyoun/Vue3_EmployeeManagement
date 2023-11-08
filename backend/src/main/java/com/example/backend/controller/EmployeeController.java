@@ -2,10 +2,9 @@ package com.example.backend.controller;
 
 import com.example.backend.CombineData;
 import com.example.backend.dto.EmployeeDTO;
-import com.example.backend.entity.Attendance;
 import com.example.backend.entity.Employee;
 import com.example.backend.entity.LeaveManagement;
-import com.example.backend.repository.AttendanceRepository;
+import com.example.backend.repository.WorkRepository;
 import com.example.backend.repository.EmployeeRepository;
 import com.example.backend.repository.LeaveManagementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class EmployeeController {
     LeaveManagementRepository leaveManagementRepository;
 
     @Autowired
-    AttendanceRepository attendanceRepository;
+    WorkRepository attendanceRepository;
 
     @GetMapping("/api/employee")
     public List getList(){

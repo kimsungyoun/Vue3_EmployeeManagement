@@ -17,7 +17,7 @@
             </td>
           </tr>
           <tr>
-            <td>직위</td>
+            <td>직책</td>
             <td>
               <ruleSelect id="rule" v-model="state.form.rule" :value="state.form.rule"/>
             </td>

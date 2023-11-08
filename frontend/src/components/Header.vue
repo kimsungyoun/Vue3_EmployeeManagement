@@ -4,7 +4,7 @@
     <ul>
 
       <li><router-link to="/">메인</router-link></li>
-      <!-- 작업 중이기 때문에 임시로 전부 오픈
+      <!-- 
       <li v-if="$store.state.account.id">|</li>
       <li><router-link to="/employee" v-if="$store.state.account.id">직원</router-link></li>
       <li v-if="$store.state.account.id">|</li>

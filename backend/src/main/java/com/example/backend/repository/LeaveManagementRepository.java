@@ -1,7 +1,5 @@
 package com.example.backend.repository;
 
-import com.example.backend.dto.EmployeeDTO;
-import com.example.backend.entity.Attendance;
 import com.example.backend.entity.LeaveManagement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
