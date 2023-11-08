@@ -10,5 +10,5 @@ public interface WorkRepository extends JpaRepository<Work,Integer> {
 
     List<Work> findByEmpidAndWorkday(String empid, Date workday);
 
-    int findByWorkno(int workno);
+    Work findByWorkno(int workno);
 }

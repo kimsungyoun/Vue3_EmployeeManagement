@@ -5,10 +5,7 @@ import com.example.backend.entity.Work;
 import com.example.backend.repository.WorkRepository;
 import com.example.backend.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,13 +50,13 @@ public class WorkController {
         return result;
     }
 
-    @GetMapping("/api/workreason")
-    public int pushReason(@RequestBody int workno){
-        int no = workRepository.findByWorkno(workno);
+    @GetMapping("/api/workreason/{workno}")
+    public Work setReason(@PathVariable("workno") String workno){
+        Work work = workRepository.findByWorkno(Integer.parseInt(workno));
 
-        System.out.println(no + "번의 근태 정보 확인!");
+        System.out.println(workno + "번의 근태 정보 확인!");
 
-        return no;
+        return work;
 
     }
 }

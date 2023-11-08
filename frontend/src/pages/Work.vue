@@ -1,10 +1,11 @@
 <template>
 <div id="container">
-  <h1>{{ state.form.day }}</h1>
+  <h1>{{ lib.formattedTime2(state.form.day) }}</h1>
 
   <div class="select-month">
-    <input type="text" id="datepicker" >
-    <input type="button" @click="searchDay()" value="조회"/>
+    <!-- <input type="text" id="searchDay"> -->
+    <Datepicker v-model="picked" :typeable="true" :clearable="true" position="left" auto-apply/>
+    <input id="searchBtn" type="button" @click="searchDay()" value="조회"/>
   </div>
 
   <div id="manage_container">
@@ -14,6 +15,7 @@
         <td>상태</td>
         <td>출근시간</td>
         <td>퇴근시간</td>
+        <td>근무시간</td>
       </tr>
       <tr v-for="(i, idx) in state.items" :key="idx">
         <td>{{i[0].empname}}</td>
@@ -27,6 +29,7 @@
         </td>
         <td>{{i[1].workon}}</td>
         <td>{{i[1].workoff}}</td>
+        <td>{{i[1].worktime}}</td>
       </tr>
     </table>
   </div>
@@ -34,13 +37,17 @@
 </template>
 
 <script setup>
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
+import lib from "@/script/lib";
 import router from "@/script/router";
+import Datepicker from "vue3-datepicker" 
+
 
 const state = reactive({
   items: [],
   form:{
+    no:"",
     name:"",
     status:"",
     on:"",
@@ -48,25 +55,24 @@ const state = reactive({
     day:""
   }
 })
+const picked =ref(new Date());
+
+onMounted(()=>{
+  load();
+})
 
 const load = ()=>{
-  var today = new Date;
-  var year = today.getFullYear();
-  var month = ('0'+ (today.getMonth()+1)).slice(-2);
-  var day = ('0'+today.getDate()).slice(-2);
-  var dateString = year+'-'+month+'-'+day;
-  
-  state.form.day = dateString;
+  state.form.day = lib.formattedTime(picked.value);
   axios.post("/api/work", state.form.day).then(({data})=>{
     state.items = data;
   })
 }
 
 const searchDay=()=>{
-  state.form.day = document.getElementById("searchDay").value;
-  const searchDay = state.form.day
-  if(searchDay != ""){
-    axios.post("/api/work", searchDay).then(({data})=>{
+  state.form.day = lib.formattedTime(picked.value);
+
+  if(state.form.day != ""){
+    axios.post("/api/work", state.form.day).then(({data})=>{
         state.items = data;
     })
   }else{
@@ -75,34 +81,16 @@ const searchDay=()=>{
   }
 }
 
-const reason = (workno)=>{
-    router.push({path:'/workReason', params:{no: workno}});
-    console.log(router)
+const reason = (no)=>{
+    router.push({path:`/workReason/${no}`, params: {workno : no}});  
 };
 
-const datepickerScript=()=>{
-  const script = document.createElement('script');
-  //script.src="https://code.jquery.com/jquery-1.12.4.js";
-  //script.src="https://code.jquery.com/ui/1.12.1/jquery-ui.js";
-  script.async = true;
-  document.body.appendChild(script);
-}
-
-
-
-onMounted(()=>{
-  load();
-  datepickerScript();
-})
-
 </script>
-
 
 <style scoped>
 .select-month{
   display: flex;
   flex-direction: row;
-  justify-content: right;
   margin-bottom: 10px;
 }
 #manage_container{
@@ -124,9 +112,11 @@ tr td{
     border-radius: 5px;
     color: #ffffff;
 }
-
 #reason:hover{
     cursor: pointer;
 }
 
+#searchBtn{
+  margin-left: 5px;
+}
 </style>

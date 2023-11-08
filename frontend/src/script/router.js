@@ -14,8 +14,8 @@ const routes = [
     {path: '/employee', component: Employee},
     {path: '/work', component: Work},
     {path: `/employeeInfo/:empid`,component: Info},
-    {path: '/employee/add',component:Add},
-    {path: '/workReason',component: Reason},
+    {path: '/employee/add', component: Add},
+    {path: `/workReason/:workno`, component: Reason},
 
 ]
 

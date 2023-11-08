@@ -1,9 +1,10 @@
 <template>
     <div class="Reason-container">
-        <h1>2023년 10월 24일</h1>
+        <h1>{{lib.formattedTime2(state.form.day)}}</h1>
+        <input type="hidden" :value="$route.params.workno" id="workno"/>
         <div class="text-container">
             <label>상태</label>
-            <input type="text" id="reason-" :value="state.form.status" disabled>
+            <input type="text" id="reason-" v-model="state.form.status" disabled>
             <br>
             <label>사유 작성</label>
             <textarea v-model="reason"></textarea>
@@ -24,24 +25,28 @@
 import fileList from "@/components/fileList.vue";
 import router from "@/script/router";
 import axios from "axios";
+import lib from "@/script/lib";
 import { onMounted, reactive } from "vue";
 
-const state =reactive({
+const state = reactive({
     items:[],
     form:{
-        workno:"",
+        no:"",
+        day:"",
         reason:"",
-        status:""
+        status:"",
     }
 })
 
 const load=()=>{
-    const no = router.params.no;
-    console.log(no);
-    state.form.workno = no;
-
-    axios.post("/api/workreason", no).then(({data})=>{
-        state.form.status = data;
+    const workno = document.getElementById("workno").value;
+    axios.get(`/api/workreason/${workno}`).then(({data})=>{
+        state.items = data;
+        state.form.no = state.items.workno;
+        state.form.day = lib.formattedTime(state.items.workday);
+        state.form.status = state.items.workstatus;
+        state.form.reason = null;
+        console.log(state.form);
     })
 }
 
@@ -62,7 +67,6 @@ const cancel=()=>{
 onMounted(()=>{
     load();
 })
-
 </script>
 
 <style scoped>
