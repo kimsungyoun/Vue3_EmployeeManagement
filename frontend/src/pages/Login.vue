@@ -43,9 +43,6 @@ export default {
 
     const submit = () => {
       axios.post("/api/account/login", state.form).then((res)=>{  
-        let empid = state.form.email;
-        sessionStorage.setItem("empid", empid);
-        
         store.commit('setAccount', res.data);
         sessionStorage.setItem("id", res.data);
         router.push({path: '/'});

@@ -7,11 +7,11 @@
                 <td>출근시간</td>
                 <td>퇴근시간</td>
             </tr>
-            <tr v-for="(i, idx) in data" :key="idx">
-                <td>empname</td>
-                <td>attstatus</td>
-                <td>atton</td>
-                <td>attoff</td>
+            <tr v-for="(i, idx) in state.items" :key="idx">
+                <td>{{i[0].empname}}</td>
+                <td><a id="reason" @click="reason(i[1].workno)">{{i[1].workstatus}}</a></td>
+                <td>{{i[1].workon}}</td>
+                <td>{{i[1].workoff}}</td>
             </tr>
             <tr>
                 <td>김과장</td>
@@ -50,12 +50,30 @@
 
 <script setup>
 import router from "@/script/router";
+import axios from "axios";
+import { onMounted, reactive } from "vue";
 
-const reason = ()=>{
-    router.push({path:'/workReason'})
+const state = reactive({
+    items:[]
+})
+
+const load=()=>{
+    const args = '2023-11-08';
+    
+    console.log(args);
+
+    axios.post("/api/work", args).then(({data})=>{
+        state.items = data;
+    })
+}
+
+const reason = (workno)=>{
+    router.push({path:'/workReason', params:{no: workno}});
 };
 
-
+onMounted(()=>{
+    load();
+});
 </script>
 
 <style>

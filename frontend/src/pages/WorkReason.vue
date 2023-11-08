@@ -3,10 +3,10 @@
         <h1>2023년 10월 24일</h1>
         <div class="text-container">
             <label>상태</label>
-            <input type="text" id="reason-" value="외근" disabled>
+            <input type="text" id="reason-" :value="state.form.status" disabled>
             <br>
             <label>사유 작성</label>
-            <textarea></textarea>
+            <textarea v-model="reason"></textarea>
         </div>
         <div class="upload-container">
             <span>제출 자료</span>
@@ -23,6 +23,27 @@
 <script setup>
 import fileList from "@/components/fileList.vue";
 import router from "@/script/router";
+import axios from "axios";
+import { onMounted, reactive } from "vue";
+
+const state =reactive({
+    items:[],
+    form:{
+        workno:"",
+        reason:"",
+        status:""
+    }
+})
+
+const load=()=>{
+    const no = router.params.no;
+    console.log(no);
+    state.form.workno = no;
+
+    axios.post("/api/workreason", no).then(({data})=>{
+        state.form.status = data;
+    })
+}
 
 const submit=()=>{
     const result = confirm("제출하시겠습니까?");
@@ -37,6 +58,10 @@ const cancel=()=>{
         router.push({path:"/work"})
     }
 }
+
+onMounted(()=>{
+    load();
+})
 
 </script>
 

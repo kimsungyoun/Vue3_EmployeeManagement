@@ -18,7 +18,7 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int workno;
 
-    @Column(length = 100)
+    @Column
     private String empid;
 
     @Column
