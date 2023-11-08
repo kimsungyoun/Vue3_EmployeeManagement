@@ -51,8 +51,8 @@ h1{
   margin-bottom:500px;
 }
 button{
-  background-color: #98abdf;
-  border: 1px solid #98abdf;
+  background-color: #000000;
+  border: 1px solid #000000;
   border-radius: 5px;
   padding: 10px;
   font-size: 20px;

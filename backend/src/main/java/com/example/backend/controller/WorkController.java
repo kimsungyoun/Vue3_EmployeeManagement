@@ -54,8 +54,6 @@ public class WorkController {
     public Work setReason(@PathVariable("workno") String workno){
         Work work = workRepository.findByWorkno(Integer.parseInt(workno));
 
-        System.out.println(workno + "번의 근태 정보 확인!");
-
         return work;
 
     }

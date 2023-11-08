@@ -102,12 +102,6 @@ public class EmployeeController {
                 newEmployee.setEmpdept(dto.getDept());
                 newEmployee.setEmprule(dto.getRule());
                 employeeRepository.saveAndFlush(newEmployee);
-
-                LeaveManagement newLV = new LeaveManagement();
-                newLV.setEmpid(dto.getId());
-                newLV.setLmtotal(15);
-                leaveManagementRepository.saveAndFlush(newLV);
-
                 return new ResponseEntity<>(HttpStatus.OK);
             }catch (Exception e){
                 System.out.println("Error Content >> "+e);

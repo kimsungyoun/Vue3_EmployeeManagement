@@ -12,21 +12,15 @@
           </tr>
           <tr>
             <td>부서</td>
-            <td>
-              <deptSelect id="dept" v-model="state.form.dept" :value="state.form.dept"/>
-            </td>
+            <td><deptSelect id="dept" v-model="state.form.dept" :value="state.form.dept"/></td>
           </tr>
           <tr>
             <td>직책</td>
-            <td>
-              <ruleSelect id="rule" v-model="state.form.rule" :value="state.form.rule"/>
-            </td>
+            <td><ruleSelect id="rule" v-model="state.form.rule" :value="state.form.rule"/></td>
           </tr>
           <tr>
             <td>입사일</td>
-            <td>
-              <input id="hiredate" type="text" :value='lib.formattedTime(state.items.employee.emphiredate)' disabled/>
-            </td>
+            <td><input id="hiredate" type="text" :value='lib.formattedTime(state.items.employee.emphiredate)' disabled/></td>
           </tr>
         </table>
       </div>
@@ -38,7 +32,6 @@
         <label>연락처</label>
         <input type="text" v-model="state.form.phone"/>
       </div>
-
       <div class="row" >
         <label>우편 번호</label>
         <input type="text" v-model="state.form.postal"/>
@@ -51,7 +44,6 @@
         <label>상세 주소</label>
         <input type="text" v-model="state.form.detail"/>
       </div>
-
       <div class="leaveManagement" v-if="state.items.leaveManagement">
         <div class="lm_row">
           <label>총 연차 일수</label>

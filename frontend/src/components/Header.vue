@@ -21,9 +21,6 @@
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
         <a to="/" @click="logout()" v-else>로그아웃</a>
       </li>
-      <li>
-
-      </li>
     </ul>
   </div>
 </header>

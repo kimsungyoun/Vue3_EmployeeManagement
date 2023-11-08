@@ -73,6 +73,19 @@ const state = reactive({
     extra:"",
   },
 });
+// 아이디 중복 체크
+const checkIdDuplication =()=>{
+  axios.get("/api/checkIdDuplication/" + state.forms.id).then((response) => {
+      if (response.data==1) {
+        alert("아이디 중복입니다.");
+      } else if (response.data == 0){
+        alert("아이디 사용 가능합니다.");
+      }
+    })
+    .catch(() => {
+      alert("아이디 중복 체크 실패");
+    });
+}
 
 // 직원 등록
 const submit = () => {
@@ -93,20 +106,6 @@ const submit = () => {
 const cancel = () => {
   router.push({ path: "/employee" });
 };
-
-// 아이디 중복 체크
-const checkIdDuplication =()=>{
-  axios.get("/api/checkIdDuplication/" + state.forms.id).then((response) => {
-      if (response.data==1) {
-        alert("아이디 중복입니다.");
-      } else if (response.data == 0){
-        alert("아이디 사용 가능합니다.");
-      }
-    })
-    .catch(() => {
-      alert("아이디 중복 체크 실패");
-    });
-}
 
 // 검색 API
 const loadDaumPostcodeScript = () => {
