@@ -26,7 +26,33 @@
 
 </template>
 
-<script>
+<script setup>
+import axios from 'axios';
+import { reactive } from 'vue';
+import store from "@/script/store";
+import router from "@/script/router";
+
+const state = reactive({
+  form:{
+    email:"",
+    password:"",
+
+  }
+})
+
+const submit = () => {
+  axios.post("/api/account/login", state.form).then((res)=>{  
+    store.commit('setAccount', res.data);
+    sessionStorage.setItem("id", res.data);
+    router.push({path: '/'});
+    alert("로그인 성공!");
+  }).catch( () => {
+    window.alert("로그인 실패!")
+  });
+};
+</script>
+
+<!-- <script>
 import {reactive} from "vue";
 import axios from "axios";
 import store from "@/script/store";
@@ -56,7 +82,7 @@ export default {
     return {state,submit};
   }
 }
-</script>
+</script> -->
 
 <style scoped>
 #login-container{

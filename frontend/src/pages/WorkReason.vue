@@ -22,7 +22,6 @@
 </template>
 
 <script setup>
-import fileList from "@/components/fileList.vue";
 import router from "@/script/router";
 import axios from "axios";
 import lib from "@/script/lib";

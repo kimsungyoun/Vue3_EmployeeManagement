@@ -15,7 +15,6 @@ import router from "@/script/router";
 import store from "@/script/store";
 import axios from "axios";
 
-
 const logout=()=>{
   axios.post("/api/account/logout").then(()=>{
     store.commit('setAccount', 0);

@@ -170,7 +170,7 @@ const employeeInfo = ()=>{
   console.log(document.getElementById("id").value);
   const empid = document.getElementById("empid").value;
 
-  axios.get('/api/employeeInfo/'+empid).then(({data})=>{
+  axios.get(`/api/employeeInfo/${empid}`).then(({data})=>{
     state.items = data;
     const employee = state.items.employee;
 
