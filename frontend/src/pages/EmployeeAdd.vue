@@ -1,4 +1,5 @@
 <template>
+<div id="container">
   <div class="container">
     <h2>직원 등록</h2>
 
@@ -47,6 +48,7 @@
       <input id="cancelBtn" type="button" @click="cancel()" value="취소"/>
     </div>
   </div>
+</div> 
 </template>
 
 <script setup>

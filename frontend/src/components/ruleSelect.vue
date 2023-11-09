@@ -22,7 +22,6 @@ const options = ref([
   { value: "과장", label: "과장" },
   { value: "부장", label: "부장" },
   { value: "팀장", label: "팀장" },
-  { value: "사장", label: "사장" },
 ]);
 
 const emit = defineEmits(["rule"]);

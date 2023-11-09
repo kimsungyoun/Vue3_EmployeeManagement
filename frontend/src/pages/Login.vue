@@ -1,29 +1,23 @@
 <template>
-  <main>
+  <div id="container">
       <div class="login-container">
         <h2>로그인</h2>
         <div class="loginForm">
-          
+          <div class="text-container">
             <ul>
-            <li>
-              <label>아이디</label>
-            </li>
-            <li>
-              <input type="text" id="floatingInput" placeholder="아이디" @keyup.enter="submit()" v-model="state.form.email">
-            </li>
-            <li>
-              <label>패스워드</label>
-            </li>
-            <li>
-              <input type="password" id="floatingPassword" placeholder="패스워드" v-model="state.form.password">
-            </li>
+              <li><span>아이디</span></li>
+              <li><input type="text" id="floatingInput" placeholder="아이디" @keyup.enter="submit()" v-model="state.form.email"></li>
+              
+              <li><span>패스워드</span></li>
+              <li><input type="password" id="floatingPassword" placeholder="패스워드" v-model="state.form.password"></li>
             </ul>
+          </div>
           <div class="btn-container">
             <button @click="submit()" @keyup="submit()">로그인</button>
           </div>
         </div>
       </div>
-  </main>
+    </div>
 </template>
 
 <script setup>
@@ -51,38 +45,6 @@ const submit = () => {
   });
 };
 </script>
-
-<!-- <script>
-import {reactive} from "vue";
-import axios from "axios";
-import store from "@/script/store";
-import router from "@/script/router";
-
-export default {
-  setup(){
-    const state = reactive({
-      form: {
-        email: "",
-        password: ""
-      }
-    });
-
-    const submit = () => {
-      axios.post("/api/account/login", state.form).then((res)=>{  
-        store.commit('setAccount', res.data);
-        sessionStorage.setItem("id", res.data);
-        router.push({path: '/'});
-
-        window.alert("로그인 성공!");
-      }).catch( () => {
-        window.alert("로그인 실패!")
-      });
-    }
-
-    return {state,submit};
-  }
-}
-</script> -->
 
 <style scoped>
 .login-container{

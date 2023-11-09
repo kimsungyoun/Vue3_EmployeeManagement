@@ -109,9 +109,7 @@ table{
 tr td{
   text-align: center;
   border: 1px solid #98abdf;
-}
-
-.reasonbtn{
+}.reasonbtn{
     background-color: #98abdf;
     border: 1px solid #98abdf;
     border-radius: 5px;

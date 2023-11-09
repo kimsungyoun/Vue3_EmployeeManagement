@@ -1,4 +1,5 @@
 <template>
+<div id="container">
   <h1>{{ state.form.name }}님의 정보</h1>
   <div class="employee-info">
     <div class="user-info">
@@ -61,6 +62,7 @@
     </div>
 
   </div>
+</div>
 </template>
 
 <script>

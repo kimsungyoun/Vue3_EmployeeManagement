@@ -1,7 +1,10 @@
 <template>
-  <Header/>
-  <RouterView/>
-  <Footer/>
+  <div class="wrap">
+    <Header/>
+    <RouterView/>
+    <Footer/>
+  </div>
+  
 </template>
 
 <script setup>
@@ -15,32 +18,15 @@ const route = useRoute();
 watch(route, () => {});
 </script>
 
-<!-- <script>
-import {useRoute} from "vue-router";
-import {watch} from "vue";
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue';
-
-export default {
-  name: 'App',
-  components: {
-    Header,
-    Footer,
-
-  },
-  setup(){
-    const route = useRoute();
-    watch(route, ()=>{
-
-    })
-  }
-}
-</script> -->
-
-
 <style>
+
 body{
   margin : 0;
+}
+
+.wrap{
+  position: relative;
+  min-height: 100%;
 }
 
 h1, h2{
