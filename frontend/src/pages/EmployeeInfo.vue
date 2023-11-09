@@ -4,7 +4,7 @@
     <div class="user-info">
       <img src="@/assets/bno.png" alt="프로필 사진"/>
       <div v-if="state.items.employee">
-        <input type="hidden" v-model='state.form.id'>
+        <input id="id" type="hidden" v-model="state.form.id" />
         <table>
           <tr>
             <td>직원명</td>
@@ -142,6 +142,80 @@ export default {
   }
 }
 </script>
+
+<!-- <script setup>
+import deptSelect from "@/components/deptSelect.vue"
+import ruleSelect from "@/components/ruleSelect.vue"
+import lib from "@/script/lib";
+import router from "@/script/router";
+import axios from "axios";
+import { onMounted, reactive } from "vue"
+
+const state = reactive({
+  items: [],
+  form: {
+    id: "",
+    name: "",
+    phone: "",
+    postal: "",
+    address: "",
+    detail: "",
+    dept: "",
+    rule: "",
+  }
+})
+
+const employeeInfo = ()=>{
+  console.log(router.params);
+  console.log(document.getElementById("id").value);
+  const empid = document.getElementById("empid").value;
+
+  axios.get('/api/employeeInfo/'+empid).then(({data})=>{
+    state.items = data;
+    const employee = state.items.employee;
+
+    state.form.id = employee.empid;
+    state.form.name = employee.empname;
+    state.form.phone = employee.empphone;
+    state.form.postal = employee.emppostal;
+    state.form.address = employee.empaddr;
+    state.form.detail = employee.empdetail;
+    state.form.dept = employee.empdept;
+    state.form.rule = employee.emprule;
+  })
+}
+
+const update = ()=>{
+  const args = JSON.parse(JSON.stringify(state.form));
+  args.items = JSON.stringify(state.form);
+
+  axios.post(`/api/employeeUpdate`, args).then(() => {
+    router.push({ path: `/employee` });
+    alert("회원정보 수정 완료");
+  }).catch(error => {
+    alert("회원정보 수정 실패 >> " + error);
+  });
+}
+
+const removeEmp = (empid)=>{
+  const result = window.confirm("정말 삭제하시겠습니까?");
+  if (result) {
+    axios.delete(`/api/employee/delete/${empid}`).then(() => {
+      router.push({ path: "/employee" });
+      alert("삭제 완료");
+    }).catch(() => {
+      alert("삭제 실패");
+    });
+  } else {
+    alert("삭제 취소");
+    router.push({ path: `/employeeInfo/${empid}` });
+  }
+}
+
+onMounted(()=>{  
+  employeeInfo()
+})
+</script> -->
 
 <style scoped>
 .employee-info{

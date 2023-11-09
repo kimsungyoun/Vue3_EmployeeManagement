@@ -57,7 +57,7 @@ public class EmployeeController {
         }else if(keyword.equals("empdept")){
             emp = employeeRepository.findByEmpdeptLike("%"+searchKey+"%");
         }else if(keyword.equals("emprule")) {
-            emp = employeeRepository.findByEmpruleLike("%" + searchKey + "%");
+            emp = employeeRepository.findByEmpruleLike("%"+searchKey+"%");
         }
         for(Employee e : emp){
             List <LeaveManagement> lm = leaveManagementRepository.findByEmpidLike("%"+e.getEmpid()+"%");

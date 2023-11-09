@@ -26,7 +26,22 @@
 </header>
 </template>
 
-<script>
+<script setup>
+import axios from "axios";
+import store from "@/script/store";
+import router from "@/script/router";
+
+const logout = () => {
+  axios.post("/api/account/logout").then(() => {
+    store.commit('setAccount', 0);
+    router.push({ path: "/" });
+    window.alert("로그아웃 되었습니다.");
+  })
+};
+
+</script>
+
+<!-- <script>
 import axios from "axios";
 import store from "@/script/store";
 import router from "@/script/router";
@@ -46,7 +61,7 @@ export default {
 
   }
 }
-</script>
+</script> -->
 
 <style scoped>
 header{

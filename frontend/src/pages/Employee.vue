@@ -63,11 +63,11 @@ const load = () => {
 };
 
 // 상세보기
-const info = (empid) => {
-  router.push({ path: `/employeeInfo/${empid}`, params: { id: empid } });
+const info = (id) => {
+  router.push({ path: `/employeeInfo/${id}`, params: { empid : id } });
 };
 
-// 직원등록 화면으로 이동
+// 직원 등록 화면으로 이동
 const addEmployee = () => {
   router.push({ path: '/employee/add' });
 };

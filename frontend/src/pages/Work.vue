@@ -43,7 +43,6 @@ import lib from "@/script/lib";
 import router from "@/script/router";
 import Datepicker from "vue3-datepicker" 
 
-
 const state = reactive({
   items: [],
   form:{
@@ -55,12 +54,14 @@ const state = reactive({
     day:""
   }
 })
-const picked =ref(new Date());
+// 오늘 날짜의 데이터를 확인
+const picked = ref(new Date());
 
 onMounted(()=>{
   load();
 })
 
+// 데이터 로드
 const load = ()=>{
   state.form.day = lib.formattedTime(picked.value);
   axios.post("/api/work", state.form.day).then(({data})=>{
@@ -68,23 +69,24 @@ const load = ()=>{
   })
 }
 
+// 날짜 검색
 const searchDay=()=>{
   state.form.day = lib.formattedTime(picked.value);
-
   if(state.form.day != ""){
     axios.post("/api/work", state.form.day).then(({data})=>{
         state.items = data;
+    }).catch(()=>{
+      alert("입력을 확인해주세요")
     })
   }else{
     load();
-    alert("날짜를 입력하세요");
   }
 }
 
+// 사유 작성 페이지로 이동
 const reason = (no)=>{
     router.push({path:`/workReason/${no}`, params: {workno : no}});  
 };
-
 </script>
 
 <style scoped>

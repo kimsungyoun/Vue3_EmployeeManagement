@@ -11,6 +11,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Employee findByEmpidAndPassword(String empid,String password);
 
+//    List findAllOrderByEmpnameDesc();
+
     List <Employee> findByEmpnameLike(String empname);
     List findByEmpdeptLike(String empdept);
     List findByEmpruleLike(String emprule);

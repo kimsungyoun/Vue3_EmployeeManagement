@@ -45,7 +45,7 @@ const load=()=>{
         state.form.no = state.items.workno;
         state.form.day = lib.formattedTime(state.items.workday);
         state.form.status = state.items.workstatus;
-        state.form.reason = null;
+        state.form.reason = "";
         console.log(state.form);
     })
 }
