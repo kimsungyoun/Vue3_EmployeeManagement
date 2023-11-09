@@ -7,17 +7,16 @@
             <input type="text" id="reason-" v-model="state.form.status" disabled>
             <br>
             <label>사유 작성</label>
-            <textarea v-model="reason"></textarea>
+            <textarea v-model="state.form.reason"></textarea>
         </div>
         <div class="upload-container">
             <span>제출 자료</span>
-            <fileList/>
+            <input type="file"/>
         </div>
-        <div class="btn-container">
+        <div class="btn">
             <input type="button" @click="submit()" value="제출"/>
             <input type="button" @click="cancel()" value="취소"/>
         </div>
-        
     </div>
 </template>
 
@@ -104,8 +103,8 @@ label{
     margin: 10px 0;
     width:100%;
 }
-.btn-container{
-    margin: 10px 0;
+.btn{
+    margin-bottom: 10px;
 }
 
 input[type="button"]{

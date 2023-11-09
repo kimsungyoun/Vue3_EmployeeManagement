@@ -64,7 +64,7 @@ const load = () => {
 
 // 상세보기
 const info = (id) => {
-  router.push({ path: `/employeeInfo/${id}`, params: { empid : id } });
+  router.push({ path: `/employeeInfo/${id}`});
 };
 
 // 직원 등록 화면으로 이동
@@ -95,7 +95,6 @@ const search=() => {
 
 load();
 </script>
-
 
 <style scoped>
 #search-container{

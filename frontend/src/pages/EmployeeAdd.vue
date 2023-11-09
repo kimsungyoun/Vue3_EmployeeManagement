@@ -5,22 +5,21 @@
     <div class="EmployeeAddContainer">
       <label>아이디</label>
       <div id="idbox">
-        <input id="row" type="text" v-model="state.forms.id"/>
+        <input id="id" type="text" v-model="state.forms.id"/>
         <input id="checkBtn" type="button" @click="checkIdDuplication()" value="아이디 중복 체크"/>
       </div>
       
-
       <label>비밀번호</label>
-      <input id="row" type="password" v-model="state.forms.password"/>
+      <input id="password" type="password" v-model="state.forms.password"/>
 
       <label>이름</label>
-      <input id="row" type="text" v-model="state.forms.name"/>
+      <input id="name" type="text" v-model="state.forms.name"/>
 
       <label>핸드폰</label>
-      <input id="row" type="text" placeholder="010-0000-0000" v-model="state.forms.phone"/>
+      <input id="phone" type="text" placeholder="010-0000-0000" v-model="state.forms.phone"/>
 
       <label>생년월일</label>
-      <input id="row" type="text" placeholder="1999-01-01" v-model="state.forms.birth"/>
+      <input id="birth" type="text" placeholder="1999-01-01" v-model="state.forms.birth"/>
 
       <label>부서</label>
       <deptSelect v-model="state.forms.dept"/>
@@ -29,9 +28,9 @@
       <ruleSelect v-model="state.forms.rule"/>
 
       <label>우편 주소</label> 
-      <div id="postal">
+      <div class="postal">
         <input type="text" v-model="state.forms.postal" id="sample6_postcode" placeholder="우편번호">
-        <input type="button" @click="showApi()" value="우편번호 찾기">
+        <input id="postalBtn" type="button" @click="showApi()" value="우편번호 찾기">
       </div>
 
       <label>주소</label>
@@ -49,7 +48,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup>
 import {reactive, onMounted} from "vue";
@@ -123,10 +121,6 @@ const showApi = () => {
       state.forms.detail = '';
       state.forms.extra = '';
 
-      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-      // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
       var addr = ''; // 주소 변수
       var extraAddr = ''; // 참고항목 변수
 
@@ -169,7 +163,6 @@ const showApi = () => {
 };
 
 onMounted(() => {
-    // 컴포넌트가 마운트되면 스크립트를 로드
     loadDaumPostcodeScript();
   });
 
@@ -198,8 +191,9 @@ input[type=button]{
   padding: 5px 10px;
 }
 /* 크기 고정 */
-select:nth-child(12), select:nth-child(14), #row, #sample6_address, #sample6_detailAddress, #sample6_extraAddress{
+select, input[type="text"], #password{
   height: 25px;
+  width: 100%;
 }
 
 /* 아이디 입력 칸 */
@@ -208,31 +202,20 @@ select:nth-child(12), select:nth-child(14), #row, #sample6_address, #sample6_det
   flex-direction: row;
   justify-content: space-between;
 }
-#idbox > #row{
-  width: 100%;
-}
-#checkBtn{
+
+#checkBtn, #postalBtn, #cancelBtn{
   margin-left: 10px;
 }
 
 /* 우편주소 */
-#postal{
+.postal{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-#postal > #sample6_postcode{
-  width: 100%;
-}
-#sample6_postcode{
-  margin-right:10px;
 }
 
 /* 하단 버튼 */
 #btn-container{
   margin-top:10px
-}
-#submitBtn{
-  margin-right: 10px;
 }
 </style>

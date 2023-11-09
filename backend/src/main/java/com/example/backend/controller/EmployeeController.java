@@ -106,7 +106,6 @@ public class EmployeeController {
             }catch (Exception e){
                 System.out.println("Error Content >> "+e);
             }
-
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -114,7 +113,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/api/employeeUpdate")
-    public void updateEmployee(@RequestBody EmployeeDTO dto){
+    public ResponseEntity updateEmployee(@RequestBody EmployeeDTO dto){
         Employee employee = employeeRepository.findByEmpid(dto.getId());
 
         employee.setEmpname(dto.getName());
@@ -126,14 +125,17 @@ public class EmployeeController {
         employee.setEmpdetail(dto.getDetail());
 
         employeeRepository.save(employee);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/api/employee/delete/{empid}")
-    public void removeEmployee(@PathVariable("empid") String empId){
+    public ResponseEntity removeEmployee(@PathVariable("empid") String empId){
         Employee employee = employeeRepository.findByEmpid(empId);
 
         if(employee != null){
             employeeRepository.delete(employee);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

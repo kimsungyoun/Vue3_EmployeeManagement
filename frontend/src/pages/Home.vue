@@ -1,8 +1,12 @@
 <template>
-  <div id="container">
+  <div class="container">
     <div>
       <h1 v-if="!$store.state.account.id">어서오세요</h1>
-      <h1 v-else>환영합니다</h1>
+      <div v-else>
+        <h1>환영합니다</h1>
+        <p>사용자 이름 : </p>
+      </div>
+      
       
       <a href="/login" v-if="!$store.state.account.id"><button>로그인</button></a>
       <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
@@ -22,39 +26,51 @@ const logout=()=>{
     window.alert("로그아웃 되었습니다.")
   });
 }
-
 </script>
 
 <style scoped>
-#container{
-  background-image: url('@/assets/mainpage.jpg');
-  height: 100vh;
-  width: 100vw;
-  background-size: cover;
-  background-position: 100% 100%;
+.container {
   margin: 0;
-  opacity: 70%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  color : #FFFFFF;
 }
 
-#container > div{
-  display:flex;
-  flex-direction: column;
-  align-content: space-between;
+.container::before {
+  content: "";
+  position: absolute; 
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: -1; 
 }
-h1{
-  margin-bottom:500px;
+
+.container::after {
+  content: "";
+  background-image: url('@/assets/mainpage.jpg');
+  background-size: cover;
+  background-position: 100% 100%;
+  position: absolute; 
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -2; 
 }
+
 button{
-  background-color: #000000;
-  border: 1px solid #000000;
+  background-color: #98abdf;
+  border: 1px solid #98abdf;
   border-radius: 5px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 14px;
   color:#FFFFFF;
   text-decoration: none;
 }

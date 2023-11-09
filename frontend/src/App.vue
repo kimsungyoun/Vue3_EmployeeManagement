@@ -4,7 +4,18 @@
   <Footer/>
 </template>
 
-<script>
+<script setup>
+import { useRoute } from "vue-router";
+import { watch } from "vue";
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+
+const route = useRoute();
+
+watch(route, () => {});
+</script>
+
+<!-- <script>
 import {useRoute} from "vue-router";
 import {watch} from "vue";
 import Header from '@/components/Header.vue'
@@ -24,7 +35,8 @@ export default {
     })
   }
 }
-</script>
+</script> -->
+
 
 <style>
 body{

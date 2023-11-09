@@ -1,29 +1,29 @@
 <template>
   <main>
-      <div id="login-container">
-        <h2>Please sign in</h2>
+      <div class="login-container">
+        <h2>로그인</h2>
         <div class="loginForm">
-          <ul>
+          
+            <ul>
             <li>
-              <label for="floatingInput">아이디</label>
+              <label>아이디</label>
             </li>
             <li>
-              <input type="text" id="floatingInput" placeholder="EmpId" @keyup.enter="submit()" v-model="state.form.email">
+              <input type="text" id="floatingInput" placeholder="아이디" @keyup.enter="submit()" v-model="state.form.email">
             </li>
             <li>
-              <label for="floatingPassword">패스워드</label>
+              <label>패스워드</label>
             </li>
             <li>
-              <input type="password" id="floatingPassword" placeholder="Password" v-model="state.form.password">
+              <input type="password" id="floatingPassword" placeholder="패스워드" v-model="state.form.password">
             </li>
-            <li>
-              <button @click="submit()" @keyup="submit()">로그인</button>
-            </li>
-          </ul>
+            </ul>
+          <div class="btn-container">
+            <button @click="submit()" @keyup="submit()">로그인</button>
+          </div>
         </div>
       </div>
   </main>
-
 </template>
 
 <script setup>
@@ -36,7 +36,6 @@ const state = reactive({
   form:{
     email:"",
     password:"",
-
   }
 })
 
@@ -45,6 +44,7 @@ const submit = () => {
     store.commit('setAccount', res.data);
     sessionStorage.setItem("id", res.data);
     router.push({path: '/'});
+    console.log(res);
     alert("로그인 성공!");
   }).catch( () => {
     window.alert("로그인 실패!")
@@ -85,7 +85,7 @@ export default {
 </script> -->
 
 <style scoped>
-#login-container{
+.login-container{
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -95,8 +95,24 @@ export default {
 ul{
   padding:0;
 }
-li{
-  margin-bottom: 10px;
+
+.loginForm{
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #98abdf;
+  margin-bottom: 20px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.btn-container{
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 
 </style>

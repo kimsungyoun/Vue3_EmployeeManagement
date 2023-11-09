@@ -23,9 +23,12 @@
             {{i[1].workstatus}}
         </td>
         <td v-else>
-          <a id="reason" @click="reason(i[1].workno)">
+          <div class="reasonbtn">
+            <a @click="reason(i[1].workno)">
             {{i[1].workstatus}}
-          </a>
+            </a>
+          </div>
+          
         </td>
         <td>{{i[1].workon}}</td>
         <td>{{i[1].workoff}}</td>
@@ -85,7 +88,7 @@ const searchDay=()=>{
 
 // 사유 작성 페이지로 이동
 const reason = (no)=>{
-    router.push({path:`/workReason/${no}`, params: {workno : no}});  
+    router.push({path:`/workReason/${no}`});  
 };
 </script>
 
@@ -108,13 +111,13 @@ tr td{
   border: 1px solid #98abdf;
 }
 
-#reason{
+.reasonbtn{
     background-color: #98abdf;
     border: 1px solid #98abdf;
     border-radius: 5px;
     color: #ffffff;
 }
-#reason:hover{
+.reasonbtn:hover{
     cursor: pointer;
 }
 
