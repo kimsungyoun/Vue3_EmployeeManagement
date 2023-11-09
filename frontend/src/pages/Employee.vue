@@ -80,7 +80,7 @@ const search=() => {
   keyword = document.getElementById("keyword");
   searchKey= document.getElementById("searchKey");
   if(searchKey.value != ""){
-    axios.get('/api/employeeSearch/'+keyword.value+'/'+searchKey.value).then(({data})=>{
+    axios.get(`/api/employeeSearch/${keyword.value}/${searchKey.value}`).then(({data})=>{
       state.items = data;
     }).catch((error)=>{
       console.log(error);

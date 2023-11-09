@@ -1,5 +1,5 @@
 <template>
-  <h1>{{state.form.name}}님의 정보</h1>
+  <h1>{{ state.form.name }}님의 정보</h1>
   <div class="employee-info">
     <div class="user-info">
       <img src="@/assets/bno.png" alt="프로필 사진"/>
