@@ -27,22 +27,6 @@ public class EmployeeController {
 
     @GetMapping("/api/employee")
     public List getList(){
-        /*List result = new ArrayList<>();
-
-        List<Employee> employees = employeeRepository.findAll();
-        List<LeaveManagement> leaveManagements = leaveManagementRepository.findAll();
-
-        for(Employee e : employees){
-            for(LeaveManagement l : leaveManagements){
-                if(e.getEmpid().equals(l.getEmpid())){
-                    List newList = new ArrayList();
-                    newList.add(e);
-                    newList.add(l);
-                    result.add(newList);
-                }
-            }
-        }*/
-
         List <Object[]> list = employeeRepository.Employeelist();
 
         return list;
