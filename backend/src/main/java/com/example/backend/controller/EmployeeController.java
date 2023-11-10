@@ -52,32 +52,30 @@ public class EmployeeController {
     public ResponseEntity SearchList(@PathVariable("keyword")String keyword, @PathVariable("searchKey")String searchKey){
         List result = new ArrayList();
 
-        List<Employee> emp = null;
+        List <Employee> emp = switch (keyword) {
+            case "empname" -> employeeRepository.findByEmpnameLike("%" + searchKey + "%");
+            case "empdept" -> employeeRepository.findByEmpdeptLike("%" + searchKey + "%");
+            case "emprule" -> employeeRepository.findByEmpruleLike("%" + searchKey + "%");
+            default -> null;
+        };
 
-        if(keyword.equals("empname")){
-            emp = employeeRepository.findByEmpnameLike("%"+searchKey+"%");
-        }else if(keyword.equals("empdept")){
-            emp = employeeRepository.findByEmpdeptLike("%"+searchKey+"%");
-        }else if(keyword.equals("emprule")) {
-            emp = employeeRepository.findByEmpruleLike("%"+searchKey+"%");
-        }
-
-        for(Employee e : emp){
-            List <LeaveManagement> lm = leaveManagementRepository.findByEmpidLike("%"+e.getEmpid()+"%");
-            for(LeaveManagement l : lm){
-                if(e.getEmpid().equals(l.getEmpid())){
-                    List list1 = new ArrayList();
-                    list1.add(e);
-                    list1.add(l);
-                    result.add(list1);
+        if(emp != null){
+            for(Employee e : emp){
+                List <LeaveManagement> lm = leaveManagementRepository.findByEmpidLike("%"+e.getEmpid()+"%");
+                for(LeaveManagement l : lm){
+                    if(e.getEmpid().equals(l.getEmpid())){
+                        List list1 = new ArrayList();
+                        list1.add(e);
+                        list1.add(l);
+                        result.add(list1);
+                    }
                 }
             }
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
-        List <Object[]> list = employeeRepository.SearchEmployeeList(keyword, searchKey);
-        System.out.println(list);
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
