@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,7 @@ public class WorkController {
 
     @PostMapping("/api/work")
     public List getList(@RequestBody String workday){
-        List result = new ArrayList();
+        /*List result = new ArrayList();
 
         try{
             List <Employee> employeeList = employeeRepository.findAll();
@@ -45,9 +46,22 @@ public class WorkController {
             }
         }catch (Exception e){
             System.out.println("error >> " + e);
+        }*/
+
+        List <Object[]> list = new ArrayList<>();
+
+        try {
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+            Date day2 = dateFormat2.parse(workday);
+            list = workRepository.WorkList(day2);
+            for(Object o : list){
+                System.out.println(o);
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
-        return result;
+        return list;
     }
 
     @GetMapping("/api/workreason/{workno}")

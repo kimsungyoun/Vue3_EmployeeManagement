@@ -23,12 +23,9 @@
             {{i[1].workstatus}}
         </td>
         <td v-else>
-          <div class="reasonbtn">
-            <a @click="reason(i[1].workno)">
-            {{i[1].workstatus}}
-            </a>
-          </div>
-          
+          <a @click="reason(i[1].workno)">
+            <button class="reasonbtn">{{i[1].workstatus}}</button>
+          </a>
         </td>
         <td>{{i[1].workon}}</td>
         <td>{{i[1].workoff}}</td>

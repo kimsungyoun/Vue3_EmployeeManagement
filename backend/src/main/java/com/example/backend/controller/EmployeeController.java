@@ -27,7 +27,7 @@ public class EmployeeController {
 
     @GetMapping("/api/employee")
     public List getList(){
-        List result = new ArrayList<>();
+        /*List result = new ArrayList<>();
 
         List<Employee> employees = employeeRepository.findAll();
         List<LeaveManagement> leaveManagements = leaveManagementRepository.findAll();
@@ -41,11 +41,11 @@ public class EmployeeController {
                     result.add(newList);
                 }
             }
-        }
-        List list = employeeRepository.Employeelist();
-        System.out.println(list);
+        }*/
 
-        return result;
+        List <Object[]> list = employeeRepository.Employeelist();
+
+        return list;
     }
 
     @GetMapping("/api/employeeSearch/{keyword}/{searchKey}")
@@ -61,6 +61,7 @@ public class EmployeeController {
         }else if(keyword.equals("emprule")) {
             emp = employeeRepository.findByEmpruleLike("%"+searchKey+"%");
         }
+
         for(Employee e : emp){
             List <LeaveManagement> lm = leaveManagementRepository.findByEmpidLike("%"+e.getEmpid()+"%");
             for(LeaveManagement l : lm){
@@ -72,6 +73,9 @@ public class EmployeeController {
                 }
             }
         }
+
+        List <Object[]> list = employeeRepository.SearchEmployeeList(keyword, searchKey);
+        System.out.println(list);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

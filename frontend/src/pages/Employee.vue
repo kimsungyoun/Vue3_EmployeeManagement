@@ -33,14 +33,13 @@
           <td>{{i[1].lmtotal}}</td>
           <td>{{i[1].lmuse}}</td>
           <td>{{i[1].lmtotal - i[1].lmuse}}</td>
-
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="page">
-    
+
   </div>
 
   <div class="addBtn">
@@ -77,12 +76,9 @@ const addEmployee = () => {
 };
 
 // 검색 기능
-let keyword = document.getElementById("keyword");
-let searchKey= document.getElementById("searchKey");
-
 const search=() => {
-  keyword = document.getElementById("keyword");
-  searchKey= document.getElementById("searchKey");
+  let keyword = document.getElementById("keyword");
+  let searchKey= document.getElementById("searchKey");
   if(searchKey.value != ""){
     axios.get(`/api/employeeSearch/${keyword.value}/${searchKey.value}`).then(({data})=>{
       state.items = data;
