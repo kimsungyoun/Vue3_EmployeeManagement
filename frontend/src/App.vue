@@ -12,10 +12,21 @@ import { useRoute } from "vue-router";
 import { watch } from "vue";
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import axios from "axios";
+import store from"@/script/store";
 
 const route = useRoute();
 
-watch(route, () => {});
+// 유효성 체크
+const check =()=>{
+  axios.get("/api/account/check").then(({data})=>{
+    store.commit("setAccount", data||0);
+  })
+}
+
+watch(route, () => {
+  check();
+});
 </script>
 
 <style>
@@ -43,8 +54,8 @@ ul li{
 }
 
 input[type=button] {
-  background-color: #98abdf;
-  border: 1px solid #98abdf;
+  background-color: #8293c4;
+  border: 1px solid #8293c4;
   border-radius: 5px;
   padding: 5px;
   color:#FFFFFF;

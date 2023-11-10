@@ -6,22 +6,20 @@ import com.example.backend.entity.LeaveManagement;
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CombineData {
     Employee employee;
     LeaveManagement leaveManagement;
-    Work attendance;
+    Work work;
 
     public CombineData(Employee employee, LeaveManagement leaveManagement) {
         this.employee = employee;
         this.leaveManagement = leaveManagement;
     }
 
-    public CombineData(Employee employee, Work attendance) {
+    public CombineData(Employee employee, Work work) {
         this.employee = employee;
-        this.attendance = attendance;
+        this.work = work;
     }
 }

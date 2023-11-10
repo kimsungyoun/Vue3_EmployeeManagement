@@ -11,7 +11,6 @@
     <input type="button" id="searchBtn" @click="search()" @keyup="search()" value="검색"/>
   </div>
 
-
   <div id="list-container">
     <table>
       <thead>
@@ -39,6 +38,11 @@
       </tbody>
     </table>
   </div>
+
+  <div class="page">
+    
+  </div>
+
   <div class="addBtn">
     <input type="button" @click="addEmployee()" value="직원 등록"/>
   </div>

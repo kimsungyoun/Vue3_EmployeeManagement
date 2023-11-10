@@ -22,6 +22,7 @@ public class AccountController {
     @Autowired
     JwtService jwtService;
 
+    /* 로그인 : 쿠키를 생성 */
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res){
         Employee employee = employeeRepository.findByEmpidAndPassword(params.get("email"), params.get("password"));
@@ -43,9 +44,9 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    /* 로그아웃 : 쿠키 초기화 */
     @PostMapping("/api/account/logout")
     public ResponseEntity logout(HttpServletResponse res) {
-        // 쿠키를 새로 만들고 새로운 쿠키를 전송
         Cookie cookie = new Cookie("token", null);
         cookie.setPath("/");
         cookie.setMaxAge(0);
@@ -54,6 +55,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /* 토큰 유효성 검사 */
     @GetMapping("/api/account/check")
     public ResponseEntity check(@CookieValue(value = "token", required = false) String token){
         Claims claims = jwtService.getClaims(token);
@@ -66,6 +68,7 @@ public class AccountController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    /* 아이디 중복 체크 */
     @GetMapping("/api/checkIdDuplication/{id}")
     public int checkId(@PathVariable("id")String empid){
         Employee employee = employeeRepository.findByEmpid(empid);

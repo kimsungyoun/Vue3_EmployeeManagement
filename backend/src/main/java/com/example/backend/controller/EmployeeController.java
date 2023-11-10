@@ -42,6 +42,8 @@ public class EmployeeController {
                 }
             }
         }
+        List list = employeeRepository.Employeelist();
+        System.out.println(list);
 
         return result;
     }
@@ -87,7 +89,7 @@ public class EmployeeController {
         Employee employee = employeeRepository.findByEmpid(dto.getId());
         LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(dto.getId());
 
-        if(employee == null || leaveManagement == null){
+        if(employee == null && leaveManagement == null){
             try{
                 Employee newEmployee = new Employee();
                 newEmployee.setEmpid(dto.getId());

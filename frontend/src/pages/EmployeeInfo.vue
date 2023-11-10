@@ -21,7 +21,7 @@
           </tr>
           <tr>
             <td>입사일</td>
-            <td><input id="hiredate" type="text" :value='lib.formattedTime(state.items.employee.emphiredate)' disabled/></td>
+            <td><input id="hiredate" type="text" :value='lib.formattedTime2(state.items.employee.emphiredate)' disabled/></td>
           </tr>
         </table>
       </div>
@@ -117,15 +117,21 @@ export default {
       });
     },
     update() {
-      const args = JSON.parse(JSON.stringify(this.state.form));
-      args.items = JSON.stringify(this.state.form);
+      const result = confirm("수정하시겠습니까?")
 
-      axios.post(`/api/employeeUpdate`, args).then(() => {
-        this.$router.push({ path: `/employee` });
-        alert("회원정보 수정 완료");
-      }).catch(error => {
-        alert("회원정보 수정 실패 >> " + error);
-      });
+      if(result){
+        const args = JSON.parse(JSON.stringify(this.state.form));
+        args.items = JSON.stringify(this.state.form);
+        axios.post(`/api/employeeUpdate`, args).then(() => {
+          this.$router.push({ path: `/employee` });
+          alert("회원정보 수정 완료");
+        }).catch(error => {
+          alert("회원정보 수정 실패 >> " + error);
+        });
+      }else{
+        alert("회원정보 수정 취소");
+      }
+      
     },
     removeEmp(empid) {
       const result = window.confirm("정말 삭제하시겠습니까?");
@@ -299,7 +305,7 @@ input{
 .btn{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 #deleteBtn{
@@ -310,16 +316,7 @@ input{
   color: #FFFFFF;
 }
 
-#saveBtn{
-  margin-right: 10px;
-  background-color: #98abdf;
-  border-radius: 10px;
-  border: 1px solid #98abdf;
-  padding: 10px 30px;
-  color: #FFFFFF;
-}
-
-#cancelBtn{
+#saveBtn, #cancelBtn{
   background-color: #98abdf;
   border-radius: 10px;
   border: 1px solid #98abdf;

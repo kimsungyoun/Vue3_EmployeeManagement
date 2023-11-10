@@ -36,8 +36,8 @@ const logout = () => {
 
 <style scoped>
 header{
-  background-color: #98abdf;
-  padding: 15px;
+  background-color: #8293c4;
+  padding: 15px 40px;
 }
 
 #menu{

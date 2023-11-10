@@ -184,6 +184,9 @@ onMounted(() => {
   flex-direction: column;
   width: 400px;
   justify-content: center;
+  border: 1px solid #98abdf;
+  padding :40px;
+  border-radius: 20px;
 }
 label{
   margin-top:5px;

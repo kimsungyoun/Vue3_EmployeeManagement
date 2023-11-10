@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer-container">
-      <div class="ruleInfo">
+      <div class="Info">
         <ul>
           <li><a href="http://www.bnosoft.co.kr/sub01.html">회사소개</a></li>
           <li>|</li>
@@ -14,7 +14,7 @@
           <li><a href="/">이용약관</a></li>
         </ul>
       </div>
-      <div>
+      <div class="CorpInfo">
         (08382)  서울시 구로구 디지털로 243, 1005호(구로동, 지하이시티)
         <br>
         Tel : 02-2224-7303 ㅣ Fax : 02-2224-7304 | 사업자등록번호 : 208-87-00610 
@@ -34,8 +34,16 @@
 footer{
   position: relative;
   transform: translateY(0%);
-  background-color: #98abdf;
+  /* background-color: #98abdf;
   padding: 15px;
+  color: #FFFFFF; */
+}
+.footer-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #8293c4;
+  padding: 15px 40px;
   color: #FFFFFF;
 }
 ul li a {
@@ -43,15 +51,12 @@ ul li a {
   color: #fff;
   text-decoration: none;
 }
-.ruleInfo{
-  display: flex;
-
-}
-.footer-container{
+.Info{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
 }
+
 ul , li{
   display: flex;
   direction: ltr;

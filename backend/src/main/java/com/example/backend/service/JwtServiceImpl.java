@@ -45,10 +45,10 @@ public class JwtServiceImpl implements JwtService{
                 return claims;
             }catch (ExpiredJwtException e){
                 // 만료됨
-                System.out.println("만료");
+                System.out.println("만료!");
             }catch (JwtException e){
                 // 유효 하지 않음
-                System.out.println("유효하지않음");
+                System.out.println("유효X");
             }
         }
         return null;

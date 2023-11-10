@@ -23,10 +23,10 @@ public class WorkController {
 
     @PostMapping("/api/work")
     public List getList(@RequestBody String workday){
-        List <Employee> employeeList = employeeRepository.findAll();
         List result = new ArrayList();
 
         try{
+            List <Employee> employeeList = employeeRepository.findAll();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date day = dateFormat.parse(workday);
 
@@ -51,9 +51,8 @@ public class WorkController {
     }
 
     @GetMapping("/api/workreason/{workno}")
-    public Work setReason(@PathVariable("workno") String workno){
-        Work work = workRepository.findByWorkno(Integer.parseInt(workno));
-
+    public Work setReason(@PathVariable("workno") int workno){
+        Work work = workRepository.findByWorkno(workno);
         return work;
 
     }

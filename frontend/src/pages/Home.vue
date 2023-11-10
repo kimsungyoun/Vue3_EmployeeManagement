@@ -4,9 +4,7 @@
       <h1 v-if="!$store.state.account.id">어서오세요</h1>
       <div v-else>
         <h1>환영합니다</h1>
-        <p>사용자 이름 : </p>
       </div>
-      
       
       <a href="/login" v-if="!$store.state.account.id"><button>로그인</button></a>
       <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
@@ -19,6 +17,7 @@ import router from "@/script/router";
 import store from "@/script/store";
 import axios from "axios";
 
+
 const logout=()=>{
   axios.post("/api/account/logout").then(()=>{
     store.commit('setAccount', 0);
@@ -26,6 +25,7 @@ const logout=()=>{
     window.alert("로그아웃 되었습니다.")
   });
 }
+
 </script>
 
 <style scoped>
@@ -66,8 +66,8 @@ const logout=()=>{
 }
 
 button{
-  background-color: #98abdf;
-  border: 1px solid #98abdf;
+  background-color: #8293c4;
+  border: 1px solid #8293c4;
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
