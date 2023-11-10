@@ -13,8 +13,9 @@
     <ul>
       <li v-if="$route.path !='/'">
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-        <a to="/" @click="logout()" v-else>로그아웃</a>
+        <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
       </li>
+      <li><button @click="arrive()">출근</button></li>
     </ul>
   </div>
 </header>
@@ -32,6 +33,10 @@ const logout = () => {
     window.alert("로그아웃 되었습니다.");
   })
 };
+
+const arrive=()=>{
+  alert("출근 완료")
+}
 </script>
 
 <style scoped>
@@ -40,12 +45,19 @@ header{
   padding: 15px 40px;
 }
 
+button{
+    background-color: #98abdf;
+    border: 1px solid #98abdf;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
 #menu{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 header ul li a {
   cursor: pointer;
   color: #fff;

@@ -16,6 +16,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List findByEmpdeptLike(String empdept);
     List findByEmpruleLike(String emprule);
 
-    @Query("SELECT e, lm FROM Employee e INNER JOIN LeaveManagement lm ON e.empid = lm.empid")
+    @Query("SELECT e, lm FROM Employee e INNER JOIN LeaveManagement lm ON e.empid = lm.empid order by e.empname")
     List <Object[]> Employeelist();
 }

@@ -15,6 +15,6 @@ public interface WorkRepository extends JpaRepository<Work,Integer> {
 
     Work findByWorkno(int workno);
 
-    @Query("select e, w from Employee e inner join Work w on e.empid=w.empid WHERE w.workday = :workday")
+    @Query("select e, w from Employee e inner join Work w on e.empid=w.empid WHERE w.workday = :workday ORDER BY e.empname")
     List <Object[]> WorkList(Date workday);
 }
