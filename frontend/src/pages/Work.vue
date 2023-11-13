@@ -19,14 +19,19 @@
       </tr>
       <tr v-for="(i, idx) in state.items" :key="idx">
         <td>{{i[0].empname}}</td>
+        
         <td v-if="i[1].workstatus == '출근'">
             {{i[1].workstatus}}
         </td>
-        <td v-else>
+        <td v-else-if="i[0].empno == store.state.account.id">
           <a @click="reason(i[1].workno)">
             <button class="reasonbtn">{{i[1].workstatus}}</button>
           </a>
         </td>
+        <td v-else>
+          {{i[1].workstatus}}        
+        </td>
+
         <td>{{i[1].workon}}</td>
         <td>{{i[1].workoff}}</td>
         <td>{{i[1].worktime}}</td>
@@ -42,6 +47,7 @@ import axios from "axios";
 import lib from "@/script/lib";
 import router from "@/script/router";
 import Datepicker from "vue3-datepicker" 
+import store from "@/script/store";
 
 const state = reactive({
   items: [],

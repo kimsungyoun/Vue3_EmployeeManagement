@@ -85,7 +85,6 @@ public class EmployeeController {
                 newEmployee.setEmpphone(dto.getPhone());
                 newEmployee.setEmppostal(dto.getPostal());
                 newEmployee.setEmpaddr(dto.getAddress());
-
                 newEmployee.setEmpdetail(dto.getDetail()+dto.getExtra());
                 newEmployee.setEmpdept(dto.getDept());
                 newEmployee.setEmprule(dto.getRule());
@@ -122,6 +121,7 @@ public class EmployeeController {
 
         if(employee != null){
             employeeRepository.delete(employee);
+
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

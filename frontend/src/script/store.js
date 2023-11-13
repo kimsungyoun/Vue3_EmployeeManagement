@@ -4,7 +4,9 @@ const store= createStore({
     state(){
         return {
             account: {
-                id: 0
+                id: 0,
+                name: "",
+                status: ""
             }
         }
     },

@@ -43,18 +43,22 @@ const load=()=>{
         state.form.no = state.items.workno;
         state.form.day = lib.formattedTime(state.items.workday);
         state.form.status = state.items.workstatus;
-        state.form.reason = "";
-        console.log(state.form);
     })
 }
 
 const submit=()=>{
+    const args = JSON.parse(JSON.stringify(state.form));
+
     const result = confirm("제출 하시겠습니까?");
+    
     if(result){
         // 요청 DB에 제출
-        
-        alert("제출이 완료되었습니다.")
-        router.push({path:"/work"})
+        axios.post("/api/request/reason", args).then(()=>{
+            alert("제출이 완료되었습니다.")
+            router.push({path:"/work"})
+        }).catch(()=>{
+            alert("제출 에러!");
+        })
     }else{
         alert("제출을 취소하셨습니다.")
     }

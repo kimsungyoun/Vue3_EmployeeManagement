@@ -22,6 +22,9 @@ public class EmployeeDTO {
     private String dept;
     private String rule;
     private Date hiredate;
+    private String position;
+    private Integer delstatus;
+
 
     // LeaveManagementDTO
     private Integer total;
