@@ -39,7 +39,7 @@ const submit = () => {
     sessionStorage.setItem("id", res.data);
     router.push({path: '/'});
     console.log(res);
-    alert("로그인 성공!");
+    alert("어서오세요!");
   }).catch( () => {
     window.alert("로그인 실패!")
   });

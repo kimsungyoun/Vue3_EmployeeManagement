@@ -32,7 +32,7 @@ const logout = () => {
   axios.post("/api/account/logout").then(() => {
     store.commit('setAccount', 0);
     router.push({ path: "/" });
-    window.alert("로그아웃 되었습니다.");
+    window.alert("로그아웃 완료");
   })
 };
 
