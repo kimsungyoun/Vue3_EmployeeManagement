@@ -19,7 +19,6 @@
           <td>부서</td>
           <td>직책</td>
           <td>입사일</td>
-          <td>연차 총일수</td>
           <td>사용 일수</td>
           <td>남은 일수</td>
         </tr>
@@ -30,7 +29,6 @@
           <td>{{i.employee.empdept}}</td>
           <td>{{i.employee.emprule}}</td>
           <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
-          <td>{{i.lmtotal}}</td>
           <td>{{i.lmuse}}</td>
           <td>{{i.lmtotal - i.lmuse}}</td>
         </tr>
@@ -42,7 +40,7 @@
 
   </div>
 
-  <div class="addBtn" v-if="$res">
+  <div class="addBtn">
     <input type="button" @click="addEmployee()" value="직원 등록"/>
   </div>
 </div>
