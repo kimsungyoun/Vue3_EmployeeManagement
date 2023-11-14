@@ -10,14 +10,12 @@
         <li><router-link to="/work">근무</router-link></li>
       </div>
     </ul>
-    <ul>
-      <li v-if="$route.path !='/' && $route.path !='/login'">
+    <ul v-if="$route.path !='/' && $route.path !='/login'">
+      <li><button @click="request()">요청</button></li>
+      <li>
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
         <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
       </li>
-
-      <li><button @click="arrive()">출근</button></li>
-      <li><button @click="gohome()">퇴근</button></li>
     </ul>
   </div>
 </header>
@@ -36,12 +34,8 @@ const logout = () => {
   })
 };
 
-const arrive=()=>{
-  alert("출근!")
-}
-
-const gohome=()=>{
-  alert("퇴근!")
+const request=()=>{
+  alert("요청!")
 }
 </script>
 

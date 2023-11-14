@@ -1,6 +1,8 @@
 <template>
 <div id="container">
+  <div>
   <h1>{{ state.form.name }}님의 정보</h1>
+  
   <div class="employee-info">
     <div class="user-info">
       <img src="@/assets/bno.png" alt="프로필 사진"/>
@@ -25,7 +27,6 @@
           </tr>
         </table>
       </div>
-      <input id="deleteBtn" @click="removeEmp(state.items.employee.empid)" type="button" value="삭제"/>
     </div>
 
     <div class="user-detail" v-if="state.items">
@@ -45,22 +46,23 @@
         <label>상세 주소</label>
         <input type="text" v-model="state.form.detail"/>
       </div>
-      <div class="leaveManagement" v-if="state.items.leaveManagement">
+      <div class="leaveManagement" v-if="state.items">
         <div class="lm_row">
           <label>총 연차 일수</label>
-          <input type="text" :value='state.items.leaveManagement.lmtotal' disabled/>
+          <input type="text" :value='state.items.lmtotal' disabled/>
         </div>
         <div class="lm_row">
           <label>사용 연차 일수</label>
-          <input type="text" :value='state.items.leaveManagement.lmuse' disabled/>
+          <input type="text" :value='state.items.lmuse' disabled/>
         </div>
       </div>
-      <div class="btn">
-        <input id="saveBtn" @click="update()" type="button" value="수정"/>
-        <input id="cancelBtn" @click="$router.go(-1)" type="button" value="취소"/>
-      </div>
     </div>
-
+    </div>
+    <div class="btn">
+      <input id="deleteBtn" @click="removeEmp(state.items.employee.empid)" type="button" value="삭제"/>
+      <input id="saveBtn" @click="update()" type="button" value="수정"/>
+      <input id="cancelBtn" @click="$router.go(-1)" type="button" value="취소"/>
+    </div>
   </div>
 </div>
 </template>
@@ -151,87 +153,11 @@ export default {
 }
 </script>
 
-<!-- <script setup>
-import deptSelect from "@/components/deptSelect.vue"
-import ruleSelect from "@/components/ruleSelect.vue"
-import lib from "@/script/lib";
-import router from "@/script/router";
-import axios from "axios";
-import { onMounted, reactive } from "vue"
-
-const state = reactive({
-  items: [],
-  form: {
-    id: "",
-    name: "",
-    phone: "",
-    postal: "",
-    address: "",
-    detail: "",
-    dept: "",
-    rule: "",
-  }
-})
-
-const employeeInfo = ()=>{
-  console.log(router.params);
-  console.log(document.getElementById("id").value);
-  const empid = document.getElementById("empid").value;
-
-  axios.get(`/api/employeeInfo/${empid}`).then(({data})=>{
-    state.items = data;
-    const employee = state.items.employee;
-
-    state.form.id = employee.empid;
-    state.form.name = employee.empname;
-    state.form.phone = employee.empphone;
-    state.form.postal = employee.emppostal;
-    state.form.address = employee.empaddr;
-    state.form.detail = employee.empdetail;
-    state.form.dept = employee.empdept;
-    state.form.rule = employee.emprule;
-  })
-}
-
-const update = ()=>{
-  const args = JSON.parse(JSON.stringify(state.form));
-  args.items = JSON.stringify(state.form);
-
-  axios.post(`/api/employeeUpdate`, args).then(() => {
-    router.push({ path: `/employee` });
-    alert("회원정보 수정 완료");
-  }).catch(error => {
-    alert("회원정보 수정 실패 >> " + error);
-  });
-}
-
-const removeEmp = (empid)=>{
-  const result = window.confirm("정말 삭제하시겠습니까?");
-  if (result) {
-    axios.delete(`/api/employee/delete/${empid}`).then(() => {
-      router.push({ path: "/employee" });
-      alert("삭제 완료");
-    }).catch(() => {
-      alert("삭제 실패");
-    });
-  } else {
-    alert("삭제 취소");
-    router.push({ path: `/employeeInfo/${empid}` });
-  }
-}
-
-onMounted(()=>{  
-  employeeInfo()
-})
-</script> -->
-
 <style scoped>
 .employee-info{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
 }
 
 .user-info{
@@ -305,7 +231,8 @@ input{
 .btn{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  padding: 10px;
 }
 
 #deleteBtn{
@@ -345,5 +272,8 @@ input[type=text]{
   padding : 5px;
   border: 1px solid #98abdf;
   border-radius: 10px;
+}
+input[type=button]{
+  margin-right:10px;
 }
 </style>

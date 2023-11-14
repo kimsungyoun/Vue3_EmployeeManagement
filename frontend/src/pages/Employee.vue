@@ -26,13 +26,13 @@
       </thead>
       <tbody>
         <tr v-for="(i, idx) in state.items" :key="idx">
-          <td><a @click="info(i[0].empid)"> {{i[0].empname}} </a> </td>
-          <td>{{i[0].empdept}}</td>
-          <td>{{i[0].emprule}}</td>
-          <td>{{lib.formattedTime(i[0].emphiredate)}}</td>
-          <td>{{i[1].lmtotal}}</td>
-          <td>{{i[1].lmuse}}</td>
-          <td>{{i[1].lmtotal - i[1].lmuse}}</td>
+          <td><a @click="info(i.employee.empid)"> {{i.employee.empname}} </a> </td>
+          <td>{{i.employee.empdept}}</td>
+          <td>{{i.employee.emprule}}</td>
+          <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
+          <td>{{i.lmtotal}}</td>
+          <td>{{i.lmuse}}</td>
+          <td>{{i.lmtotal - i.lmuse}}</td>
         </tr>
       </tbody>
     </table>

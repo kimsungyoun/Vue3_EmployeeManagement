@@ -6,13 +6,14 @@ const store= createStore({
             account: {
                 id: 0,
                 name: "",
-                status: ""
+                position:"",
             }
         }
     },
     mutations: {
         setAccount(state, payload){
             state.account.id = payload;
+            state.account.position = payload
         }
     }
 })

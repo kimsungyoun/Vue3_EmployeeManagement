@@ -2,17 +2,18 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name="employee")
 public class Employee {
     @Id

@@ -18,23 +18,23 @@
         <td>근무시간</td>
       </tr>
       <tr v-for="(i, idx) in state.items" :key="idx">
-        <td>{{i[0].empname}}</td>
+        <td>{{i.employee.empname}}</td>
         
-        <td v-if="i[1].workstatus == '출근'">
-            {{i[1].workstatus}}
+        <td v-if="i.workstatus == '출근'">
+            {{i.workstatus}}
         </td>
-        <td v-else-if="i[0].empno == store.state.account.id">
-          <a @click="reason(i[1].workno)">
-            <button class="reasonbtn">{{i[1].workstatus}}</button>
+        <td v-else-if="i.employee.empno == store.state.account.id">
+          <a @click="reason(i.employee.empno)">
+            <button class="reasonbtn">{{i.workstatus}}</button>
           </a>
         </td>
         <td v-else>
-          {{i[1].workstatus}}        
+          {{i.workstatus}}        
         </td>
 
-        <td>{{i[1].workon}}</td>
-        <td>{{i[1].workoff}}</td>
-        <td>{{i[1].worktime}}</td>
+        <td>{{i.workon}}</td>
+        <td>{{i.workoff}}</td>
+        <td>{{i.worktime}}</td>
       </tr>
     </table>
   </div>

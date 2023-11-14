@@ -1,48 +1,23 @@
 <template>
-  <div class="wrap">
-    <Header/>
-    <RouterView/>
-    <Footer/>
-  </div>
-  
+  <Header/>
+  <RouterView/>
+  <Footer/>
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-import { watch } from "vue";
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-import axios from "axios";
-import store from"@/script/store";
-
-const route = useRoute();
-
-// 유효성 체크
-const check =()=>{
-  axios.get("/api/account/check").then(({data})=>{
-    store.commit("setAccount", data||0);
-  })
-}
-
-watch(route, () => {
-  check();
-});
 </script>
 
 <style>
-
 body{
   margin : 0;
-}
-
-.wrap{
-  position: relative;
-  min-height: 100%;
 }
 
 h1, h2{
   text-align : center;
   padding:0;
+  margin: 10px 0;
 }
 
 #container{

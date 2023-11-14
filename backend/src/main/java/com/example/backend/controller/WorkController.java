@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +24,12 @@ public class WorkController {
 
     @PostMapping("/api/work")
     public ResponseEntity getList(@RequestBody String workday){
-        List <Object[]> list;
+        List <Work> list;
 
         try {
-            SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-            Date day2 = dateFormat2.parse(workday);
-            list = workRepository.WorkList(day2);
-
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date day = dateFormat.parse(workday);
+            list = workRepository.findByWorkday(day);
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (ParseException e) {
             throw new RuntimeException(e);

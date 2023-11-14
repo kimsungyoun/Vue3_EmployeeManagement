@@ -2,6 +2,7 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,28 +12,31 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name="work")
 public class Work {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int workno;
 
-    @Column
+    @Column(name = "empid", insertable=false, updatable=false)
     private String empid;
 
-    @Column
+    @Column(name="workstatus")
     private String workstatus;
 
-    @Column
+    @Column(name="workon")
     private Time workon;
 
-    @Column
+    @Column(name="workoff")
     private Time workoff;
 
-    @Column
+    @Column(name = "workday")
     private Date workday;
 
-    @Column
+    @Column(name="worktime")
     private Time worktime;
+
+    @ManyToOne
+    @JoinColumn(name="empid")
+    private Employee employee;
 }

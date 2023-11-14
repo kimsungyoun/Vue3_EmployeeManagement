@@ -1,20 +1,19 @@
 <template>
   <div id="container">
       <div class="login-container">
-        <h2>로그인</h2>
         <div class="loginForm">
-          <div class="text-container">
-            <ul>
-              <li><span>아이디</span></li>
-              <li><input type="text" id="floatingInput" placeholder="아이디" @keyup.enter="submit()" v-model="state.form.email"></li>
-              
-              <li><span>패스워드</span></li>
-              <li><input type="password" id="floatingPassword" placeholder="패스워드" v-model="state.form.password"></li>
-            </ul>
-          </div>
-          <div class="btn-container">
-            <button @click="submit()" @keyup="submit()">로그인</button>
-          </div>
+          <h2>로그인</h2>
+          <ul>
+            <li><span>아이디</span></li>
+            <li><input type="text" id="id" placeholder="아이디" v-model="state.form.email"></li>
+            <li><span>패스워드</span></li>
+            <li><input type="password" id="password" placeholder="패스워드" v-model="state.form.password"></li>
+          </ul>
+        </div>
+      
+        <div class="btn-container">
+          <button id="signup" @click="signup()">회원가입</button>
+          <button id="submit" @click="submit()">로그인</button>  
         </div>
       </div>
     </div>
@@ -44,6 +43,10 @@ const submit = () => {
     window.alert("로그인 실패!")
   });
 };
+
+const signup=()=>{
+  router.push({ path: '/employee/add' });
+}
 </script>
 
 <style scoped>
@@ -52,21 +55,26 @@ const submit = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 20px 0;
 }
 
 ul{
   padding:0;
 }
 
-.loginForm{
-  width: 250px;
-  padding: 10px;
-  border: 1px solid #98abdf;
+#id, #password{
   margin-bottom: 20px;
+}
+
+.loginForm{
+  height: 200px;
+  padding: 30px;
+  border: 1px solid #98abdf;
   border-radius: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .btn-container{
@@ -76,5 +84,15 @@ ul{
   justify-content: center;
 }
 
+button{
+  background-color: #8293c4;
+  border: 1px solid #8293c4;
+  border-radius: 5px;
+  padding: 5px;
+  color:#FFFFFF;
+}
 
+#signup{
+  margin-right: 10px;
+}
 </style>

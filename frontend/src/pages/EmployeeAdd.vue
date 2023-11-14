@@ -6,18 +6,18 @@
     <div class="EmployeeAddContainer">
       <label>아이디</label>
       <div id="idbox">
-        <input id="id" type="text" v-model="state.forms.id"/>
+        <input id="id" type="text" placeholder="사용하실 아이디를 입력하세요" v-model="state.forms.id"/>
         <input id="checkBtn" type="button" @click="checkIdDuplication()" value="아이디 중복 체크"/>
       </div>
       
       <label>비밀번호</label>
-      <input id="password" type="password" v-model="state.forms.password"/>
+      <input id="password" type="password" placeholder="비밀번호를 입력하세요" v-model="state.forms.password"/>
 
       <label>이름</label>
-      <input id="name" type="text" v-model="state.forms.name"/>
+      <input id="name" type="text" placeholder="홍길동" v-model="state.forms.name"/>
 
       <label>핸드폰</label>
-      <input id="phone" type="text" placeholder="010-0000-0000" v-model="state.forms.phone"/>
+      <input id="phone" type="text" placeholder="010-1234-5678" v-model="state.forms.phone"/>
 
       <label>생년월일</label>
       <input id="birth" type="text" placeholder="1999-01-01" v-model="state.forms.birth"/>
@@ -38,10 +38,10 @@
       <input type="text" v-model="state.forms.address" id="sample6_address" placeholder="주소">
 
       <label>상세 주소</label>
-      <input type="text" v-model="state.forms.detail" id="sample6_detailAddress" placeholder="상세주소">
+      <input type="text" v-model="state.forms.detail" id="sample6_detailAddress" placeholder="상세 주소">
 
       <label>참고 항목</label>
-      <input type="text" v-model="state.forms.extra" id="sample6_extraAddress" placeholder="참고항목">
+      <input type="text" v-model="state.forms.extra" id="sample6_extraAddress" placeholder="참고 항목">
     </div>
     <div id="btn-container">
       <input id="submitBtn" type="button" @click="submit()" value="등록"/>
@@ -104,7 +104,7 @@ const submit = () => {
 
 // 직원 등록 취소
 const cancel = () => {
-  router.push({ path: "/employee" });
+  history.go(-1);
 };
 
 // 검색 API

@@ -1,11 +1,15 @@
 package com.example.backend.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Time;
 import java.util.Date;
 
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDTO {
     // CommonDTO
     private String id;
