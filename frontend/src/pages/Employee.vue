@@ -42,14 +42,14 @@
 
   </div>
 
-  <div class="addBtn">
+  <div class="addBtn" v-if="$res">
     <input type="button" @click="addEmployee()" value="직원 등록"/>
   </div>
 </div>
 </template>
 
 <script setup>
-import {reactive} from "vue";
+import { reactive} from "vue";
 import axios from "axios";
 import lib from "../script/lib";
 import router from "@/script/router";
@@ -94,6 +94,8 @@ const search=() => {
 };
 
 load();
+
+
 </script>
 
 <style scoped>

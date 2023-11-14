@@ -5,9 +5,11 @@
           <h2>로그인</h2>
           <ul>
             <li><span>아이디</span></li>
-            <li><input type="text" id="id" placeholder="아이디" v-model="state.form.email"></li>
+            <li><input type="text" placeholder="아이디" v-model="state.form.email"></li>
+          </ul>
+          <ul>
             <li><span>패스워드</span></li>
-            <li><input type="password" id="password" placeholder="패스워드" v-model="state.form.password"></li>
+            <li><input type="password" placeholder="패스워드" v-model="state.form.password"></li>
           </ul>
         </div>
       
@@ -36,8 +38,9 @@ const submit = () => {
   axios.post("/api/account/login", state.form).then((res)=>{  
     store.commit('setAccount', res.data);
     sessionStorage.setItem("id", res.data);
+
     router.push({path: '/'});
-    console.log(res);
+    console.log(res.data);
     alert("어서오세요!");
   }).catch( () => {
     window.alert("로그인 실패!")
@@ -60,6 +63,7 @@ const signup=()=>{
 
 ul{
   padding:0;
+  margin:10px 0;
 }
 
 #id, #password{

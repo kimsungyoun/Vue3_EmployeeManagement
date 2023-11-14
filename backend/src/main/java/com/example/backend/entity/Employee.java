@@ -1,10 +1,7 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -54,4 +51,12 @@ public class Employee {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "position")
+    @Builder.Default
+    private String position;
+
+    @Column(name = "delstatus")
+    @Builder.Default
+    private String delstatus;
 }
