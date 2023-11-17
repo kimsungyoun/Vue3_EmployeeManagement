@@ -19,18 +19,18 @@ public class Request {
     @Column(name="r_no")
     private Integer no;
 
-    @Column(name="workno")
-    private Integer workno;
+    @Column(name = "emp_id")
+    private String empid;
 
-    @Column(name="r_reason")
-    private String reason;
+    @Column(name="r_day")
+    private String day;
 
-    @Column(name="r_result")
-    private String result;
+    @Column(name="r_content")
+    private String content;
 
-    @Column(name = "w_day")
-    private Date workday;
+    @Column(name = "r_detail")
+    private Date detail;
 
-    @Column(name = "r_day")
-    private Date requestday;
+    @Column(name = "r_status")
+    private Date status;
 }
