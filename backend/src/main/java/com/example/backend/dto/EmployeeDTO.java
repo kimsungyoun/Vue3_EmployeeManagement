@@ -28,16 +28,4 @@ public class EmployeeDTO {
     private Date hiredate;
     private String position;
     private Integer delstatus;
-
-
-    // LeaveManagementDTO
-    private Integer total;
-    private Integer uses;
-
-    // AttendanceDTO
-    private String status;
-    private Time on;
-    private Time off;
-    private java.sql.Date day;
-    private Time work;
 }

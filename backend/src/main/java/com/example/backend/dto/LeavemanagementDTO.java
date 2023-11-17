@@ -15,4 +15,5 @@ public class LeavemanagementDTO {
     private Integer total;
     private Integer uses;
 
+    EmployeeDTO employeeDTO;
 }

@@ -1,19 +1,18 @@
 <template>
-  <select v-model='selectedOption'>
-    <option v-for="i in options" :key="i.value" :value="i.value">
-      {{i.label}}
-    </option>
+  <select v-model='selectedDept'>
+    <option v-for="i in options" :key="i.value" :value="i.value" > {{i.label}} </option>
   </select>
 </template>
 
 <script setup>
 import { ref, watch, defineProps, defineEmits } from "vue";
+//import { ref, watch, defineProps } from "vue";
 
 const props = defineProps({
-  value: String,
+  value:String
 });
 
-const selectedOption = ref(props.value);
+const selectedDept = ref(props.value);
 
 const options = ref([
   { value: "개발팀", label: "개발팀" },
@@ -25,7 +24,13 @@ const options = ref([
 
 const emit = defineEmits(["dept"]);
 
-watch(selectedOption, (option) => {
-  emit("dept", option);
-});
+//watch(selectedDept, (option) => {emit("dept", option);});
+
+watch(
+  ()=> props.value,
+  (newValue)=>{
+    selectedDept.value = newValue;
+    emit("dept", newValue);    
+  }
+)
 </script>

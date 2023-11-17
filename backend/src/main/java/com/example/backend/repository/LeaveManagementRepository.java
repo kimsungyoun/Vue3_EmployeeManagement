@@ -1,6 +1,9 @@
 package com.example.backend.repository;
 
+import com.example.backend.dto.LeavemanagementDTO;
 import com.example.backend.entity.LeaveManagement;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +15,5 @@ public interface LeaveManagementRepository extends JpaRepository<LeaveManagement
     List <LeaveManagement> findByEmployeeEmpnameLike(String empname);
     List <LeaveManagement> findByEmployeeEmpdeptLike(String empdept);
     List <LeaveManagement> findByEmployeeEmpruleLike(String emprule);
+
 }

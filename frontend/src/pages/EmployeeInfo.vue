@@ -1,52 +1,50 @@
 <template>
 <div id="container">
-  <div>
-  <h1>{{ state.form.name }}님의 정보</h1>
-  
   <div class="employee-info">
     <div class="user-info">
-      <img src="@/assets/bno.png" alt="프로필 사진"/>
-      <div v-if="state.items.employee">
-        <input id="id" type="hidden" v-model="state.form.id" />
+      <div>
+        <input id="id" type="hidden" :value="$route.params.empid"/>
+        <h1>{{ state.forms.name }}님의 정보</h1>
         <table>
           <tr>
             <td>직원명</td>
-            <td><input id="name" type="text" v-model="state.form.name"/></td>
+            <td><input id="name" type="text" v-model="state.forms.name"/></td>
           </tr>
           <tr>
             <td>부서</td>
-            <td><deptSelect id="dept" v-model="state.form.dept" :value="state.form.dept"/></td>
+            <td>
+              <deptSelect id="dept" v-model="state.forms.dept" :value="state.forms.dept"/></td>
           </tr>
           <tr>
             <td>직책</td>
-            <td><ruleSelect id="rule" v-model="state.form.rule" :value="state.form.rule"/></td>
+            <td><ruleSelect id="rule" v-model="state.forms.rule" :value="state.forms.rule"/></td>
           </tr>
           <tr>
             <td>입사일</td>
-            <td><input id="hiredate" type="text" :value='lib.formattedTime2(state.items.employee.emphiredate)' disabled/></td>
+            <td><input id="hiredate" type="text" :value='lib.formattedTime2(state.forms.hiredate)' disabled/></td>
           </tr>
         </table>
       </div>
     </div>
 
-    <div class="user-detail" v-if="state.items">
+    <div class="user-detail">
       <div class="row">
         <label>연락처</label>
-        <input type="text" v-model="state.form.phone"/>
+        <input type="text" v-model="state.forms.phone"/>
       </div>
       <div class="row" >
         <label>우편 번호</label>
-        <input type="text" v-model="state.form.postal"/>
+        <input type="text" v-model="state.forms.postal"/>
       </div>
       <div class="row">
         <label>주소</label>
-        <input type="text" v-model="state.form.address"/>
+        <input type="text" v-model="state.forms.address"/>
       </div>
       <div class="row" >
         <label>상세 주소</label>
-        <input type="text" v-model="state.form.detail"/>
+        <input type="text" v-model="state.forms.detail"/>
       </div>
-      <div class="leaveManagement" v-if="state.items">
+      <div class="leaveManagement">
         <div class="lm_row">
           <label>총 연차 일수</label>
           <input type="text" :value='state.items.lmtotal' disabled/>
@@ -63,113 +61,105 @@
       <input id="saveBtn" @click="update()" type="button" value="수정"/>
       <input id="cancelBtn" @click="$router.go(-1)" type="button" value="취소"/>
     </div>
-  </div>
 </div>
 </template>
 
-<script>
-import {reactive} from "vue";
-import axios from "axios";
+<script setup>
 import lib from "@/script/lib";
-import DeptSelect from "@/components/deptSelect.vue";
-import RuleSelect from "@/components/ruleSelect.vue";
+import axios from "axios";
+import deptSelect from "@/components/deptSelect.vue";
+import ruleSelect from "@/components/ruleSelect.vue";
+import router from "@/script/router";
+import { onMounted, reactive } from "vue";
 
-export default {
-  components: {RuleSelect, DeptSelect},
-  computed: {
-    lib() {
-      return lib
-    }
-  },data() {
-    return {
-      empid: null,
-      state: reactive({
-        items: [],
-        form: {
-          id: "",
-          name: "",
-          phone: "",
-          postal: "",
-          address: "",
-          detail: "",
-          dept: "",
-          rule: "",
-        }
-      }),
-    };
-  },
-  mounted() {
-    this.empid = this.$route.params.empid;
-    this.employeeInfo(this.empid);
-  },
-  methods: {
-    employeeInfo(empid) {
-      axios.get(`/api/employeeInfo/${empid}`).then(({ data }) => {
-        this.state.items = data;
-        
-        const employee = this.state.items.employee;
-        this.state.form.id = employee.empid;
-        this.state.form.name = employee.empname;
-        this.state.form.phone = employee.empphone;
-        this.state.form.postal = employee.emppostal;
-        this.state.form.address = employee.empaddr;
-        this.state.form.detail = employee.empdetail;
-        this.state.form.dept = employee.empdept;
-        this.state.form.rule = employee.emprule;
-      });
-    },
-    update() {
-      const result = confirm("수정하시겠습니까?")
+const state = reactive({
+  items:[],
+  forms:{
+    id:"",
+    name: "",
+    phone: "",
+    postal: "",
+    address: "",
+    detail: "",
+    dept: "",
+    rule: "",
+    hiredate:"",
+  }
+})
 
-      if(result){
-        const args = JSON.parse(JSON.stringify(this.state.form));
-        args.items = JSON.stringify(this.state.form);
-        axios.post(`/api/employeeUpdate`, args).then(() => {
-          this.$router.push({ path: `/employee` });
-          alert("회원정보 수정 완료");
-        }).catch(error => {
-          alert("회원정보 수정 실패 >> " + error);
-        });
-      }else{
-        alert("회원정보 수정 취소");
-      }
-      
-    },
-    removeEmp(empid) {
-      const result = window.confirm("정말 삭제하시겠습니까?");
-      if (result) {
-        axios.delete(`/api/employee/delete/${empid}`).then(() => {
-          this.$router.push({ path: "/employee" });
-          alert("삭제 완료");
-        }).catch(() => {
-          alert("삭제 실패");
-        });
-      } else {
-        alert("삭제 취소");
-        this.$router.push({ path: `/employeeInfo/${empid}` });
-      }
-    },
+const load=()=>{
+  const empid = document.getElementById("id").value;
+
+  axios.get(`/api/employeeInfo/${empid}`).then(({data})=>{
+    state.items = data;
+    state.forms.id = state.items.employee.empid;
+    state.forms.name = state.items.employee.empname;
+    state.forms.phone = state.items.employee.empphone;
+    state.forms.postal = state.items.employee.emppostal;
+    state.forms.address = state.items.employee.empaddr;
+    state.forms.detail = state.items.employee.empdetail;
+    state.forms.dept = state.items.employee.empdept;
+    state.forms.rule = state.items.employee.emprule;
+    state.forms.hiredate = state.items.employee.emphiredate;
+  })
+}
+
+const update=()=>{
+  const result = confirm("수정?");
+  if(result){
+    const args = JSON.parse(JSON.stringify(state.forms));
+    args.items = JSON.stringify(state.forms);
+    //console.log(args);
+
+    axios.post('/api/employeeUpdate', args).then(()=>{
+      router.push({path:'/employee'})
+      alert("수정 완료");
+    }).catch(error=>{
+      alert("수정 실패 >> "+error);
+    })
+  }else{
+    alert("수정 취소")
   }
 }
-</script>
+
+const removeEmp=(empid)=>{
+  const result = confirm("삭제?");
+  if(result){
+    axios.delete(`/api/employee/delete/${empid}`).then(()=>{
+      router.push({path:"/employee"});
+      alert("삭제 완료");
+    }).catch((error)=>{
+      alert("삭제 실패 >> " + error);
+    })
+  }else{
+    alert("삭제 취소");
+  }
+}
+
+onMounted(()=>{
+  load();
+})
+</script> 
 
 <style scoped>
 .employee-info{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .user-info{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px;
   font-size: 20px;
   border-radius: 20px;
   border: 1px solid #98abdf;
-  margin-right: 10px;
+  margin-bottom: 10px;
+  padding : 20px 50px;
   justify-content: space-around;
+
 }
 
 .user-detail{

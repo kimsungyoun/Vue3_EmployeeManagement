@@ -1,5 +1,5 @@
 <template>
-    <select v-model='selectedOption'>
+    <select v-model='selectedRule' >
       <option v-for="i in options" :key="i.value" :value="i.value">
         {{i.label}}
       </option>
@@ -7,13 +7,14 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps, defineEmits } from "vue";
+//import { ref, watch, defineProps, defineEmits } from "vue";
+import { ref, watch, defineProps} from "vue";
 
 const props = defineProps({
-  value: String,
+  value:String,
 });
 
-const selectedOption = ref(props.value);
+const selectedRule = ref(props.value);
 
 const options = ref([
   { value: "인턴", label: "인턴" },
@@ -24,9 +25,15 @@ const options = ref([
   { value: "팀장", label: "팀장" },
 ]);
 
-const emit = defineEmits(["rule"]);
+//const emit = defineEmits(["rule"]);
 
-watch(selectedOption, (option) => {
-  emit("rule", option);
-});
+// watch(selectedRule, (option) => {emit("rule", option);});
+
+watch(
+  ()=> props.value,
+  (newValue)=>{
+    selectedRule.value = newValue;
+  }
+)
+
 </script>

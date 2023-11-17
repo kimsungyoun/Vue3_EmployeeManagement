@@ -31,13 +31,17 @@
           <td>{{lib.formattedTime(i.employee.emphiredate)}}</td>
           <td>{{i.lmuse}}</td>
           <td>{{i.lmtotal - i.lmuse}}</td>
-        </tr>
+        </tr>         
       </tbody>
     </table>
   </div>
 
-  <div class="page">
-
+  <div class="page-container">
+    <ul class="page">
+      <li><a href="/employee">이전</a></li>
+      <li><a href="/employee">1</a></li>
+      <li><a href="/employee">다음</a></li>
+    </ul>
   </div>
 
   <div class="addBtn">
@@ -47,7 +51,7 @@
 </template>
 
 <script setup>
-import { reactive} from "vue";
+import { onMounted, reactive} from "vue";
 import axios from "axios";
 import lib from "../script/lib";
 import router from "@/script/router";
@@ -59,6 +63,7 @@ const state = reactive({
 // 데이터 로드
 const load = () => {
   axios.get("/api/employee").then(({data}) => {
+    console.log(data);
     state.items = data;
   });
 };
@@ -70,7 +75,13 @@ const info = (id) => {
 
 // 직원 등록 화면으로 이동
 const addEmployee = () => {
-  router.push({ path: '/employee/add' });
+  const result = confirm("직원을 등록 하시겠습니까?");
+
+  if(result){
+    router.push({ path: '/employee/add' });
+  }else{
+    alert("취소!");
+  }
 };
 
 // 검색 기능
@@ -91,9 +102,9 @@ const search=() => {
   
 };
 
-load();
-
-
+onMounted(()=>{
+  load();
+})
 </script>
 
 <style scoped>
@@ -129,5 +140,14 @@ td{
   margin-right: 10px;
   border: 1px solid #000000;
   border-radius: 5px;
+}
+.page{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.page > li{
+  margin-right: 10px;
 }
 </style>
