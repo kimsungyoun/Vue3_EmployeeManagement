@@ -4,6 +4,13 @@
 # 개발 기간
 : 2023-10-16 ~
 
+# 주요기능
+- kakao 우편주소 검색 기능
+- Datepicker를 통한 근무일지 조회
+- 공지게시판
+- 직원 관리
+- 근무 관리
+
 # 도구
 - Frontend : vue3.js, node.js
 - Backend : jpa, jwt
