@@ -3,15 +3,14 @@
   <div id="menu">
     <ul>
       <li><router-link to="/">메인</router-link></li>
-      <div class="navbar" v-if="$store.state.account.id"> 
+      <!-- <div class="navbar" v-if="$store.state.account.id">  -->
         <li>|</li>
-        <li><router-link to="/employee" >직원</router-link></li>
+        <li><router-link to="/employeeList" >직원</router-link></li>
         <li>|</li>
-        <li><router-link to="/work">근무</router-link></li>
-      </div>
+        <li><router-link to="/workList">근무</router-link></li>
+      <!-- </div> -->
     </ul>
     <ul v-if="$route.path !='/' && $route.path !='/login'">
-      <li><button @click="request()">요청</button></li>
       <li>
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
         <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
@@ -34,9 +33,6 @@ const logout = () => {
   })
 };
 
-const request=()=>{
-  alert("요청!")
-}
 </script>
 
 <style scoped>

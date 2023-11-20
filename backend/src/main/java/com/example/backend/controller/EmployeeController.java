@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @GetMapping("/api/employee")
     public List <?> getList(){
-        return leaveManagementRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
@@ -44,11 +44,11 @@ public class EmployeeController {
             List <?> result = null;
             
             if(Objects.equals(keyword, "empname")){
-                result = leaveManagementRepository.findByEmployeeEmpnameLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpnameLike("%"+searchKey+"%");
             }else if(Objects.equals(keyword, "empdept")){
-                result = leaveManagementRepository.findByEmployeeEmpdeptLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpdeptLike("%"+searchKey+"%");
             }else if(Objects.equals(keyword, "emprule")){
-                result = leaveManagementRepository.findByEmployeeEmpruleLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpruleLike("%"+searchKey+"%");
             }
 
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -59,8 +59,8 @@ public class EmployeeController {
 
     @PostMapping("/api/employee/add")
     public ResponseEntity<?> AddEmployee(@RequestBody EmployeeDTO dto){
-        Employee employee = employeeRepository.findByEmpid(dto.getId());
-        LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(dto.getId());
+        Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
+        LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(dto.getEmpid());
 
         if(employee == null && leaveManagement == null){
             try{
@@ -79,31 +79,31 @@ public class EmployeeController {
     private static Employee getEmployee(EmployeeDTO dto) {
         Employee newEmployee = new Employee();
 
-        newEmployee.setEmpid(dto.getId());
+        newEmployee.setEmpid(dto.getEmpid());
         newEmployee.setPassword(dto.getPassword());
-        newEmployee.setEmpname(dto.getName());
-        newEmployee.setEmpbirth(dto.getBirth());
-        newEmployee.setEmpphone(dto.getPhone());
-        newEmployee.setEmppostal(dto.getPostal());
-        newEmployee.setEmpaddr(dto.getAddress());
-        newEmployee.setEmpdetail(dto.getDetail()+ dto.getExtra());
-        newEmployee.setEmpdept(dto.getDept());
-        newEmployee.setEmprule(dto.getRule());
+        newEmployee.setEmpname(dto.getEmpname());
+        newEmployee.setEmpbirth(dto.getEmpbirth());
+        newEmployee.setEmpphone(dto.getEmpphone());
+        newEmployee.setEmppostal(dto.getEmppostal());
+        newEmployee.setEmpaddr(dto.getEmpaddr());
+        newEmployee.setEmpdetail(dto.getEmpdetail()+ dto.getExtra());
+        newEmployee.setEmpdept(dto.getEmpdept());
+        newEmployee.setEmprule(dto.getEmprule());
         return newEmployee;
     }
 
     @PostMapping("/api/employeeUpdate")
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO dto){
-        Employee employee = employeeRepository.findByEmpid(dto.getId());
+        Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
 
         if(employee!=null){
-            employee.setEmpname(dto.getName());
-            employee.setEmpdept(dto.getDept());
-            employee.setEmprule(dto.getRule());
-            employee.setEmpphone(dto.getPhone());
-            employee.setEmppostal(dto.getPostal());
-            employee.setEmpaddr(dto.getAddress());
-            employee.setEmpdetail(dto.getDetail());
+            employee.setEmpname(dto.getEmpname());
+            employee.setEmpdept(dto.getEmpdept());
+            employee.setEmprule(dto.getEmprule());
+            employee.setEmpphone(dto.getEmpphone());
+            employee.setEmppostal(dto.getEmppostal());
+            employee.setEmpaddr(dto.getEmpaddr());
+            employee.setEmpdetail(dto.getEmpdetail());
 
             employeeRepository.save(employee);
             return new ResponseEntity<>(HttpStatus.OK);

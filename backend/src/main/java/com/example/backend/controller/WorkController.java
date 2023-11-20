@@ -42,4 +42,18 @@ public class WorkController {
 
         return work;
     }
+
+    @PostMapping("/api/workList")
+    public ResponseEntity<?> getWorkList(@RequestBody String searchDay){
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date day = dateFormat.parse(searchDay);
+            List<Work> list = workRepository.findByWorkday(day);
+
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 }

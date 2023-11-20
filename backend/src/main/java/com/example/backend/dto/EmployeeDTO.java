@@ -12,20 +12,20 @@ import java.util.Date;
 @AllArgsConstructor
 public class EmployeeDTO {
     // CommonDTO
-    private String id;
+    private String empid;
 
     // EmployeeDTO
     private String password;
-    private String name;
-    private String birth;
-    private String phone;
-    private String postal;
-    private String address;
-    private String detail;
+    private String empname;
+    private String empbirth;
+    private String empphone;
+    private String emppostal;
+    private String empaddr;
+    private String empdetail;
     private String extra;
-    private String dept;
-    private String rule;
-    private Date hiredate;
+    private String empdept;
+    private String emprule;
+    private Date emphiredate;
     private String position;
     private Integer delstatus;
 }

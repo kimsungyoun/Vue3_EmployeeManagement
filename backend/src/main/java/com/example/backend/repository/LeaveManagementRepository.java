@@ -12,8 +12,5 @@ import java.util.List;
 @Repository
 public interface LeaveManagementRepository extends JpaRepository<LeaveManagement,Integer> {
     LeaveManagement findByEmpid(String id);
-    List <LeaveManagement> findByEmployeeEmpnameLike(String empname);
-    List <LeaveManagement> findByEmployeeEmpdeptLike(String empdept);
-    List <LeaveManagement> findByEmployeeEmpruleLike(String emprule);
 
 }
