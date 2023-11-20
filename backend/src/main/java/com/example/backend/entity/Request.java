@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CurrentTimestamp;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -23,14 +24,15 @@ public class Request {
     private String empid;
 
     @Column(name="r_day")
-    private String day;
+    @CurrentTimestamp
+    private Date day;
 
     @Column(name="r_content")
     private String content;
 
     @Column(name = "r_detail")
-    private Date detail;
+    private String detail;
 
     @Column(name = "r_status")
-    private Date status;
+    private String status;
 }

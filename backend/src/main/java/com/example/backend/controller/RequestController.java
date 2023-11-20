@@ -30,10 +30,10 @@ public class RequestController {
         Request request = new Request();
 
         try{
-            request.setWorkno(dto.getNo());
-            request.setWorkday(dto.getDay());
-            request.setReason(dto.getReason());
-            request.setResult("요청중");
+            request.setEmpid(dto.getId());
+            request.setContent(dto.getContent());
+            request.setDetail(dto.getDetail());
+            request.setStatus("확인중");
 
             requestRepository.saveAndFlush(request);
 

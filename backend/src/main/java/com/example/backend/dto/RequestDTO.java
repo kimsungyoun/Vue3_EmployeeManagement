@@ -6,9 +6,10 @@ import java.util.Date;
 
 @Data
 public class RequestDTO {
-    private int r_no;
     private int no;
-    private String reason;
-    private String result;
-    private Date day; // workday
+    private String id;
+    private String content;
+    private String detail;
+    private String status;
+    private Date day;
 }

@@ -16,26 +16,34 @@ public class JwtServiceImpl implements JwtService{
 
     @Override
     public String getToken(String key, Object value) {
+        // 토큰 유효시간 설정
         Date expTime = new Date();
         expTime.setTime(expTime.getTime() + (1000 * 60 * 60 * 2) );
 
+        // 암호화
         byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
         Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
 
+        // header 설정
         Map<String, Object> headerMap = new HashMap<>();
-        headerMap.put("typ","JWT");
-        headerMap.put("alg","HS256");
+        headerMap.put("typ","JWT"); // 토큰 타입 지정 : JWT
+        headerMap.put("alg","HS256"); // 알고리즘 방식 지정(서명 및 토큰 검증에 사용)
 
         Map<String, Object> map = new HashMap<>();
-        map.put(key,value);
+        map.put(key, value);
 
-        JwtBuilder builder = Jwts.builder().setHeader(headerMap).setClaims(map).setExpiration(expTime).signWith(signKey,SignatureAlgorithm.HS256);
+        JwtBuilder builder = Jwts.builder()
+                .setHeader(headerMap)
+                .setClaims(map)
+                .setExpiration(expTime)
+                .signWith(signKey, SignatureAlgorithm.HS256);
 
         return builder.compact();
     }
 
     @Override
     public Claims getClaims(String token) {
+        // 토큰 null 확인
         if(token != null && !"".equals(token)){
             try{
                 byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
@@ -45,10 +53,10 @@ public class JwtServiceImpl implements JwtService{
                 return claims;
             }catch (ExpiredJwtException e){
                 // 만료됨
-                System.out.println("만료!");
+                System.out.println("Expired JWT Exception >> "+e);
             }catch (JwtException e){
                 // 유효 하지 않음
-                System.out.println("유효X");
+                System.out.println("JWT Exception >> "+e);
             }
         }
         return null;
