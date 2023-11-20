@@ -57,6 +57,26 @@ public class EmployeeController {
         }
     }
 
+    @PostMapping("/api/employeeUpdate")
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO dto){
+        Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
+
+        if(employee!=null){
+            employee.setEmpname(dto.getEmpname());
+            employee.setEmpdept(dto.getEmpdept());
+            employee.setEmprule(dto.getEmprule());
+            employee.setEmpphone(dto.getEmpphone());
+            employee.setEmppostal(dto.getEmppostal());
+            employee.setEmpaddr(dto.getEmpaddr());
+            employee.setEmpdetail(dto.getEmpdetail());
+
+            employeeRepository.save(employee);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
     @PostMapping("/api/employee/add")
     public ResponseEntity<?> AddEmployee(@RequestBody EmployeeDTO dto){
         Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
@@ -90,25 +110,6 @@ public class EmployeeController {
         newEmployee.setEmpdept(dto.getEmpdept());
         newEmployee.setEmprule(dto.getEmprule());
         return newEmployee;
-    }
-
-    @PostMapping("/api/employeeUpdate")
-    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO dto){
-        Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
-
-        if(employee!=null){
-            employee.setEmpname(dto.getEmpname());
-            employee.setEmpdept(dto.getEmpdept());
-            employee.setEmprule(dto.getEmprule());
-            employee.setEmpphone(dto.getEmpphone());
-            employee.setEmppostal(dto.getEmppostal());
-            employee.setEmpaddr(dto.getEmpaddr());
-            employee.setEmpdetail(dto.getEmpdetail());
-
-            employeeRepository.save(employee);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/api/employee/delete/{empid}")

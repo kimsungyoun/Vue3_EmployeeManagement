@@ -9,9 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,14 +32,20 @@ public class AccountController {
 
         if(employee != null){
             int id = employee.getEmpno();
-
             String token = jwtService.getToken("id", id);
-
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
-
             res.addCookie(cookie);
+
+            /*String position = employee.getPosition();
+            String token2 = jwtService.getToken("position", position);
+            Cookie cookie1 = new Cookie("token2", token2);
+            res.addCookie(cookie1);
+
+            List <Object> list = new ArrayList<>();
+            list.add(id);
+            list.add(position);*/
 
             return new ResponseEntity<>(id, HttpStatus.OK);
         }

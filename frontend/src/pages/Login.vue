@@ -38,6 +38,7 @@ const submit = () => {
   axios.post("/api/account/login", state.form).then((res)=>{  
     store.commit('setAccount', res.data);
     sessionStorage.setItem("id", res.data);
+
     router.push({path: '/'});
     alert("어서오세요!");
   }).catch( () => {
