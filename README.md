@@ -21,3 +21,9 @@ https://www.figma.com/file/E5e4wIHnyHAnZJ5Ck5xhi8/Employer-management?type=desig
 
 # DB설계
 https://www.erdcloud.com/d/DcLe7MZiyf8f7YkDT
+
+# 작동원리
+1. 요청 시스템
+![image](https://github.com/kimsungyoun/Vue3_EmployeeManagement/assets/43941157/9e9dadbe-d654-42df-8d96-1a4fa41030c8)
+
+2. 
