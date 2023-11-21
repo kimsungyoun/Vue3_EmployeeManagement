@@ -1,6 +1,7 @@
 package com.example.backend.repository;
 
 import com.example.backend.entity.Employee;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,7 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Employee findByEmpid(String empid);
     Employee findByEmpidAndPassword(String empid, String password);
+    //Page<Employee> findAll(Pageable pageable);
     Page<Employee> findByEmpnameLike(String s, Pageable pageable);
     Page<Employee> findByEmpdeptLike(String s, Pageable pageable);
     Page<Employee> findByEmpruleLike(String s, Pageable pageable);

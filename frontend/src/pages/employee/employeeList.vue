@@ -31,13 +31,10 @@
             </tbody>
         </table>
     </div>
-    <!-- page : 임의로 만듬(추가 예정) -->
-    <div class="page">
-        <ul>
-            <li><a href="/employeeList">이전</a></li>
-            <li><a href="/employeeList">1</a></li>
-            <li><a href="/employeeList">다음</a></li>
-        </ul>
+    <div class="page" v-if="state.totalPages">        
+        <button v-for="pageNumber in state.totalPages" :key="pageNumber" @click="changePage(pageNumber)">
+            {{ pageNumber }}
+        </button>
     </div>
 </div>    
 </template>
@@ -49,13 +46,23 @@ import lib from "@/script/lib"
 import { onMounted, reactive } from "vue";
 
 const state = reactive({
-    items:[]
+    items:[],
+    currentPage:0,
+    totalPages:0,
 })
 
 const load = ()=>{
-    axios.get('/api/employee').then(({data})=>{
+    fetchData();
+}
+
+const fetchData=()=>{
+    const pageSize = 10;
+    const url = `/api/employee?page=${state.currentPage}&size=${pageSize}`;
+
+    axios.get(url).then(({data})=>{
         console.log(data);
         state.items = data.content;
+        state.totalPages = data.totalPages;
     })
 }
 
@@ -70,14 +77,21 @@ const search = ()=>{
     var searchkey = document.getElementById('searchkey');
 
     if(searchkey.value != ""){
-        axios.get(`/api/employeeSearch/${keyword.value}/${searchkey.value}`).then(({data})=>{
-            console.log(data);
+        const url = `/api/employee/${keyword.value}/${searchkey.value}?page=${state.currentPage}&size=10`;
+
+        axios.get(url).then(({data})=>{
             state.items = data.content;
+            state.totalPages = data.totalPages;
         })
     }else{
         load();
     }
 }
+
+const changePage = (pageNumber) => {
+  state.currentPage = pageNumber-1;
+  fetchData();
+};
 
 onMounted(()=>{
     load();
@@ -117,4 +131,8 @@ ul{
 li{
     margin-right: 10px;
 }
+.page{
+    text-align: center;
+}
+
 </style>

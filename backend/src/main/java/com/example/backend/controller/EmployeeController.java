@@ -35,8 +35,10 @@ public class EmployeeController {
     */
 
     @GetMapping("/api/employee")
-    public ResponseEntity <?> getList2(@PageableDefault(sort = "empname") Pageable pageable){
-        return new ResponseEntity<>(employeeRepository.findAll(pageable),HttpStatus.OK);
+    public ResponseEntity <?> getList(@PageableDefault(sort = "empname") Pageable pageable){
+        Page <Employee> list = employeeRepository.findAll(pageable);
+
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
