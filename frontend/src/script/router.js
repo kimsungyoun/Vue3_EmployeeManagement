@@ -10,6 +10,8 @@ import employeeModify from "@/pages/employee/employeeModify";
 
 import workList from "@/pages/work/workList";
 
+import admin from "@/pages/admin/adminView";
+
 import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
@@ -22,6 +24,7 @@ const routes = [
     {path: '/employeeView/:empid', component: employeeView},
     {path: '/employeeModify/:empid', component: employeeModify},
     {path: '/workList', component:workList},
+    {path: '/admin', component: admin},
 ]
 
 const router = createRouter({

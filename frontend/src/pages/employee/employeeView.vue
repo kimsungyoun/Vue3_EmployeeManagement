@@ -45,7 +45,7 @@
             </table>
         </div>
         <div class="btn-container" >
-            <input id="modify" value="수정" type="button" @click="modify(state.employee.empid)"/>
+            <input v-if="$store.state.account.position =='a'" id="modify" value="수정" type="button" @click="modify(state.employee.empid)"/>
             <input id="cancel" value="취소" type="button" @click="cancel()"/>
         </div>
     </div>

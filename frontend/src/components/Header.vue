@@ -3,14 +3,25 @@
   <div id="menu">
     <ul>
       <li><router-link to="/">메인</router-link></li>
-      <!-- <div class="navbar" v-if="$store.state.account.id">  -->
+      <div class="navbar" v-if="$store.state.account.id">
         <li>|</li>
         <li><router-link to="/employeeList" >직원</router-link></li>
         <li>|</li>
         <li><router-link to="/workList">근무</router-link></li>
-      <!-- </div> -->
+      </div>
+      <div class="navbar" v-if="$store.state.account.position =='a'">
+        <li>|</li>
+        <li><router-link to="/admin">관리</router-link></li>
+      </div>
     </ul>
+    
     <ul v-if="$route.path !='/' && $route.path !='/login'">
+      <li v-if="$store.state.account.position !='a' ">
+        <input type="button" @click="request()" value="요청"/>
+      </li>
+      <li v-else>
+        <input type="button" @click="addEmployee()" value="직원등록"/>
+      </li>
       <li>
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
         <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
@@ -33,6 +44,13 @@ const logout = () => {
   })
 };
 
+const request = ()=>{
+  router.push({path:'/'});
+}
+
+const addEmployee =()=>{
+  router.push({path:'/employee/add'});
+}
 </script>
 
 <style scoped>

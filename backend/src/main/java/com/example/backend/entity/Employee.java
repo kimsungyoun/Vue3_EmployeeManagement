@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.example.backend.dto.EmployeeDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,49 +15,64 @@ import java.util.List;
 @Table(name="employee")
 public class Employee {
     @Id
-    @Column(name = "emp_id")
+    @Column(name = "empid")
     private String empid;
 
-    @Column(name = "emp_no")
+    @Column(name = "empno")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int empno;
 
-    @Column(name = "emp_name")
+    @Column(name = "empname")
     private String empname;
 
-    @Column(name = "emp_birth")
+    @Column(name = "empbirth")
     private String empbirth;
 
-    @Column(name = "emp_postal")
+    @Column(name = "emppostal")
     private String emppostal;
 
-    @Column(name = "emp_addr")
+    @Column(name = "empaddr")
     private String empaddr;
 
-    @Column(name = "emp_detail")
+    @Column(name = "empdetail")
     private String empdetail;
 
-    @Column(name = "emp_phone")
+    @Column(name = "empphone")
     private String empphone;
 
-    @Column(name = "emp_dept")
+    @Column(name = "empdept")
     private String empdept;
 
-    @Column(name = "emp_rule")
+    @Column(name = "emprule")
     private String emprule;
 
-    @Column(name = "emp_hiredate")
+    @Column(name = "emphiredate")
     @CreationTimestamp
     private Date emphiredate;
 
-    @Column(name = "emp_password")
+    @Column(name = "emppassword")
     private String password;
 
-    @Column(name = "emp_position")
-    @Builder.Default
+    @Column(name = "empposition")
     private String position;
 
-    @Column(name = "emp_delstatus")
-    @Builder.Default
+    @Column(name = "empdelstatus")
     private String delstatus;
+
+    public Employee(EmployeeDTO dto) {
+        this.empid = dto.getEmpid();
+        this.password = dto.getPassword();
+        this.empname = dto.getEmpname();
+        this.empbirth = dto.getEmpbirth();
+        this.empphone = dto.getEmpphone();
+        this.emppostal = dto.getEmppostal();
+        this.empaddr = dto.getEmpaddr();
+        this.empdetail = dto.getEmpdetail()+" "+ dto.getExtra();
+        this.empdept = dto.getEmpdept();
+        this.emprule = dto.getEmprule();
+    }
+
+    public Employee() {
+
+    }
 }

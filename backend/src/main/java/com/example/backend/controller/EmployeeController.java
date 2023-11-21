@@ -6,13 +6,12 @@ import com.example.backend.entity.LeaveManagement;
 import com.example.backend.repository.EmployeeRepository;
 import com.example.backend.repository.LeaveManagementRepository;
 import com.example.backend.service.LeaveManagementService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -28,9 +27,16 @@ public class EmployeeController {
     @Autowired
     LeaveManagementService leaveManagementService;
 
+    /*
     @GetMapping("/api/employee")
     public List <?> getList(){
         return employeeRepository.findAll();
+    }
+    */
+
+    @GetMapping("/api/employee")
+    public ResponseEntity <?> getList2(@PageableDefault(sort = "empname") Pageable pageable){
+        return new ResponseEntity<>(employeeRepository.findAll(pageable),HttpStatus.OK);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
@@ -39,16 +45,19 @@ public class EmployeeController {
     }
 
     @GetMapping("/api/employeeSearch/{keyword}/{searchKey}")
-    public ResponseEntity<?> SearchList(@PathVariable("keyword")String keyword, @PathVariable("searchKey")String searchKey){
+    public ResponseEntity<?> SearchList(@PathVariable("keyword")String keyword,
+                                        @PathVariable("searchKey")String searchKey,
+                                        @PageableDefault(sort = "empname") Pageable pageable)
+    {
         try{
-            List <?> result = null;
-            
+            //List <?> result = null;
+            Page<?> result = null;
             if(Objects.equals(keyword, "empname")){
-                result = employeeRepository.findByEmpnameLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpnameLike("%"+searchKey+"%", pageable);
             }else if(Objects.equals(keyword, "empdept")){
-                result = employeeRepository.findByEmpdeptLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpdeptLike("%"+searchKey+"%", pageable);
             }else if(Objects.equals(keyword, "emprule")){
-                result = employeeRepository.findByEmpruleLike("%"+searchKey+"%");
+                result = employeeRepository.findByEmpruleLike("%"+searchKey+"%", pageable);
             }
 
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -61,7 +70,7 @@ public class EmployeeController {
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO dto){
         Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
 
-        if(employee!=null){
+        if(employee != null){
             employee.setEmpname(dto.getEmpname());
             employee.setEmpdept(dto.getEmpdept());
             employee.setEmprule(dto.getEmprule());
@@ -76,40 +85,16 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
     @PostMapping("/api/employee/add")
     public ResponseEntity<?> AddEmployee(@RequestBody EmployeeDTO dto){
-        Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
-        LeaveManagement leaveManagement = leaveManagementRepository.findByEmpid(dto.getEmpid());
+        if(employeeRepository.findByEmpid(dto.getEmpid()) == null){
+            Employee employee = new Employee(dto);
 
-        if(employee == null && leaveManagement == null){
-            try{
-                Employee newEmployee = getEmployee(dto);
-                employeeRepository.saveAndFlush(newEmployee);
+            employeeRepository.save(employee);
 
-                return new ResponseEntity<>(HttpStatus.OK);
-            }catch (Exception e){
-                System.out.println("Error Content >> "+e);
-            }
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @NotNull
-    private static Employee getEmployee(EmployeeDTO dto) {
-        Employee newEmployee = new Employee();
-
-        newEmployee.setEmpid(dto.getEmpid());
-        newEmployee.setPassword(dto.getPassword());
-        newEmployee.setEmpname(dto.getEmpname());
-        newEmployee.setEmpbirth(dto.getEmpbirth());
-        newEmployee.setEmpphone(dto.getEmpphone());
-        newEmployee.setEmppostal(dto.getEmppostal());
-        newEmployee.setEmpaddr(dto.getEmpaddr());
-        newEmployee.setEmpdetail(dto.getEmpdetail()+ dto.getExtra());
-        newEmployee.setEmpdept(dto.getEmpdept());
-        newEmployee.setEmprule(dto.getEmprule());
-        return newEmployee;
     }
 
     @DeleteMapping("/api/employee/delete/{empid}")

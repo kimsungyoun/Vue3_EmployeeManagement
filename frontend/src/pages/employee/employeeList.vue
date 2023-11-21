@@ -31,6 +31,7 @@
             </tbody>
         </table>
     </div>
+    <!-- page : 임의로 만듬(추가 예정) -->
     <div class="page">
         <ul>
             <li><a href="/employeeList">이전</a></li>
@@ -53,24 +54,28 @@ const state = reactive({
 
 const load = ()=>{
     axios.get('/api/employee').then(({data})=>{
-        state.items = data;
+        console.log(data);
+        state.items = data.content;
     })
 }
 
+// 상세보기
 const info=(id)=>{
     router.push({path : `/employeeView/${id}`});
 }
 
+// 검색기능
 const search = ()=>{
     var keyword = document.getElementById('keyword');
     var searchkey = document.getElementById('searchkey');
 
-    if(searchkey != ""){
+    if(searchkey.value != ""){
         axios.get(`/api/employeeSearch/${keyword.value}/${searchkey.value}`).then(({data})=>{
-            state.items = data;
+            console.log(data);
+            state.items = data.content;
         })
     }else{
-        load()
+        load();
     }
 }
 
@@ -87,6 +92,7 @@ onMounted(()=>{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin-right: 20px;
 }
 .employeeList{
     margin: 20px 0;

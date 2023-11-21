@@ -17,22 +17,22 @@ import java.util.Date;
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="r_no")
+    @Column(name="rno")
     private Integer no;
 
-    @Column(name = "emp_id")
+    @Column(name = "empid")
     private String empid;
 
-    @Column(name="r_day")
+    @Column(name="rday")
     @CurrentTimestamp
     private Date day;
 
-    @Column(name="r_content")
+    @Column(name="rcontent")
     private String content;
 
-    @Column(name = "r_detail")
+    @Column(name = "rdetail")
     private String detail;
 
-    @Column(name = "r_status")
+    @Column(name = "rstatus")
     private String status;
 }

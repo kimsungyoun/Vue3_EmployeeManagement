@@ -6,7 +6,7 @@
     <div class="EmployeeAddContainer">
       <label>아이디</label>
       <div id="idbox">
-        <input id="id" type="text" placeholder="사용하실 아이디를 입력하세요" v-model="state.forms.id"/>
+        <input id="id" type="text" placeholder="사용하실 아이디를 입력하세요" v-model="state.forms.empid"/>
         <input id="checkBtn" type="button" @click="checkIdDuplication()" value="아이디 중복 체크"/>
       </div>
       
@@ -14,31 +14,31 @@
       <input id="password" type="password" placeholder="비밀번호를 입력하세요" v-model="state.forms.password"/>
 
       <label>이름</label>
-      <input id="name" type="text" placeholder="홍길동" v-model="state.forms.name"/>
+      <input id="name" type="text" placeholder="홍길동" v-model="state.forms.empname"/>
 
       <label>핸드폰</label>
-      <input id="phone" type="text" placeholder="010-1234-5678" v-model="state.forms.phone"/>
+      <input id="phone" type="text" placeholder="010-1234-5678" v-model="state.forms.empphone"/>
 
       <label>생년월일</label>
-      <input id="birth" type="text" placeholder="1999-01-01" v-model="state.forms.birth"/>
+      <input id="birth" type="text" placeholder="1999-01-01" v-model="state.forms.empbirth"/>
 
       <label>부서</label>
-      <deptSelect v-model="state.forms.dept"/>
+      <deptSelect v-model="state.forms.empdept"/>
 
       <label>직책</label>
-      <ruleSelect v-model="state.forms.rule"/>
+      <ruleSelect v-model="state.forms.emprule"/>
 
       <label>우편 주소</label> 
       <div class="postal">
-        <input type="text" v-model="state.forms.postal" id="sample6_postcode" placeholder="우편번호">
+        <input type="text" v-model="state.forms.emppostal" id="sample6_postcode" placeholder="우편번호">
         <input id="postalBtn" type="button" @click="showApi()" value="우편번호 찾기">
       </div>
 
       <label>주소</label>
-      <input type="text" v-model="state.forms.address" id="sample6_address" placeholder="주소">
+      <input type="text" v-model="state.forms.empaddr" id="sample6_address" placeholder="주소">
 
       <label>상세 주소</label>
-      <input type="text" v-model="state.forms.detail" id="sample6_detailAddress" placeholder="상세 주소">
+      <input type="text" v-model="state.forms.empdetail" id="sample6_detailAddress" placeholder="상세 주소">
 
       <label>참고 항목</label>
       <input type="text" v-model="state.forms.extra" id="sample6_extraAddress" placeholder="참고 항목">
@@ -60,45 +60,41 @@ import ruleSelect from "@/components/ruleSelect.vue";
 
 const state = reactive({
   forms: {
-    id: "",
+    empid: "",
     password: "",
-    name: "",
-    birth: "",
-    phone: "",
-    dept: "",
-    rule: "",
-    postal: "",
-    address: "",
-    detail: "",
+    empname: "",
+    empbirth: "",
+    empphone: "",
+    empdept: "",
+    emprule: "",
+    emppostal: "",
+    empaddr: "",
+    empdetail: "",
     extra:"",
   },
 });
 // 아이디 중복 체크
-const checkIdDuplication =()=>{
-  axios.get("/api/checkIdDuplication/" + state.forms.id).then((response) => {
-      if (response.data==1) {
-        alert("아이디 중복입니다.");
-      } else if (response.data == 0){
-        alert("아이디 사용 가능합니다.");
-      }
-    })
-    .catch(() => {
-      alert("아이디 중복 체크 실패");
-    });
+const checkIdDuplication = ()=>{
+  axios.get(`/api/checkIdDuplication/${state.forms.empid}`).then((response) => {
+    if (response.data == 1) {
+      alert("이미 사용중인 아이디입니다.");
+    } else if (response.data == 0){
+      alert("사용 가능한 아이디입니다.");
+    }
+  }).catch(() => {
+    alert("아이디 중복 체크 실패");
+  });
 }
 
 // 직원 등록
 const submit = () => {
   const args = JSON.parse(JSON.stringify(state.forms));
-  axios
-    .post("/api/employee/add", args)
-    .then(() => {
+  axios.post("/api/employee/add", args).then(() => {
       alert("등록 성공");
-      router.push({ path: "/employee" });
+      router.push({ path: "/employeeList" });
     })
     .catch(() => {
       alert("등록 실패");
-      router.push({ path: "/employee/add" });
     });
 };
 
@@ -118,9 +114,9 @@ const loadDaumPostcodeScript = () => {
 const showApi = () => {
   new window.daum.Postcode({
     oncomplete: function(data) {
-      state.forms.postal = data.zonecode;
-      state.forms.address = data.roadAddress || data.jibunAddress;
-      state.forms.detail = '';
+      state.forms.emppostal = data.zonecode;
+      state.forms.empaddr = data.roadAddress || data.jibunAddress;
+      state.forms.empdetail = '';
       state.forms.extra = '';
 
       var addr = ''; // 주소 변수

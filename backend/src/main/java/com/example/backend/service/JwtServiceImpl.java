@@ -40,7 +40,32 @@ public class JwtServiceImpl implements JwtService{
 
         return builder.compact();
     }
+    @Override
+    public String getToken(String key1, int id, String key2, String position) {
+        Date expTime = new Date();
+        expTime.setTime(expTime.getTime() + (1000 * 60 * 60 * 2) );
 
+        // 암호화
+        byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
+        Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
+
+        // header 설정
+        Map<String, Object> headerMap = new HashMap<>();
+        headerMap.put("typ","JWT"); // 토큰 타입 지정 : JWT
+        headerMap.put("alg","HS256"); // 알고리즘 방식 지정(서명 및 토큰 검증에 사용)
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(key1, id);
+        map.put(key2, position);
+
+        JwtBuilder builder = Jwts.builder()
+                .setHeader(headerMap)
+                .setClaims(map)
+                .setExpiration(expTime)
+                .signWith(signKey, SignatureAlgorithm.HS256);
+
+        return builder.compact();
+    }
     @Override
     public Claims getClaims(String token) {
         // 토큰 null 확인
