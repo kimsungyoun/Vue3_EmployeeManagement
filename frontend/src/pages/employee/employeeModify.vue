@@ -72,8 +72,8 @@ const modify=()=>{
         axios.post(`/api/employeeUpdate`, args).then(()=>{
             router.push({path:`/employeeView/${state.employee.empid}`});
             alert("수정 완료")
-        }).catch((error)=>{
-            alert("수정 실패 >> "+error)
+        }).catch(()=>{
+            alert("수정 실패")
         })
     }else{
         alert("수정 취소")

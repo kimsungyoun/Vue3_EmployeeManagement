@@ -17,4 +17,13 @@ body{
 ul li{
   list-style: none;
 }
+
+input[type="button"]{
+  background-color: #98abdf;
+  border: 1px solid #98abdf;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
 </style>

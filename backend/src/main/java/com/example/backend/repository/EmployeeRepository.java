@@ -13,7 +13,6 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Employee findByEmpid(String empid);
     Employee findByEmpidAndPassword(String empid, String password);
-    //Page<Employee> findAll(Pageable pageable);
     Page<Employee> findByEmpnameLike(String s, Pageable pageable);
     Page<Employee> findByEmpdeptLike(String s, Pageable pageable);
     Page<Employee> findByEmpruleLike(String s, Pageable pageable);

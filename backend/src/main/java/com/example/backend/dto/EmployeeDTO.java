@@ -27,5 +27,5 @@ public class EmployeeDTO {
     private String emprule;
     private Date emphiredate;
     private String position;
-    private Integer delstatus;
+    private String delstatus;
 }

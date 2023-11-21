@@ -60,7 +60,6 @@ const fetchData=()=>{
     const url = `/api/employee?page=${state.currentPage}&size=${pageSize}`;
 
     axios.get(url).then(({data})=>{
-        console.log(data);
         state.items = data.content;
         state.totalPages = data.totalPages;
     })
@@ -77,7 +76,8 @@ const search = ()=>{
     var searchkey = document.getElementById('searchkey');
 
     if(searchkey.value != ""){
-        const url = `/api/employee/${keyword.value}/${searchkey.value}?page=${state.currentPage}&size=10`;
+        const pageSize = 10;
+        const url = `/api/employeeSearch/${keyword.value}/${searchkey.value}?page=${state.currentPage}&size=${pageSize}`;
 
         axios.get(url).then(({data})=>{
             state.items = data.content;
@@ -134,5 +134,15 @@ li{
 .page{
     text-align: center;
 }
-
+button{
+    background-color: #98abdf;
+    border: 1px solid #98abdf;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+a, button:hover{
+    cursor: pointer;
+}
 </style>

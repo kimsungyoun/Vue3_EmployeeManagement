@@ -24,7 +24,7 @@
       </li>
       <li>
         <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-        <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
+        <a to="/" @click="logout()" v-else><input type="button" value="로그아웃"/></a>
       </li>
     </ul>
   </div>
@@ -59,7 +59,7 @@ header{
   padding: 15px 40px;
 }
 
-button{
+input[type="button"]{
     background-color: #98abdf;
     border: 1px solid #98abdf;
     color: #fff;

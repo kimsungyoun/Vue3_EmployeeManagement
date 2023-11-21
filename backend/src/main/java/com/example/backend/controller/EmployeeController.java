@@ -52,7 +52,6 @@ public class EmployeeController {
                                         @PageableDefault(sort = "empname") Pageable pageable)
     {
         try{
-            //List <?> result = null;
             Page<?> result = null;
             if(Objects.equals(keyword, "empname")){
                 result = employeeRepository.findByEmpnameLike("%"+searchKey+"%", pageable);
@@ -71,7 +70,6 @@ public class EmployeeController {
     @PostMapping("/api/employeeUpdate")
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO dto){
         Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
-
         if(employee != null){
             employee.setEmpname(dto.getEmpname());
             employee.setEmpdept(dto.getEmpdept());
