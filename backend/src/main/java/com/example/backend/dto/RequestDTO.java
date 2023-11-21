@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class RequestDTO {
     private int no;
-    private String id;
+    private int id;
     private String content;
     private String detail;
     private String status;

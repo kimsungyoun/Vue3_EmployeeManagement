@@ -19,6 +19,10 @@
                 <td><input type="text" :value="lib.formattedTime2(state.employee.emphiredate)" disabled/></td>
             </tr>
             <tr>
+                <td>생년월일</td>
+                <td><input type="text" :value="lib.formattedTime2(state.employee.empbirth)" disabled/></td>
+            </tr>
+            <tr>
                 <td>연락처</td>
                 <td><input type="text" v-model="state.employee.empphone"/></td>
             </tr>
@@ -142,6 +146,11 @@ input[type="text"]{
     width: 100%;
     height: 100%;
     border: 0px;
+}
+
+input[disabled]{
+    background-color: #fff;
+    color: rgba(0, 0, 0, .3);
 }
 
 #modify{

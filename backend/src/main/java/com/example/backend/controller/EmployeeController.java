@@ -74,6 +74,7 @@ public class EmployeeController {
             employee.setEmpname(dto.getEmpname());
             employee.setEmpdept(dto.getEmpdept());
             employee.setEmprule(dto.getEmprule());
+            employee.setEmpbirth(dto.getEmpbirth());
             employee.setEmpphone(dto.getEmpphone());
             employee.setEmppostal(dto.getEmppostal());
             employee.setEmpaddr(dto.getEmpaddr());

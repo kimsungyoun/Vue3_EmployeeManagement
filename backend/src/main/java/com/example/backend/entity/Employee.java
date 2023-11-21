@@ -7,11 +7,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@DynamicInsert
 @Table(name="employee")
 public class Employee {
     @Id

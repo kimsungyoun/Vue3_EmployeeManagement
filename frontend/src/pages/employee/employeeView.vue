@@ -19,6 +19,10 @@
                     <td>{{ lib.formattedTime2(state.employee.emphiredate) }}</td>
                 </tr>
                 <tr>
+                    <td>생년월일</td>
+                    <td>{{ lib.formattedTime2(state.employee.empbirth) }}</td>
+                </tr>
+                <tr>
                     <td>연락처</td>
                     <td>{{ state.employee.empphone }}</td>
                 </tr>

@@ -37,7 +37,7 @@ const state = reactive({
 const submit = () => {
   axios.post("/api/account/login", state.form).then((res)=>{ 
     store.commit('setAccount', res.data);
-    sessionStorage.setItem("id", res.data);
+    sessionStorage.setItem("id", res.data.id);
     router.push({path: '/'});
     alert("어서오세요!");
   }).catch( () => {

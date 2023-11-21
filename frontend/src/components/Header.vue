@@ -23,7 +23,7 @@
         <input type="button" @click="addEmployee()" value="직원등록"/>
       </li>
       <li>
-        <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
+        <router-link to="/login" v-if="!$store.state.account.id"><input type="button" value="로그인"/></router-link>
         <a to="/" @click="logout()" v-else><input type="button" value="로그아웃"/></a>
       </li>
     </ul>
@@ -45,11 +45,11 @@ const logout = () => {
 };
 
 const request = ()=>{
-  router.push({path:'/'});
+  router.push({path:'/writeRequest'});
 }
 
 const addEmployee =()=>{
-  router.push({path:'/employee/add'});
+  router.push({path:'/employeeAdd'});
 }
 </script>
 

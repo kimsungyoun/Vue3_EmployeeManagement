@@ -2,10 +2,12 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Setter
 @Entity
+@DynamicInsert
 @Table(name="leavemanagement")
 public class LeaveManagement {
     @Id

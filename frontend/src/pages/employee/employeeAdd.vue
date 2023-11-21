@@ -20,8 +20,8 @@
       <input id="phone" type="text" placeholder="010-1234-5678" v-model="state.forms.empphone"/>
 
       <label>생년월일</label>
-      <input id="birth" type="text" placeholder="1999-01-01" v-model="state.forms.empbirth"/>
-
+      <datePicker v-model="state.forms.empbirth" :typeable="true" :clearable="true" auto-apply/>
+      
       <label>부서</label>
       <deptSelect v-model="state.forms.empdept"/>
 
@@ -57,13 +57,13 @@ import router from "@/script/router";
 import axios from "axios";
 import deptSelect from "@/components/deptSelect.vue";
 import ruleSelect from "@/components/ruleSelect.vue";
+import datePicker from "vue3-datepicker";
 
 const state = reactive({
   forms: {
     empid: "",
     password: "",
     empname: "",
-    empbirth: "",
     empphone: "",
     empdept: "",
     emprule: "",
@@ -71,8 +71,10 @@ const state = reactive({
     empaddr: "",
     empdetail: "",
     extra:"",
+    empbirth:new Date("2000-01-01"),
   },
 });
+
 // 아이디 중복 체크
 const checkIdDuplication = ()=>{
   axios.get(`/api/checkIdDuplication/${state.forms.empid}`).then((response) => {
@@ -105,11 +107,12 @@ const cancel = () => {
 
 // 검색 API
 const loadDaumPostcodeScript = () => {
-    const script = document.createElement('script');
-    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-    script.async = true;
-    document.body.appendChild(script);
-  }
+  const script = document.createElement('script');
+  script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+  script.async = true;
+  document.body.appendChild(script);
+}
+
 // 우편주소 창 띄우기
 const showApi = () => {
   new window.daum.Postcode({
@@ -162,7 +165,7 @@ const showApi = () => {
 
 onMounted(() => {
     loadDaumPostcodeScript();
-  });
+});
 
 </script> 
 
