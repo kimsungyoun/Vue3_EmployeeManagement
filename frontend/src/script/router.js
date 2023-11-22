@@ -1,5 +1,5 @@
-import Login from "@/pages/Login.vue";
 import Home from "@/pages/Home.vue";
+import Main from "@/pages/Main.vue";
 
 import employeeAdd from "@/pages/employee/employeeAdd.vue";
 import employeeList from "@/pages/employee/employeeList";
@@ -16,7 +16,7 @@ import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
     {path: '/', component: Home},
-    {path: '/login', component: Login},
+    {path: '/main', component: Main},
     {path: '/employeeAdd', component: employeeAdd},    
     {path: '/employeeList', component: employeeList},
     {path: '/employeeView/:empid', component: employeeView},

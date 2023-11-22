@@ -1,7 +1,8 @@
 <template>
 <div id="container">
   <div class="container">
-    <h2>직원 등록</h2>
+    <h2 v-if="$store.state.account.position!='a'">회원가입</h2>
+    <h2 v-else>직원등록</h2>
 
     <div class="EmployeeAddContainer">
       <label>아이디</label>
@@ -90,19 +91,24 @@ const checkIdDuplication = ()=>{
 
 // 직원 등록
 const submit = () => {
+  const result = confirm("등록하시겠습니까?");
   const args = JSON.parse(JSON.stringify(state.forms));
-  axios.post("/api/employee/add", args).then(() => {
+  if(result){
+    axios.post("/api/employee/add", args).then(() => {
       alert("등록 성공");
-      router.push({ path: "/employeeList" });
-    })
-    .catch(() => {
+      router.push({ path: "/" });
+    }).catch(() => {
       alert("등록 실패");
     });
+  }
 };
 
 // 직원 등록 취소
 const cancel = () => {
-  history.go(-1);
+  const result = confirm("취소하시겠습니까?");
+  if(result){
+    history.go(-1);
+  }
 };
 
 // 검색 API
@@ -191,16 +197,12 @@ label{
   margin-top:5px;
   margin-bottom: 5px;
 }
-input[type=button]{
-  padding: 5px 10px;
-}
-/* 크기 고정 */
-select, input[type="text"], #password{
+
+select, input[type=text], #password{
   height: 25px;
   width: 100%;
 }
 
-/* 아이디 입력 칸 */
 #idbox{
   display: flex;
   flex-direction: row;

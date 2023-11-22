@@ -31,10 +31,10 @@
             </tbody>
         </table>
     </div>
-    <div class="page" v-if="state.totalPages">        
-        <button v-for="pageNumber in state.totalPages" :key="pageNumber" @click="changePage(pageNumber)">
-            {{ pageNumber }}
-        </button>
+    <div class="page" v-if="state.totalPages">
+        <input type="button" @click="previous()" value="이전"/>        
+        <input type="button" v-for="pageNumber in state.totalPages" :key="pageNumber" :value="pageNumber"  @click="changePage(pageNumber)">
+        <input type="button" @click="next()" value="다음"/>
     </div>
 </div>    
 </template>
@@ -65,12 +65,10 @@ const fetchData=()=>{
     })
 }
 
-// 상세보기
 const info=(id)=>{
     router.push({path : `/employeeView/${id}`});
 }
 
-// 검색기능
 const search = ()=>{
     var keyword = document.getElementById('keyword');
     var searchkey = document.getElementById('searchkey');
@@ -89,9 +87,23 @@ const search = ()=>{
 }
 
 const changePage = (pageNumber) => {
-  state.currentPage = pageNumber-1;
-  fetchData();
+    state.currentPage = pageNumber-1;
+    fetchData();
 };
+
+const previous = () =>{
+    if(state.currentPage != 0){
+        state.currentPage = state.currentPage - 1;
+        fetchData();
+    }
+}
+
+const next =()=>{
+    if(state.totalPages - 1 > state.currentPage){
+        state.currentPage = state.currentPage + 1;
+        fetchData();
+    }
+}
 
 onMounted(()=>{
     load();
@@ -118,7 +130,6 @@ table{
     text-align: center;
     width: 100%;
 }
-
 tr, td {
     border: 1px solid #98abdf;
 }
@@ -128,21 +139,18 @@ ul{
     flex-direction: row;
     justify-content: center;
 }
-li{
+#keyword, #searchkey, li{
     margin-right: 10px;
 }
 .page{
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-button{
-    background-color: #98abdf;
-    border: 1px solid #98abdf;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 10px;
+input[type=button]{
     margin-right: 5px;
 }
-a, button:hover{
+a:hover{
     cursor: pointer;
 }
 </style>

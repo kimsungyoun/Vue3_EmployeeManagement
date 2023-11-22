@@ -1,31 +1,11 @@
 <template>
   <div class="container">
-    <div>
-      <h1 v-if="!$store.state.account.id">어서오세요</h1>
-      <div v-else>
-        <h1>환영합니다</h1>
-      </div>
-      
-      <a href="/login" v-if="!$store.state.account.id"><button>로그인</button></a>
-      <a to="/" @click="logout()" v-else><button>로그아웃</button></a>
-    </div>  
+      <Login/>
   </div>
 </template>
 
 <script setup>
-import router from "@/script/router";
-import store from "@/script/store";
-import axios from "axios";
-
-
-const logout=()=>{
-  axios.post("/api/account/logout").then(()=>{
-    store.commit('setAccount', 0);
-    router.push({path: "/"});
-    window.alert("로그아웃 되었습니다.")
-  });
-}
-
+import Login from "@/components/Login.vue";
 </script>
 
 <style scoped>
@@ -63,19 +43,5 @@ const logout=()=>{
   bottom: 0;
   left: 0;
   z-index: -2; 
-}
-
-button{
-  background-color: #8293c4;
-  border: 1px solid #8293c4;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  color:#FFFFFF;
-  text-decoration: none;
-}
-
-button:hover{
-  cursor: pointer;
 }
 </style>

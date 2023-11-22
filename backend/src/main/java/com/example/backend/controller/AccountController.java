@@ -32,14 +32,14 @@ public class AccountController {
         Employee employee = employeeRepository.findByEmpidAndPassword(params.get("email"), params.get("password"));
 
         if(employee != null){
-            int id = employee.getEmpno();
+            int no = employee.getEmpno();
             String position = employee.getPosition();
 
             Map<String, Object> map = new HashMap();
-            map.put("id", id);
+            map.put("no", no);
             map.put("position", position);
 
-            String token = jwtService.getToken("id", id, "position", position);
+            String token = jwtService.getToken("no", no, "position", position);
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
@@ -69,7 +69,7 @@ public class AccountController {
 
         if(claims != null){
             int id = Integer.parseInt(claims.get("id").toString());
-            return new ResponseEntity<>(id,HttpStatus.OK);
+            return new ResponseEntity<>(id, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.OK);

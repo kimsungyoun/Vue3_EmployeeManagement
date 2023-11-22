@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.example.backend.dto.RequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class Request {
     @Column(name="rno")
     private Integer no;
 
-    @Column(name = "empid" , insertable=false, updatable=false)
+    @Column(name = "empid", insertable=false, updatable=false)
     private String empid;
 
     @Column(name="rday")
@@ -38,6 +39,6 @@ public class Request {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "empid")
-    Employee employee;
+    @JoinColumn(name="empid")
+    private Employee employee;
 }

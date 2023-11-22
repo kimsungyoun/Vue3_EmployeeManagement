@@ -32,25 +32,31 @@ public class RequestController {
 
     @GetMapping("/api/request")
     public ResponseEntity<?> getList (@PageableDefault(sort = "no",direction = Sort.Direction.DESC) Pageable pageable){
-        Page<Request> list = requestRepository.findAll(pageable);
+        Page<Request> list = requestRepository.findByStatusLike("진행중",pageable);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/request2")
+    public ResponseEntity<?> getList2 (@PageableDefault(sort = "no",direction = Sort.Direction.DESC) Pageable pageable){
+        Page<Request> list = requestRepository.findByStatusNotLike("진행중", pageable);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping("/api/requestWrite")
     public ResponseEntity<?> writeRequest(@RequestBody RequestDTO dto){
-        Employee employee = employeeRepository.findByEmpno(dto.getId());
-        if(employee !=null){
+        Employee employee = employeeRepository.findByEmpno(dto.getNo());
+        if(employee != null){
             Request request = new Request();
-
             request.setEmpid(employee.getEmpid());
             request.setDay(dto.getDay());
             request.setContent(dto.getContent());
             request.setDetail(dto.getDetail());
+            request.setEmployee(employee);
 
             requestRepository.save(request);
-
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

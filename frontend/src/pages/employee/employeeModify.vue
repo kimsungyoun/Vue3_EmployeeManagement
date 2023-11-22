@@ -134,10 +134,10 @@ table > tr:nth-child(1) > td:nth-child(1){
 table > tr:nth-child(1) > td:nth-child(2){
     border-top-right-radius: 15px;
 }
-table > tr:nth-child(8) > td:nth-child(1){
+table > tr:nth-child(9) > td:nth-child(1){
     border-bottom-left-radius: 15px;
 }
-table > tr:nth-child(8) > td:nth-child(2){
+table > tr:nth-child(9) > td:nth-child(2){
     border-bottom-right-radius: 15px;
 }
 

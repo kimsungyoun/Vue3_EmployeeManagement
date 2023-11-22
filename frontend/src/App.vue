@@ -1,7 +1,7 @@
 <template>
   <Header/>
   <RouterView/>
-  <Footer/>
+  <Footer/> 
 </template>
 
 <script setup>
@@ -26,4 +26,7 @@ input[type="button"]{
   border-radius: 10px;
 }
 
+input[type=button]:hover{
+  cursor: pointer;
+}
 </style>

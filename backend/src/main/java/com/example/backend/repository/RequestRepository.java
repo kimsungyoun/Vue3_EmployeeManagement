@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Integer> {
-
+    Page<Request> findByStatusLike(String status, Pageable pageable);
+    Page<Request> findByStatusNotLike(String status, Pageable pageable);
 }

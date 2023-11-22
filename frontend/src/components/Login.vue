@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-      <div class="login-container">
+      <div class="login-container" v-if="!store.state.account.id">
         <div class="loginForm">
           <h2>로그인</h2>
           <ul>
@@ -14,8 +14,8 @@
         </div>
       
         <div class="btn-container">
-          <button id="signup" @click="signup()">회원가입</button>
-          <button id="submit" @click="submit()">로그인</button>  
+          <input type="button" value="회원가입" id="signup" @click="signup()"/>
+          <input type="button" value="로그인" id="submit" @click="submit()">  
         </div>
       </div>
     </div>
@@ -37,16 +37,16 @@ const state = reactive({
 const submit = () => {
   axios.post("/api/account/login", state.form).then((res)=>{ 
     store.commit('setAccount', res.data);
-    sessionStorage.setItem("id", res.data.id);
-    router.push({path: '/'});
-    alert("어서오세요!");
+    sessionStorage.setItem("no", res.data.no);
+    router.push({path: '/main'});
+    alert("로그인 성공!");
   }).catch( () => {
     window.alert("로그인 실패!")
   });
 };
 
 const signup=()=>{
-  router.push({ path: '/employee/add' });
+  router.push({ path: '/employeeAdd' });
 }
 </script>
 
@@ -77,6 +77,8 @@ ul{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  
 }
 
 .btn-container{
@@ -86,12 +88,10 @@ ul{
   justify-content: center;
 }
 
-button{
-  background-color: #8293c4;
-  border: 1px solid #8293c4;
-  border-radius: 5px;
+input{
   padding: 5px;
-  color:#FFFFFF;
+  border-radius: 10px;
+  border: 1px solid #98abdf;
 }
 
 #signup{

@@ -28,11 +28,12 @@ import Detail from "@/components/requestDetail.vue";
 import datepicker from "vue3-datepicker";
 import router from "@/script/router";
 import axios from "axios";
+import store from "@/script/store";
 import { reactive } from "vue";
 
 const state = reactive({
     forms:{
-        id:0,
+        no:0,
         day:new Date(),
         content:"",
         detail:"",
@@ -40,10 +41,8 @@ const state = reactive({
 });
 
 const request = ()=>{
-    state.forms.id = sessionStorage.getItem("id");
-    
-    const result = confirm("요청하시겠습니까?");
-    
+    state.forms.no = store.state.account.no;
+    const result = confirm("요청하시겠습니까?"); 
     if(result){
         console.log(state.forms);
         const args = JSON.parse(JSON.stringify(state.forms));
