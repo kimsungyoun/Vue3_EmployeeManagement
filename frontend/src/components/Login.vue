@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-      <div class="login-container" v-if="!store.state.account.id">
+      <div class="login-container" v-if="!store.state.account.no">
         <div class="loginForm">
           <h2>로그인</h2>
           <ul>

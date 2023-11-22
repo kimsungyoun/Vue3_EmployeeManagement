@@ -8,9 +8,9 @@
           <li>|</li>
           <li><a href="http://www.bnosoft.co.kr/sub05.html">Location</a></li>
           <li>|</li>
-          <li><a href="/">Privacy Policy</a></li>
+          <li><a >Privacy Policy</a></li>
           <li>|</li>
-          <li><a href="/">Terms of Use</a></li>
+          <li><a >Terms of Use</a></li>
           <li>|</li>
         </ul>
       </div>

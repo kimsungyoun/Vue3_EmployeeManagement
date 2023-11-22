@@ -20,6 +20,9 @@
 
     <div class="right">
       <ul v-if="$route.path !='/' && $route.path !='/employeeAdd'">
+        <li>
+          <input type="button" @click="myPage()" value="마이페이지">
+        </li>
         <li v-if="$store.state.account.position !='a' ">
           <input type="button" @click="request()" value="요청"/>
         </li>
@@ -50,6 +53,9 @@ const logout = () => {
     window.alert("로그아웃 완료");
   })
 };
+const myPage = ()=>{
+  router.push({path:'/main'});
+}
 
 const request = ()=>{
   router.push({path:'/writeRequest'});
