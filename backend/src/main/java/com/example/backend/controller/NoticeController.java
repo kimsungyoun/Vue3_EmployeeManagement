@@ -51,14 +51,17 @@ public class NoticeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/api/noticeModify")
-    public ResponseEntity<?> modifyNotice(@RequestBody NoticeDTO dto){
-        Notice notice = noticeRepository.findByNnoAndEmpno(dto.getNno(), dto.getEmpno());
+    @GetMapping("/api/noticeModify/{nno}")
+    public ResponseEntity<?> modifyNotice(@PathVariable(name = "nno")int nno){
+        Notice notice = noticeRepository.findByNno(nno);
+        return new ResponseEntity<>(notice, HttpStatus.OK);
+    }
 
-        notice.setEmpno(dto.getEmpno());
+    @PostMapping("/api/noticeUpdate")
+    public ResponseEntity<?> updateNotice(@RequestBody NoticeDTO dto){
+        Notice notice = noticeRepository.findByNnoAndEmpno(dto.getNno(), dto.getEmpno());
         notice.setTitle(dto.getTitle());
         notice.setContent(dto.getContent());
-
         noticeRepository.save(notice);
         return new ResponseEntity<>(HttpStatus.OK);
     }

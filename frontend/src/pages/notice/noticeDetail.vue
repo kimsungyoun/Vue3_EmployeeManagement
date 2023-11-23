@@ -20,7 +20,7 @@
         </table>
     </div>
     <div class="btncontainer">       
-        <input v-if="$store.state.account.position == 'a'" type="button" id="modify" @click="modify(state.items.nno)" value="수정"/>
+        <input v-if="$store.state.account.position == 'a'&& state.items.empno == $store.state.account.no" type="button" id="modify" @click="modify(state.items.nno)" value="수정"/>
         <input type="button" id="list" @click="list()" value="목록"/>
     </div>
 </div>

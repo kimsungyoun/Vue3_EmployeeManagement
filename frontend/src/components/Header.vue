@@ -23,6 +23,7 @@
         <li><input type="button" @click="myPage($store.state.account.no)" value="마이페이지"></li>
         
         <li v-if="$store.state.account.position !='a' ">
+          <input type="button" value="출근"/>
           <input type="button" @click="request()" value="요청"/>
         </li>
         <li v-else><input type="button" @click="addEmployee()" value="직원등록"/></li>
