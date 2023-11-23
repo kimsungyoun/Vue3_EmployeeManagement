@@ -5,7 +5,7 @@
       <a href="http://www.bnosoft.co.kr/" target="_blank"><img src="@/assets/logo3.png"></a>
       <ul>
         <div class="navbar" v-if="$store.state.account.no">
-          <li><router-link to="/main">메인</router-link></li>
+          <li><router-link to="/notice">공지</router-link></li>
           <li>|</li>
           <li><router-link to="/employeeList" >직원</router-link></li>
           <li>|</li>
@@ -20,21 +20,17 @@
 
     <div class="right">
       <ul v-if="$route.path !='/' && $route.path !='/employeeAdd'">
-        <li>
-          <input type="button" @click="myPage()" value="마이페이지">
-        </li>
+        <li><input type="button" @click="myPage($store.state.account.no)" value="마이페이지"></li>
+        
         <li v-if="$store.state.account.position !='a' ">
           <input type="button" @click="request()" value="요청"/>
         </li>
-        <li v-else>
-          <input type="button" @click="addEmployee()" value="직원등록"/>
-        </li>
+        <li v-else><input type="button" @click="addEmployee()" value="직원등록"/></li>
+
         <li v-if="!$store.state.account.no">
           <router-link to="/" ><input type="button" value="로그인"/></router-link>
         </li>
-        <li v-else>
-          <input type="button" @click="logout()" value="로그아웃"/>
-        </li>
+        <li v-else><input type="button" @click="logout()" value="로그아웃"/></li>
       </ul>
     </div>
   </div>
@@ -50,11 +46,11 @@ const logout = () => {
   axios.post("/api/account/logout").then(() => {
     store.commit('setAccount', 0);
     router.push({ path: "/" });
-    window.alert("로그아웃 완료");
+    window.alert("로그아웃");
   })
 };
-const myPage = ()=>{
-  router.push({path:'/main'});
+const myPage = (empno)=>{
+  router.push({path:`/myPage/${empno}`});
 }
 
 const request = ()=>{

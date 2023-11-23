@@ -1,27 +1,22 @@
 <template>
 <div id="container">
   <div class="container">
-    <h2 v-if="$store.state.account.position!='a'">회원가입</h2>
+    <h2 v-if="$store.state.account.position!='a'" >회원가입</h2>
     <h2 v-else>직원등록</h2>
-
     <div class="EmployeeAddContainer">
       <label>아이디</label>
       <div id="idbox">
         <input id="id" type="text" placeholder="사용하실 아이디를 입력하세요" v-model="state.forms.empid"/>
         <input id="checkBtn" type="button" @click="checkIdDuplication()" value="아이디 중복 체크"/>
-      </div>
-      
+      </div> 
       <label>비밀번호</label>
       <input id="password" type="password" placeholder="비밀번호를 입력하세요" v-model="state.forms.password"/>
-
       <label>이름</label>
       <input id="name" type="text" placeholder="홍길동" v-model="state.forms.empname"/>
-
       <label>핸드폰</label>
       <input id="phone" type="text" placeholder="010-1234-5678" v-model="state.forms.empphone"/>
-
       <label>생년월일</label>
-      <datePicker v-model="state.forms.empbirth" :typeable="true" :clearable="true" auto-apply/>
+      <datePicker v-model="state.forms.empbirth" :typeable="true" :clearable="true" auto-apply/>    
       
       <label>부서</label>
       <deptSelect v-model="state.forms.empdept"/>
@@ -34,18 +29,16 @@
         <input type="text" v-model="state.forms.emppostal" id="sample6_postcode" placeholder="우편번호">
         <input id="postalBtn" type="button" @click="showApi()" value="우편번호 찾기">
       </div>
-
       <label>주소</label>
       <input type="text" v-model="state.forms.empaddr" id="sample6_address" placeholder="주소">
-
       <label>상세 주소</label>
       <input type="text" v-model="state.forms.empdetail" id="sample6_detailAddress" placeholder="상세 주소">
-
       <label>참고 항목</label>
       <input type="text" v-model="state.forms.extra" id="sample6_extraAddress" placeholder="참고 항목">
     </div>
     <div id="btn-container">
-      <input id="submitBtn" type="button" @click="submit()" value="등록"/>
+      <input v-if="$store.state.account.position!='a'" id="submitBtn" type="button" @click="submit()" value="가입"/>
+      <input v-else id="submitBtn" type="button" @click="submit()" value="등록"/>
       <input id="cancelBtn" type="button" @click="cancel()" value="취소"/>
     </div>
   </div>
@@ -59,6 +52,7 @@ import axios from "axios";
 import deptSelect from "@/components/deptSelect.vue";
 import ruleSelect from "@/components/ruleSelect.vue";
 import datePicker from "vue3-datepicker";
+import store from "@/script/store";
 
 const state = reactive({
   forms: {
@@ -96,7 +90,12 @@ const submit = () => {
   if(result){
     axios.post("/api/employee/add", args).then(() => {
       alert("등록 성공");
-      router.push({ path: "/" });
+      if(store.state.account.position !='a'){
+        router.push({ path: "/" });
+      }else{
+        router.push({ path: "/employeeList" });
+      }
+      
     }).catch(() => {
       alert("등록 실패");
     });

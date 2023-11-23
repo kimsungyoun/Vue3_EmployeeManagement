@@ -69,12 +69,8 @@ import lib from "@/script/lib";
 import { onMounted, reactive } from "vue";
 
 const state = reactive({
-    items1:[],
-    currentPage1:0,
-    totalPages1:0,
-    items2:[],
-    currentPage2:0,
-    totalPages2:0,
+    items1:[], currentPage1:0, totalPages1:0,
+    items2:[], currentPage2:0, totalPages2:0,
 })
 
 const load=()=>{
@@ -101,13 +97,13 @@ const previous1 = () =>{
         fetchData1();
     }
 }
-
 const next1 =()=>{
     if(state.totalPages1 - 1 > state.currentPage1){
         state.currentPage1 = state.currentPage1 + 1;
         fetchData1();
     }
 }
+
 // 처리 목록
 const fetchData2=()=>{
     const pageSize = 5;
@@ -128,13 +124,13 @@ const previous2 = () =>{
         fetchData2();
     }
 }
-
 const next2 =()=>{
     if(state.totalPages2 - 1 > state.currentPage2){
         state.currentPage2 = state.currentPage2 + 1;
         fetchData2();
     }
 }
+
 // 요청 처리
 const process=(rno)=>{
     alert("요청 번호 : "+rno);

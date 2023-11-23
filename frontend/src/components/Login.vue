@@ -38,7 +38,7 @@ const submit = () => {
   axios.post("/api/account/login", state.form).then((res)=>{ 
     store.commit('setAccount', res.data);
     sessionStorage.setItem("no", res.data.no);
-    router.push({path: '/main'});
+    router.push({path: '/notice'});
     alert("로그인 성공!");
   }).catch( () => {
     window.alert("로그인 실패!")

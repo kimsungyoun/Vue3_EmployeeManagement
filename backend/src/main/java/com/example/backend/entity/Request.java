@@ -23,7 +23,7 @@ public class Request {
     @Column(name="rno")
     private Integer no;
 
-    @Column(name = "empid", insertable=false, updatable=false)
+    @Column(name = "empid")
     private String empid;
 
     @Column(name="rday")
@@ -39,6 +39,6 @@ public class Request {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name="empid")
+    @JoinColumn(name="empid", insertable=false, updatable=false)
     private Employee employee;
 }

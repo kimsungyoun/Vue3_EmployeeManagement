@@ -14,7 +14,7 @@ public class LeaveManagement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lmno;
 
-    @Column(name = "empid", insertable=false, updatable=false)
+    @Column(name = "empid")
     private String empid;
 
     @Column(name = "lmtotal")
@@ -25,6 +25,6 @@ public class LeaveManagement {
     private int lmuse;
 
     @ManyToOne
-    @JoinColumn(name = "empid")
+    @JoinColumn(name = "empid", insertable=false, updatable=false)
     private Employee employee;
 }

@@ -21,7 +21,7 @@ public class Work {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private int workno;
 
-    @Column(name = "empid", insertable=false, updatable=false)
+    @Column(name = "empid")
     private String empid;
 
     @Column(name="workstatus")
@@ -40,6 +40,6 @@ public class Work {
     private Time worktime;
 
     @ManyToOne
-    @JoinColumn(name="empid")
+    @JoinColumn(name="empid", insertable=false, updatable=false)
     private Employee employee;
 }
