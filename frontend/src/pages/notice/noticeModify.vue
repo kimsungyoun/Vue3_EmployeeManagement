@@ -64,5 +64,37 @@ onMounted(()=>{
 </script>
 
 <style scoped>
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0;
+}
 
+.modifyForm{
+    border: 1px solid #98abdf;
+    border-radius: 20px;
+    width: 800px;
+    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.row{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+textarea{
+    height: 400px;
+    overflow: auto;
+}
+.btncontainer{
+    margin-top: 20px;
+}
+
+#modify{
+    margin-right: 10px;
+}
 </style>
