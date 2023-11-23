@@ -19,22 +19,23 @@
                     <tr v-for="(i, idx) in state.items" :key="idx">
                         <td>{{ i.nno }}</td>
                         <td><a @click="detail(i.nno)">{{ i.title }}</a></td>
-                        <td>{{ i.writedate }}</td>
+                        <td>{{ lib.formattedTime2(i.writedate) }}</td>
                         <td>{{ i.hit }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="page" v-if="state.totalPages">
-        <input type="button" @click="previous()" value="이전"/>        
-        <input type="button" v-for="pageNumber in state.totalPages" :key="pageNumber" :value="pageNumber"  @click="changePage(pageNumber)">
-        <input type="button" @click="next()" value="다음"/>
-    </div>
+            <input type="button" @click="previous()" value="이전"/>        
+            <input type="button" v-for="pageNumber in state.totalPages" :key="pageNumber" :value="pageNumber"  @click="changePage(pageNumber)">
+            <input type="button" @click="next()" value="다음"/>
+        </div>
     </div>
 </div>
 </template>
 
 <script setup>
+import lib from "@/script/lib";
 import router from "@/script/router";
 import axios from "axios";
 import { onMounted, reactive } from "vue";
@@ -129,5 +130,15 @@ ul{
 }
 li{
     margin-right: 10px;
+}
+
+.page{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.page > input[type=button]{
+    margin-right: 5px;
 }
 </style>

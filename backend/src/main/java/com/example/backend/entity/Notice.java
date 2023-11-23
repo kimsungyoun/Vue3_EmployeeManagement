@@ -20,8 +20,8 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int nno;
 
-    @Column(name="empid")
-    private String empid;
+    @Column(name="empno")
+    private int empno;
 
     @Column(name="title")
     private String title;
@@ -37,16 +37,6 @@ public class Notice {
     private Date writedate;
 
     @ManyToOne
-    @JoinColumn(name = "empid", insertable=false, updatable=false)
+    @JoinColumn(name = "empno", insertable=false, updatable=false)
     Employee employee;
-
-    public Notice(NoticeDTO dto) {
-        this.empid = dto.getEmpid();
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
-    }
-
-    public Notice() {
-
-    }
 }

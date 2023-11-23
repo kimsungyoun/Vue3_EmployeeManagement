@@ -50,7 +50,11 @@ const logout = () => {
   })
 };
 const myPage = (empno)=>{
-  router.push({path:`/myPage/${empno}`});
+  if(empno != 0){
+    router.push({path:`/myPage/${empno}`});
+  }else{
+    alert("비로그인 상태");
+  }
 }
 
 const request = ()=>{
