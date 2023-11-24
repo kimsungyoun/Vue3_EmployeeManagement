@@ -15,16 +15,8 @@
         </ul>
       </div>
       <div class="CorpInfo">
-        <!-- 
         <ul>
           <li>(08382) 서울시 구로구 디지털로 243, 1005호(구로동, 지하이시티)</li>
-          <li>Tel : 02-2224-7303 <span>|</span> Fax : 02-2224-7304 </li>
-          <li>사업자등록번호 : 208-87-00610</li>
-          <li>COPYRIGHT©2018 ALL RIGHT RESERVED.,LTD</li>
-        </ul> 
-        -->
-        <ul>
-          <li>(06999) 서울시 동작구 동작대로 29길 91</li>
           <li>Tel : 010-5238-8636 <span>|</span> Fax : 02-2224-7101</li>
           <li>KIMSUNGYOUN©2023 ALL RIGHT RESERVED.</li>
         </ul>
