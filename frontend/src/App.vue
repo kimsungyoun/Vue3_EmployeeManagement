@@ -29,6 +29,19 @@ watch(route , ()=>{
 </script>
 
 <style>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+#content {
+  flex: 1; 
+}
+
+Footer {
+  margin-top: auto; 
+}
 body{
   margin : 0;
 }

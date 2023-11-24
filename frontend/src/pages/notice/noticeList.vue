@@ -51,7 +51,7 @@ const load = ()=>{
 }
 
 const fetchData=()=>{
-    const pageSize = 5;
+    const pageSize = 20;
     const url = `/api/noticeList?page=${state.currentPage}&size=${pageSize}`;
 
     axios.get(url).then(({data})=>{
