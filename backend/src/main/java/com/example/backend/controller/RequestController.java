@@ -14,10 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,4 +57,10 @@ public class RequestController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
+    @GetMapping("/api/requestList/{empid}")
+    public ResponseEntity<?> getRequest(@PathVariable("empid") String empId){
+        List<Request> request = requestRepository.findByStatusNotLikeAndEmpid("처리완료",empId);
+
+        return new ResponseEntity<>(request, HttpStatus.OK);
+    }
 }

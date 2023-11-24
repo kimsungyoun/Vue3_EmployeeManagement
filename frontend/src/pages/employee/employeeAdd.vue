@@ -83,7 +83,6 @@ const checkIdDuplication = ()=>{
   });
 }
 
-// 직원 등록
 const submit = () => {
   const result = confirm("등록하시겠습니까?");
   const args = JSON.parse(JSON.stringify(state.forms));
@@ -102,11 +101,14 @@ const submit = () => {
   }
 };
 
-// 직원 등록 취소
 const cancel = () => {
   const result = confirm("취소하시겠습니까?");
   if(result){
-    history.go(-1);
+    if(store.state.account.position !='a'){
+        router.push({ path: "/" });
+      }else{
+        router.push({ path: "/employeeList" });
+      }
   }
 };
 

@@ -56,7 +56,7 @@ const load = ()=>{
 }
 
 const fetchData=()=>{
-    const pageSize = 10;
+    const pageSize = 20;
     const url = `/api/employee?page=${state.currentPage}&size=${pageSize}`;
 
     axios.get(url).then(({data})=>{
@@ -77,7 +77,7 @@ const search = ()=>{
     state.totalPages = 0;
 
     if(searchkey.value != ""){
-        const pageSize = 10;
+        const pageSize = 20;
         const url = `/api/employeeSearch/${keyword.value}/${searchkey.value}?page=${state.currentPage}&size=${pageSize}`;
 
         axios.get(url).then(({data})=>{
@@ -127,7 +127,10 @@ onMounted(()=>{
     margin: 20px 0;
     padding: 10px;
 }
-
+thead td{
+    background-color: rgba(152,171,223,0.7);
+    color: #fff;
+}
 table{
     border-spacing: 0;
     text-align: center;
@@ -136,7 +139,9 @@ table{
 tr, td {
     border: 1px solid #98abdf;
 }
-
+td{
+    width: 20%;
+}
 ul{
     display: flex;
     flex-direction: row;

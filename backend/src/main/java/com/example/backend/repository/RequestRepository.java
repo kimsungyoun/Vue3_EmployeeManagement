@@ -12,4 +12,6 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request, Integer> {
     Page<Request> findByStatusLike(String status, Pageable pageable);
     Page<Request> findByStatusNotLike(String status, Pageable pageable);
+
+    List<Request> findByStatusNotLikeAndEmpid(String status, String empid);
 }

@@ -118,9 +118,15 @@ table{
     text-align: center;
     width: 100%;
 }
-
+thead td{
+    color: #fff;
+    background-color: rgba(152,171,223,0.7);
+}
 tr, td {
     border: 1px solid #98abdf;
+}
+td{
+    width: 25%;
 }
 ul{
     display: flex;

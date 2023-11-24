@@ -33,7 +33,7 @@
         </li>
         
         <li v-if="store.state.account.position !='a' ">
-          <input type="button" value="출근"/>
+          <input type="button"  value="출근"/>
           <input type="button" @click="request()" value="요청"/>
         </li>
         <li v-else>

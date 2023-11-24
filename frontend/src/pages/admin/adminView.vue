@@ -133,7 +133,7 @@ const next2 =()=>{
 
 // 요청 처리
 const process=(rno)=>{
-    alert("요청 번호 : "+rno);
+    alert("요청 번호 : " + rno);
 }
 
 onMounted(()=>{
@@ -145,7 +145,6 @@ onMounted(()=>{
 .admin-container{
     margin: 20px 10px;
 }
-
 .request-list, .doneRequest-list{
     padding: 20px;
     border: 1px solid #98abdf;
@@ -165,6 +164,10 @@ table{
     border-spacing: 0;
     text-align: center;
     width: 100%;
+}
+thead td{
+    background-color: rgba(152,171,223,0.7);
+    color: #fff;
 }
 tr, td {
     border: 1px solid #98abdf;
