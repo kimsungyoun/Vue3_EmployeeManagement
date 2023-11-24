@@ -1,28 +1,23 @@
 import Home from "@/pages/Home.vue";
 import Notice from "@/pages/notice/noticeList.vue";
 import MyPage from "@/pages/myPage";
-
 import employeeAdd from "@/pages/employee/employeeAdd.vue";
 import employeeList from "@/pages/employee/employeeList";
 import employeeView from "@/pages/employee/employeeView";
 import employeeModify from "@/pages/employee/employeeModify";
-
 import workList from "@/pages/work/workList";
-
 import admin from "@/pages/admin/adminView";
-
 import writeRequest from "@/pages/request/writeRequest";
-
 import noticeWrite from "@/pages/notice/noticeWrite";
 import noticeDetail from "@/pages/notice/noticeDetail";
 import noticeModify from "@/pages/notice/noticeModify";
 
-import {createRouter, createWebHistory} from "vue-router";
+import {createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {path: '/', component: Home},
     {path: '/notice', component: Notice},
-    {path: '/myPage/:empno', component:MyPage},
+    {path: '/myPage/:empid', component:MyPage},
     {path: '/employeeAdd', component: employeeAdd},    
     {path: '/employeeList', component: employeeList},
     {path: '/employeeView/:empid', component: employeeView},
@@ -39,5 +34,14 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+router.beforeEach((to, from, next)=> {
+    const isLoggedIn = !!sessionStorage.getItem("no");
+    if(to.path !== '/' && !isLoggedIn){
+        next("/");
+    }else{
+        next();
+    }
+});
 
 export default router;

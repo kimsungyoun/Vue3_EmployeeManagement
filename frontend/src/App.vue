@@ -7,6 +7,25 @@
 <script setup>
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import axios from 'axios';
+import store from './script/store';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
+
+const check=()=>{
+  axios.get("/api/account/check").then(({data})=>{
+    if(data != null){
+      store.commit('setAccount', data || 0);
+    }else{
+      store.commit('setAccount', 0);
+    }
+  })
+};
+const route = useRoute();
+
+watch(route , ()=>{
+  check();
+})
 </script>
 
 <style>

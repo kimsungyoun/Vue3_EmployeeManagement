@@ -72,6 +72,9 @@ const info=(id)=>{
 const search = ()=>{
     var keyword = document.getElementById('keyword');
     var searchkey = document.getElementById('searchkey');
+    
+    state.currentPage = 0;
+    state.totalPages = 0;
 
     if(searchkey.value != ""){
         const pageSize = 10;

@@ -41,7 +41,7 @@ public class JwtServiceImpl implements JwtService{
         return builder.compact();
     }
     @Override
-    public String getToken(String key1, int id, String key2, String position) {
+    public String getToken(String key1, int no, String key2, String id, String key3, String position) {
         Date expTime = new Date();
         expTime.setTime(expTime.getTime() + (1000 * 60 * 60 * 2) );
 
@@ -55,8 +55,9 @@ public class JwtServiceImpl implements JwtService{
         headerMap.put("alg","HS256"); // 알고리즘 방식 지정(서명 및 토큰 검증에 사용)
 
         Map<String, Object> map = new HashMap<>();
-        map.put(key1, id);
-        map.put(key2, position);
+        map.put(key1, no);
+        map.put(key2, id);
+        map.put(key3, position);
 
         JwtBuilder builder = Jwts.builder()
                 .setHeader(headerMap)

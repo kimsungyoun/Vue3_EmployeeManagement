@@ -1,6 +1,6 @@
 <template>
     <div>
-       <h1>마이페이지 : {{ store.state.account.no }} 번 </h1>
+       <h1>마이페이지 : {{ store.state.account.id }} 님  </h1>
     </div>
 </template>
 

@@ -4,7 +4,7 @@
     <div class="requestform">
         <div class="row">
             <p>신청 일자</p>
-            <datepicker v-model="state.forms.day"/>
+            <Datepicker v-model="state.forms.day"/>
         </div>
         <div class="row">
             <p>신청 내용</p>
@@ -23,9 +23,9 @@
 </template>
 
 <script setup>
-import Content from "@/components/requestContent.vue";
-import Detail from "@/components/requestDetail.vue";
-import datepicker from "vue3-datepicker";
+import Content from "@/components/RequestContent";
+import Detail from "@/components/RequestDetail";
+import Datepicker from "vue3-datepicker";
 import router from "@/script/router";
 import axios from "axios";
 import store from "@/script/store";

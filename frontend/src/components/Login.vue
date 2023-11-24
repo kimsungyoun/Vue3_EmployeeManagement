@@ -15,7 +15,7 @@
       
         <div class="btn-container">
           <input type="button" value="회원가입" id="signup" @click="signup()"/>
-          <input type="button" value="로그인" id="submit" @click="submit()">  
+          <input type="button" value="로그인" id="login" @click="login()">  
         </div>
       </div>
     </div>
@@ -34,14 +34,18 @@ const state = reactive({
   }
 })
 
-const submit = () => {
+const login = () => {
   axios.post("/api/account/login", state.form).then((res)=>{ 
     store.commit('setAccount', res.data);
     sessionStorage.setItem("no", res.data.no);
     router.push({path: '/notice'});
-    alert("로그인 성공!");
+    
+    console.log(res.data);
+
+    window.alert("환영합니다!");
   }).catch( () => {
-    window.alert("로그인 실패!")
+    sessionStorage.removeItem("no");
+    window.alert("로그인 실패!");
   });
 };
 

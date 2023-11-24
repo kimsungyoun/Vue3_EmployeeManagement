@@ -1,18 +1,26 @@
 <template>
 <header>
-  <div id="menu">
+  <div class="menu">
     <div class="left">
       <a href="http://www.bnosoft.co.kr/" target="_blank"><img src="@/assets/logo3.png"></a>
       <ul>
-        <div class="navbar" v-if="$store.state.account.no">
-          <li><router-link to="/notice">공지</router-link></li>
+        <div class="navbar" v-if="store.state.account.no">
+          <li>
+            <router-link to="/notice">공지</router-link>
+          </li>
           <li>|</li>
-          <li><router-link to="/employeeList" >직원</router-link></li>
+          <li>
+            <router-link to="/employeeList">직원</router-link>
+          </li>
           <li>|</li>
-          <li><router-link to="/workList">근무</router-link></li>
-          <div class="navbar" v-if="$store.state.account.position =='a'">
+          <li>
+            <router-link to="/workList">근무</router-link>
+          </li>
+          <div class="navbar" v-if="store.state.account.position =='a'">
             <li>|</li>
-            <li><router-link to="/admin">관리</router-link></li>
+            <li>
+              <router-link to="/admin">관리</router-link>
+            </li>
           </div>  
         </div>
       </ul>
@@ -20,18 +28,24 @@
 
     <div class="right">
       <ul v-if="$route.path !='/' && $route.path !='/employeeAdd'">
-        <li><input type="button" @click="myPage($store.state.account.no)" value="마이페이지"></li>
+        <li>
+          <input type="button" @click="myPage(store.state.account.id)" value="마이페이지">
+        </li>
         
-        <li v-if="$store.state.account.position !='a' ">
+        <li v-if="store.state.account.position !='a' ">
           <input type="button" value="출근"/>
           <input type="button" @click="request()" value="요청"/>
         </li>
-        <li v-else><input type="button" @click="addEmployee()" value="직원등록"/></li>
+        <li v-else>
+          <input type="button" @click="addEmployee()" value="직원등록"/>
+        </li>
 
-        <li v-if="!$store.state.account.no">
+        <li v-if="!store.state.account.id">
           <router-link to="/" ><input type="button" value="로그인"/></router-link>
         </li>
-        <li v-else><input type="button" @click="logout()" value="로그아웃"/></li>
+        <li v-else>
+          <input type="button" @click="logout()" value="로그아웃"/>
+        </li>
       </ul>
     </div>
   </div>
@@ -47,28 +61,23 @@ const logout = () => {
   axios.post("/api/account/logout").then(() => {
     store.commit('setAccount', 0);
     router.push({ path: "/" });
-    window.alert("로그아웃");
+    window.alert("로그아웃!");
   })
 };
-const myPage = (empno)=>{
-  if(empno != 0){
-    router.push({path:`/myPage/${empno}`});
-  }else{
-    alert("비로그인 상태");
-  }
-}
 
+const myPage = (empid)=>{
+  router.push({path:`/myPage/${empid}`});
+}
 const request = ()=>{
   router.push({path:'/writeRequest'});
 }
-
 const addEmployee =()=>{
   router.push({path:'/employeeAdd'});
 }
 </script>
 
 <style scoped>
-#menu{
+.menu{
   display: flex;
   flex-direction: row;
   background-color: #98abdf;
@@ -76,35 +85,31 @@ const addEmployee =()=>{
   justify-content: space-between;
   margin:0;
 }
+.navbar{
+  display: flex;
+  flex-direction: row;
+}
+.left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
 img{
   width: 50px;
   height: 25px;
   margin-right: 10px;
 }
-
 header ul li a {
   cursor: pointer;
   color: #fff;
   text-decoration: none;
 }
-
 ul , li{
   display: flex;
   direction: ltr;
   padding : 0;
   color: #FFF;
   margin-right: 15px;
-}
-
-.navbar{
-  display: flex;
-  flex-direction: row;
-}
-
-.left{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 </style>
