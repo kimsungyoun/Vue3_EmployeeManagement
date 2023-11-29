@@ -19,5 +19,6 @@ public class LeaveManagementController {
         List Managementlist = leaveManagementRepository.findAll();
         return Managementlist;
     }
-    
+
+
 }

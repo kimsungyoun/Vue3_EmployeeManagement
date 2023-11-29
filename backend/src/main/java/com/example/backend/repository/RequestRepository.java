@@ -14,4 +14,6 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     Page<Request> findByStatusNotLike(String status, Pageable pageable);
 
     List<Request> findByStatusNotLikeAndEmpid(String status, String empid);
+
+    Request findByNo(int rno);
 }

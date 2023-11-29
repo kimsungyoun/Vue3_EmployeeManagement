@@ -6,6 +6,7 @@
             <tr>
                 <td>작성자</td>
                 <td>{{ state.employee.empname }}</td>
+                
                 <td>작성일</td>
                 <td>{{ lib.formattedTime2(state.items.writedate) }}</td>
             </tr>

@@ -7,13 +7,10 @@ import java.util.Date;
 
 @Data
 public class LeavemanagementDTO {
-    // CommonDTO
     private String id;
-
-    // LeaveManagementDTO
     private Integer no;
-    private Integer total;
-    private Integer uses;
+    private Double total;
+    private Double uses;
 
     EmployeeDTO employeeDTO;
 }

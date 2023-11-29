@@ -7,10 +7,7 @@ import java.util.Date;
 
 @Data
 public class WorkDTO {
-    // CommonDTO
     private String id;
-
-    // Work DTO
     private Integer no;
     private String status;
     private Time on;

@@ -67,6 +67,7 @@
 import axios from "axios";
 import lib from "@/script/lib";
 import { onMounted, reactive } from "vue";
+import router from "@/script/router";
 
 const state = reactive({
     items1:[], currentPage1:0, totalPages1:0,
@@ -132,8 +133,8 @@ const next2 =()=>{
 }
 
 // 요청 처리
-const process=(rno)=>{
-    alert("요청 번호 : " + rno);
+const process=( rno)=>{
+    router.push({path:`/requestDetail/${rno}`})
 }
 
 onMounted(()=>{

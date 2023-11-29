@@ -1,8 +1,8 @@
 <template>
 <header>
   <div class="menu">
-    <div class="left">
-      <a href="http://www.bnosoft.co.kr/" target="_blank"><img src="@/assets/logo3.png"></a>
+    <a href="http://www.bnosoft.co.kr/" target="_blank"><img src="@/assets/logo3.png"></a>
+    <div class="navbar">
       <ul>
         <div class="navbar" v-if="store.state.account.no">
           <li>
@@ -26,7 +26,7 @@
       </ul>
     </div>
 
-    <div class="right">
+    <div class="setting">
       <ul v-if="$route.path !='/' && $route.path !='/employeeAdd'">
         <li>
           <input type="button" @click="myPage(store.state.account.id)" value="마이페이지">
@@ -78,38 +78,38 @@ const addEmployee =()=>{
 
 <style scoped>
 .menu{
+  background-color: #98abdf;
   display: flex;
   flex-direction: row;
-  background-color: #98abdf;
-  padding: 5px 40px;
-  justify-content: space-between;
+  align-items: center;
+  padding: 0;
   margin:0;
 }
 .navbar{
   display: flex;
   flex-direction: row;
-}
-.left{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  margin: auto;
 }
 
 img{
   width: 50px;
   height: 25px;
-  margin-right: 10px;
+  margin-left: 30px;
 }
 header ul li a {
   cursor: pointer;
   color: #fff;
   text-decoration: none;
 }
-ul , li{
+.navbar ul , li{
   display: flex;
-  direction: ltr;
   padding : 0;
   color: #FFF;
-  margin-right: 15px;
+  margin-left: 10px;
 }
+.setting ul, li{
+  display: flex;
+  
+}
+
 </style>

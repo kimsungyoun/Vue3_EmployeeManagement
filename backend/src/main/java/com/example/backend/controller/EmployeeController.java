@@ -5,7 +5,6 @@ import com.example.backend.entity.Employee;
 import com.example.backend.entity.LeaveManagement;
 import com.example.backend.repository.EmployeeRepository;
 import com.example.backend.repository.LeaveManagementRepository;
-import com.example.backend.service.LeaveManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,21 +23,12 @@ public class EmployeeController {
     @Autowired
     LeaveManagementRepository leaveManagementRepository;
 
-    @Autowired
-    LeaveManagementService leaveManagementService;
-
-    /*
-    @GetMapping("/api/employee")
-    public List <?> getList(){
-        return employeeRepository.findAll();
-    }
-    */
-
     @GetMapping("/api/employee")
     public ResponseEntity <?> getList(@PageableDefault(sort = "empname") Pageable pageable){
-        Page <Employee> list = employeeRepository.findAll(pageable);
+        //Page <Employee> list = employeeRepository.findAll(pageable);
+        Page <Employee> list2 = employeeRepository.findByPositionNotLike("a", pageable);
 
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        return new ResponseEntity<>(list2,HttpStatus.OK);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")

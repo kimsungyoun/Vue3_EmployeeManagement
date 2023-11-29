@@ -19,10 +19,10 @@ public class LeaveManagement {
 
     @Column(name = "lmtotal")
     @Builder.Default
-    private int lmtotal;
+    private Double lmtotal;
 
     @Column(name = "lmuse")
-    private int lmuse;
+    private Double lmuse;
 
     @ManyToOne
     @JoinColumn(name = "empid", insertable=false, updatable=false)

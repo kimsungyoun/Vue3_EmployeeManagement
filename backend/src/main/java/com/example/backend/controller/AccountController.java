@@ -37,13 +37,14 @@ public class AccountController {
             int no = employee.getEmpno();
             String id = employee.getEmpid();
             String position = employee.getPosition();
+
             String token = jwtService.getToken("no", no, "id",id,"position", position);
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             res.addCookie(cookie);
 
-            Map<String, Object> map = new HashMap();
+            Map<String, Object> map = new HashMap<>();
             map.put("no", no);
             map.put("id", id);
             map.put("position", position);
@@ -66,7 +67,7 @@ public class AccountController {
     @GetMapping("/api/account/check")
     public ResponseEntity<?> check(@CookieValue(value = "token", required = false) String token){
         Claims claims = jwtService.getClaims(token);
-        Map<String, Object> map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
 
         if(claims != null){
             int no = Integer.parseInt(claims.get("no").toString());

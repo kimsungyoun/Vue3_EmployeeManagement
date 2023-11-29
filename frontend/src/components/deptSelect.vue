@@ -6,7 +6,6 @@
 
 <script setup>
 import { ref, watch, defineProps, defineEmits } from "vue";
-//import { ref, watch, defineProps } from "vue";
 
 const props = defineProps({
   value:String
@@ -23,8 +22,6 @@ const options = ref([
 ]);
 
 const emit = defineEmits(["dept"]);
-
-//watch(selectedDept, (option) => {emit("dept", option);});
 
 watch(
   ()=> props.value,

@@ -21,8 +21,8 @@
                     <td>{{ i.employee.empname }}</td>
                     <td>{{ i.workstatus }}</td>
                     <td>{{ lib.formattedTime2(i.workday) }}</td>
-                    <td v-if="i.workon != null">{{ i.workon }}</td>
-                    <td v-else>-</td>
+                    <td v-if="i.workstatus == '연차'||i.workstatus == '외근'">-</td>
+                    <td v-else>{{ i.workon }}</td>
                     <td v-if="i.workoff != null">{{ i.workoff }}</td>
                     <td v-else>-</td>
                 </tr>

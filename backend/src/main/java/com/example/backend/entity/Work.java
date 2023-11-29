@@ -1,12 +1,11 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.validation.constraints.Null;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
+import javax.annotation.Nullable;
 import java.sql.Time;
 import java.util.Date;
 

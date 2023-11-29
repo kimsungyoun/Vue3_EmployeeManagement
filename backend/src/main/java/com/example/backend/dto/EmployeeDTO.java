@@ -11,10 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDTO {
-    // CommonDTO
     private String empid;
-
-    // EmployeeDTO
     private String password;
     private String empname;
     private String empbirth;

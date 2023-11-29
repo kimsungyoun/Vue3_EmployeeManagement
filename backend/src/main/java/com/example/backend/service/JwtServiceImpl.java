@@ -43,7 +43,7 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public String getToken(String key1, int no, String key2, String id, String key3, String position) {
         Date expTime = new Date();
-        expTime.setTime(expTime.getTime() + (1000 * 60 * 60 * 2) );
+        expTime.setTime(expTime.getTime() + (1000 * 60 * 60) );
 
         // 암호화
         byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);

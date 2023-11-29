@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-      <div class="login-container" v-if="!store.state.account.no">
+      <div class="login-container">
         <div class="loginForm">
           <h2>로그인</h2>
           <ul>
@@ -12,7 +12,6 @@
             <li><input type="password" placeholder="패스워드" v-model="state.form.password"></li>
           </ul>
         </div>
-      
         <div class="btn-container">
           <input type="button" value="회원가입" id="signup" @click="signup()"/>
           <input type="button" value="로그인" id="login" @click="login()">  

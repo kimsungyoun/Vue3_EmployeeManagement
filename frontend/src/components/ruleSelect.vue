@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-//import { ref, watch, defineProps, defineEmits } from "vue";
 import { ref, watch, defineProps} from "vue";
 
 const props = defineProps({
@@ -24,10 +23,6 @@ const options = ref([
   { value: "부장", label: "부장" },
   { value: "팀장", label: "팀장" },
 ]);
-
-//const emit = defineEmits(["rule"]);
-
-// watch(selectedRule, (option) => {emit("rule", option);});
 
 watch(
   ()=> props.value,
