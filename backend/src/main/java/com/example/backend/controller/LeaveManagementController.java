@@ -16,8 +16,7 @@ public class LeaveManagementController {
 
     @GetMapping("/api/leaveManagement")
     public List getList(){
-        List Managementlist = leaveManagementRepository.findAll();
-        return Managementlist;
+        return leaveManagementRepository.findAll();
     }
 
 

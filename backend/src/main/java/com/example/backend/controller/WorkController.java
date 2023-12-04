@@ -23,14 +23,14 @@ public class WorkController {
     WorkRepository workRepository;
 
     @PostMapping("/api/work")
-    public ResponseEntity getList(@RequestBody String workday){
+    public ResponseEntity<?> getList(@RequestBody String workday){
         List <Work> list;
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date day = dateFormat.parse(workday);
             list = workRepository.findByWorkday(day);
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            return ResponseEntity.ok(list);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -38,9 +38,7 @@ public class WorkController {
 
     @GetMapping("/api/workreason/{workno}")
     public Work setReason(@PathVariable("workno") int workno){
-        Work work = workRepository.findByWorkno(workno);
-
-        return work;
+        return workRepository.findByWorkno(workno);
     }
 
     @PostMapping("/api/workList")
@@ -50,11 +48,9 @@ public class WorkController {
             Date day = dateFormat.parse(searchDay);
             List<Work> list = workRepository.findByWorkday(day);
 
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            return ResponseEntity.ok(list);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }

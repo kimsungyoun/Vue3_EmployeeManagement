@@ -38,13 +38,13 @@ public class RequestController {
     @GetMapping("/api/request")
     public ResponseEntity<?> getList(@PageableDefault(sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Request> list = requestRepository.findByStatusLike("진행중", pageable);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/api/request2")
     public ResponseEntity<?> getList2(@PageableDefault(sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Request> list = requestRepository.findByStatusNotLike("진행중", pageable);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping("/api/requestWrite")
@@ -59,23 +59,23 @@ public class RequestController {
             request.setEmployee(employee);
 
             requestRepository.save(request);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("요청 작성 완료");
         }
 
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Request Write Error");
     }
 
     @GetMapping("/api/requestList/{empid}")
     public ResponseEntity<?> getRequest(@PathVariable("empid") String empId) {
         List<Request> request = requestRepository.findByStatusNotLikeAndEmpid("처리완료", empId);
 
-        return new ResponseEntity<>(request, HttpStatus.OK);
+        return ResponseEntity.ok(request);
     }
 
     @GetMapping("/api/requestDetail/{rno}")
     public ResponseEntity<?> getRequestDetail(@PathVariable("rno") int rno) {
         Request request = requestRepository.findByNo(rno);
-        return new ResponseEntity<>(request, HttpStatus.OK);
+        return ResponseEntity.ok(request);
     }
 
     @PostMapping("/api/requestUpdate")
@@ -89,17 +89,14 @@ public class RequestController {
         if (Objects.equals(dto.getStatus(), "처리완료")) {
             if (Objects.equals(dto.getContent(), "연차")) {
                 leaveManagement.setLmuse(leaveManagement.getLmuse() + 1);
-
                 Work work = new Work();
                 work.setEmpid(dto.getEmpid());
                 work.setWorkstatus(dto.getContent());
                 work.setWorkon(null);
                 work.setWorkoff(null);
                 work.setWorkday(dto.getDay());
-
                 leaveManagementRepository.save(leaveManagement);
                 workRepository.save(work);
-                return new ResponseEntity<>(HttpStatus.OK);
             } else if (Objects.equals(dto.getContent(), "오전연차")) {
                 leaveManagement.setLmuse(leaveManagement.getLmuse() + 0.5);
                 Work work = new Work();
@@ -108,10 +105,8 @@ public class RequestController {
                 work.setWorkon(null);
                 work.setWorkoff(null);
                 work.setWorkday(dto.getDay());
-
                 leaveManagementRepository.save(leaveManagement);
                 workRepository.save(work);
-                return new ResponseEntity<>(HttpStatus.OK);
             } else if (Objects.equals(dto.getContent(), "오후연차")) {
                 leaveManagement.setLmuse(leaveManagement.getLmuse() + 0.5);
                 Work work = new Work();
@@ -120,11 +115,8 @@ public class RequestController {
                 work.setWorkon(null);
                 work.setWorkoff(null);
                 work.setWorkday(dto.getDay());
-
-                System.out.println(work);
                 leaveManagementRepository.save(leaveManagement);
                 workRepository.save(work);
-                return new ResponseEntity<>(HttpStatus.OK);
             } else if(Objects.equals(dto.getContent(), "외근")){
                 Work work = new Work();
                 work.setEmpid(dto.getEmpid());
@@ -133,14 +125,13 @@ public class RequestController {
                 work.setWorkoff(null);
                 work.setWorkday(dto.getDay());
                 workRepository.save(work);
-                return new ResponseEntity<>(HttpStatus.OK);
             }
-
+            return ResponseEntity.ok("요청에 대한 처리 완료");
         }else if(Objects.equals(dto.getStatus(), "취소") || Objects.equals(dto.getStatus(), "진행중")){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("요청에 대해서 취소 처리");
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Update Error");
     }
 }
 

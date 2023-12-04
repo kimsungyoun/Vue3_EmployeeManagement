@@ -49,7 +49,7 @@ public class AccountController {
             map.put("id", id);
             map.put("position", position);
 
-            return new ResponseEntity<>(map, HttpStatus.OK);
+            return ResponseEntity.ok(map);
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
@@ -78,9 +78,9 @@ public class AccountController {
             map.put("id", id);
             map.put("position", position);
 
-            return new ResponseEntity<>(map, HttpStatus.OK);
+            return ResponseEntity.ok(map);
         }
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ResponseEntity.ok(null);
     }
 
     /* 아이디 중복 체크 */

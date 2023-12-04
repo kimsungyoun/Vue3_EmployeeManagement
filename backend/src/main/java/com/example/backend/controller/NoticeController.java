@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +24,7 @@ public class NoticeController {
     @GetMapping("/api/noticeList")
     public ResponseEntity<?> getList(@PageableDefault(sort="nno", direction = Sort.Direction.DESC) Pageable pageable){
         Page<Notice> list = noticeRepository.findAll(pageable);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/api/noticeView/{nno}")
@@ -36,7 +35,7 @@ public class NoticeController {
 
         notice.setEmployee(employeeRepository.findByEmpno(notice.getEmpno()));
 
-        return new ResponseEntity<>(notice, HttpStatus.OK);
+        return ResponseEntity.ok(notice);
     }
 
     @PostMapping("/api/noticeWrite")
@@ -48,13 +47,13 @@ public class NoticeController {
         notice.setContent(dto.getContent());
 
         noticeRepository.save(notice);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("공지 작성 완료");
     }
 
     @GetMapping("/api/noticeModify/{nno}")
     public ResponseEntity<?> modifyNotice(@PathVariable(name = "nno")int nno){
         Notice notice = noticeRepository.findByNno(nno);
-        return new ResponseEntity<>(notice, HttpStatus.OK);
+        return ResponseEntity.ok(notice);
     }
 
     @PostMapping("/api/noticeUpdate")
@@ -63,6 +62,6 @@ public class NoticeController {
         notice.setTitle(dto.getTitle());
         notice.setContent(dto.getContent());
         noticeRepository.save(notice);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("공지 게시판 수정 완료");
     }
 }

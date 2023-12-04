@@ -25,10 +25,9 @@ public class EmployeeController {
 
     @GetMapping("/api/employee")
     public ResponseEntity <?> getList(@PageableDefault(sort = "empname") Pageable pageable){
-        //Page <Employee> list = employeeRepository.findAll(pageable);
-        Page <Employee> list2 = employeeRepository.findByPositionNotLike("a", pageable);
+        Page <Employee> list = employeeRepository.findByPositionNotLike("a", pageable);
 
-        return new ResponseEntity<>(list2,HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/api/employeeInfo/{empid}")
@@ -37,10 +36,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/api/employeeSearch/{keyword}/{searchKey}")
-    public ResponseEntity<?> SearchList(@PathVariable("keyword")String keyword,
-                                        @PathVariable("searchKey")String searchKey,
-                                        @PageableDefault(sort = "empname") Pageable pageable)
-    {
+    public ResponseEntity<?> SearchList(@PathVariable("keyword")String keyword,@PathVariable("searchKey")String searchKey,@PageableDefault(sort = "empname") Pageable pageable){
         try{
             Page<?> result = null;
             if(Objects.equals(keyword, "empname")){
@@ -51,9 +47,9 @@ public class EmployeeController {
                 result = employeeRepository.findByEmpruleLike("%"+searchKey+"%", pageable);
             }
 
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return ResponseEntity.ok(result);
         }catch (Exception e){
-            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Check your Keyword and Search Key");
         }
     }
 
@@ -71,19 +67,17 @@ public class EmployeeController {
             employee.setEmpdetail(dto.getEmpdetail());
 
             employeeRepository.save(employee);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("수정 완료");
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("수정 실패");
     }
 
     @PostMapping("/api/employee/add")
     public ResponseEntity<?> AddEmployee(@RequestBody EmployeeDTO dto){
         if(employeeRepository.findByEmpid(dto.getEmpid()) == null){
             Employee employee = new Employee(dto);
-
             employeeRepository.save(employee);
-
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("등록 완료");
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -91,11 +85,11 @@ public class EmployeeController {
     @DeleteMapping("/api/employee/delete/{empid}")
     public ResponseEntity<?> removeEmployee(@PathVariable("empid") String empId){
         Employee employee = employeeRepository.findByEmpid(empId);
-
         if(employee != null){
-            employeeRepository.delete(employee);
-            return new ResponseEntity<>(HttpStatus.OK);
+            employee.setDelstatus("o");
+            employeeRepository.save(employee);
+            return ResponseEntity.ok("회원 탈퇴");
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Delete Error");
     }
 }
