@@ -49,8 +49,8 @@
 import {reactive, onMounted} from "vue";
 import router from "@/script/router";
 import axios from "axios";
-import deptSelect from "@/components/DeptSelect";
-import ruleSelect from "@/components/RuleSelect";
+import deptSelect from "@/components/Select/DeptSelect";
+import ruleSelect from "@/components/Select/RuleSelect";
 import datePicker from "vue3-datepicker";
 import store from "@/script/store";
 

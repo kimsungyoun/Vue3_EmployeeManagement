@@ -52,8 +52,8 @@ import axios from "axios";
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import lib from "@/script/lib";
-import deptSelect from "@/components/DeptSelect";
-import ruleSelect from "@/components/RuleSelect";
+import deptSelect from "@/components/Select/DeptSelect";
+import ruleSelect from "@/components/Select/RuleSelect";
 import router from "@/script/router";
 
 

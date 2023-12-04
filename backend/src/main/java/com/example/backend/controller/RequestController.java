@@ -50,6 +50,7 @@ public class RequestController {
     @PostMapping("/api/requestWrite")
     public ResponseEntity<?> writeRequest(@RequestBody RequestDTO dto) {
         Employee employee = employeeRepository.findByEmpid(dto.getEmpid());
+
         if (employee != null) {
             Request request = new Request();
             request.setEmpid(employee.getEmpid());

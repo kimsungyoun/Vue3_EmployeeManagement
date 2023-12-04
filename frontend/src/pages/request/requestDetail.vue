@@ -37,7 +37,7 @@
 <script setup>
 import axios from "axios";
 import lib from "@/script/lib";
-import RequestStatus from "@/components/RequestStatus.vue"
+import RequestStatus from "@/components/Request/RequestStatus.vue"
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import router from "@/script/router";
